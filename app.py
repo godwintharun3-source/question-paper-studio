@@ -8,9 +8,6 @@ from werkzeug.utils import secure_filename
 
 from extractor import load_question_bank, allocate_questions
 from pdf_generator import generate_html, compile_pdf
-from docx_generator import generate_docx
-from analyzer import analyze_pdf
-from book_analyzer import extract_text_and_diagrams_from_book, synthesize_questions_from_book, parse_page_range as parse_book_pages
 from google_forms_generator import generate_google_apps_script, generate_manual_form_text
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -38,6 +35,8 @@ except Exception:
     os.makedirs(UPLOADS_DIR, exist_ok=True)
 
 @app.route('/')
+@app.route('/api')
+@app.route('/api/index')
 def index():
     return render_template('index.html')
 
@@ -98,6 +97,7 @@ def upload_pdf():
         trade_name = request.form.get('trade_name', 'Custom Trade')
         
         # Run automated analysis
+        from analyzer import analyze_pdf
         bank_data = analyze_pdf(saved_pdf_path, IMG_DIR, bank_id=bank_id, trade_name=trade_name)
         
         # Save question bank JSON
@@ -145,6 +145,7 @@ def upload_book():
         short_marks = int(request.form.get('short_marks', 2))
         long_marks = int(request.form.get('long_marks', 16))
         
+        from book_analyzer import extract_text_and_diagrams_from_book, synthesize_questions_from_book, parse_page_range as parse_book_pages
         selected_pages = parse_book_pages(page_range_text) if page_range_text else None
         
         # 1. Extract text, definitions, concepts and figures from the subject book
@@ -605,6 +606,7 @@ def export_docx():
         file_id = uuid.uuid4().hex[:8]
         output_docx = os.path.join(EXPORTS_DIR, f"question_paper_{file_id}.docx")
         
+        from docx_generator import generate_docx
         generate_docx(paper_data, output_docx, IMG_DIR)
         
         return send_file(
