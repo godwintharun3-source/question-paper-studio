@@ -5,6 +5,7 @@ import uuid
 import shutil
 from flask import Flask, render_template, request, jsonify, send_file, send_from_directory, Response
 from werkzeug.utils import secure_filename
+from urllib.parse import parse_qs, urlencode, unquote
 
 from extractor import load_question_bank, allocate_questions
 from pdf_generator import generate_html, compile_pdf
@@ -14,6 +15,26 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__,
             template_folder=os.path.join(BASE_DIR, 'templates'),
             static_folder=os.path.join(BASE_DIR, 'static'))
+
+class VercelMiddleware:
+    def __init__(self, wsgi_app):
+        self.wsgi_app = wsgi_app
+
+    def __call__(self, environ, start_response):
+        raw_qs = environ.get('QUERY_STRING', '')
+        qs = parse_qs(raw_qs, keep_blank_values=True)
+        if '__path' in qs and qs['__path']:
+            orig_path = unquote(qs['__path'][0])
+            if not orig_path.startswith('/'):
+                orig_path = '/' + orig_path
+            environ['PATH_INFO'] = orig_path
+            del qs['__path']
+            environ['QUERY_STRING'] = urlencode(qs, doseq=True)
+        elif environ.get('HTTP_X_MATCHED_PATH') and environ.get('HTTP_X_MATCHED_PATH') not in ['/api/index.py', '/api/index']:
+            environ['PATH_INFO'] = environ['HTTP_X_MATCHED_PATH']
+        return self.wsgi_app(environ, start_response)
+
+app.wsgi_app = VercelMiddleware(app.wsgi_app)
 
 BANKS_DIR = os.path.join(BASE_DIR, 'question_banks')
 IMG_DIR = os.path.join(BANKS_DIR, 'extracted_imgs')
@@ -35,9 +56,6 @@ except Exception:
     os.makedirs(UPLOADS_DIR, exist_ok=True)
 
 @app.route('/')
-@app.route('/api')
-@app.route('/api/index')
-@app.route('/api/index.py')
 def index():
     return render_template('index.html')
 
