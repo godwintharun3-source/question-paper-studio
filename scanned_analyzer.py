@@ -1,12 +1,19 @@
 import os
 import re
-import cv2
+try:
+    import cv2
+except ImportError:
+    cv2 = None
 import json
 import glob
 import subprocess
 import numpy as np
-import pytesseract
-from pytesseract import Output
+try:
+    import pytesseract
+    from pytesseract import Output
+except ImportError:
+    pytesseract = None
+    Output = None
 from concurrent.futures import ThreadPoolExecutor
 
 MODULE_RANGES = [

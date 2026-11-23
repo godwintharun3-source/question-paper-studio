@@ -13,17 +13,25 @@ from analyzer import analyze_pdf
 from book_analyzer import extract_text_and_diagrams_from_book, synthesize_questions_from_book, parse_page_range as parse_book_pages
 from google_forms_generator import generate_google_apps_script, generate_manual_form_text
 
-app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__,
+            template_folder=os.path.join(BASE_DIR, 'templates'),
+            static_folder=os.path.join(BASE_DIR, 'static'))
+
 BANKS_DIR = os.path.join(BASE_DIR, 'question_banks')
 IMG_DIR = os.path.join(BANKS_DIR, 'extracted_imgs')
-EXPORTS_DIR = os.path.join(BASE_DIR, 'exports')
-UPLOADS_DIR = os.path.join(BASE_DIR, 'uploads')
+
+if os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'):
+    EXPORTS_DIR = '/tmp/exports'
+    UPLOADS_DIR = '/tmp/uploads'
+else:
+    EXPORTS_DIR = os.path.join(BASE_DIR, 'exports')
+    UPLOADS_DIR = os.path.join(BASE_DIR, 'uploads')
 
 try:
     os.makedirs(EXPORTS_DIR, exist_ok=True)
     os.makedirs(UPLOADS_DIR, exist_ok=True)
-except OSError:
+except Exception:
     EXPORTS_DIR = '/tmp/exports'
     UPLOADS_DIR = '/tmp/uploads'
     os.makedirs(EXPORTS_DIR, exist_ok=True)

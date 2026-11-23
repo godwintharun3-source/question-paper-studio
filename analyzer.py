@@ -1,11 +1,17 @@
 import os
 import re
-import cv2
+try:
+    import cv2
+except ImportError:
+    cv2 = None
 import json
 import uuid
 import glob
 import subprocess
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    np = None
 import pdfplumber
 import pypdf
 from PIL import Image
@@ -103,16 +109,76 @@ def is_header_or_noise(text):
         return True
     return False
 
+def read_page_image(img_path):
+    if not img_path or not os.path.exists(img_path):
+        return None
+    if cv2 is not None:
+        return cv2.imread(img_path)
+    try:
+        pil_im = Image.open(img_path).convert('RGB')
+        if np is not None:
+            arr = np.array(pil_im)
+            return arr[:, :, ::-1]
+        return pil_im
+    except Exception:
+        return None
+
+def save_crop_image(save_path, img_obj):
+    if img_obj is None:
+        return
+    if cv2 is not None and hasattr(img_obj, 'shape'):
+        cv2.imwrite(save_path, img_obj)
+    elif isinstance(img_obj, Image.Image):
+        img_obj.save(save_path)
+    elif hasattr(img_obj, 'shape'):
+        try:
+            if len(img_obj.shape) == 3 and img_obj.shape[2] == 3:
+                Image.fromarray(img_obj[:, :, ::-1]).save(save_path)
+            else:
+                Image.fromarray(img_obj).save(save_path)
+        except Exception:
+            pass
+
+def crop_box(img_obj, x0, y0, x1, y1):
+    if img_obj is None:
+        return None
+    if hasattr(img_obj, 'shape'):
+        return img_obj[y0:y1, x0:x1]
+    elif isinstance(img_obj, Image.Image):
+        return img_obj.crop((x0, y0, x1, y1))
+    return None
+
 def tight_crop_image(img):
-    if img is None or img.size == 0:
+    if img is None:
         return img
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) if len(img.shape) == 3 else img
-    y_idx, x_idx = np.where(gray < 235)
-    if len(y_idx) > 0 and len(x_idx) > 0:
-        ymin, ymax = y_idx.min(), y_idx.max()
-        xmin, xmax = x_idx.min(), x_idx.max()
-        if (ymax - ymin > 15) and (xmax - xmin > 15):
-            return img[max(0, ymin - 4):min(img.shape[0], ymax + 5), max(0, xmin - 4):min(img.shape[1], xmax + 5)]
+    if isinstance(img, Image.Image):
+        gray = img.convert('L')
+        lut = [255 if p < 235 else 0 for p in range(256)]
+        mask = gray.point(lut, mode='1')
+        bbox = mask.getbbox()
+        if bbox:
+            w = bbox[2] - bbox[0]
+            h = bbox[3] - bbox[1]
+            if w > 15 and h > 15:
+                pad = 4
+                box = (max(0, bbox[0] - pad), max(0, bbox[1] - pad),
+                       min(img.width, bbox[2] + pad), min(img.height, bbox[3] + pad))
+                return img.crop(box)
+        return img
+    elif hasattr(img, 'size') and img.size > 0:
+        if cv2 is not None:
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) if len(img.shape) == 3 else img
+        elif np is not None:
+            gray = np.mean(img, axis=2).astype(np.uint8) if len(img.shape) == 3 else img
+        else:
+            return img
+        if np is not None:
+            y_idx, x_idx = np.where(gray < 235)
+            if len(y_idx) > 0 and len(x_idx) > 0:
+                ymin, ymax = y_idx.min(), y_idx.max()
+                xmin, xmax = x_idx.min(), x_idx.max()
+                if (ymax - ymin > 15) and (xmax - xmin > 15):
+                    return img[max(0, ymin - 4):min(img.shape[0], ymax + 5), max(0, xmin - 4):min(img.shape[1], xmax + 5)]
     return img
 
 def find_rendered_page(render_dir, p_num):
@@ -172,9 +238,11 @@ def analyze_sequential_pdf(pdf_path, img_dir, bank_id, trade_name="General Trade
             
             # Rendered image if available
             page_img_path = find_rendered_page(temp_dir, p_num)
-            page_cv = cv2.imread(page_img_path) if page_img_path else None
-            scale_x = page_cv.shape[1] / page.width if page_cv is not None else 2.083
-            scale_y = page_cv.shape[0] / page.height if page_cv is not None else 2.083
+            page_cv = read_page_image(page_img_path)
+            img_w = page_cv.shape[1] if hasattr(page_cv, 'shape') else (page_cv.width if page_cv else 1)
+            img_h = page_cv.shape[0] if hasattr(page_cv, 'shape') else (page_cv.height if page_cv else 1)
+            scale_x = img_w / page.width if page_cv is not None else 2.083
+            scale_y = img_h / page.height if page_cv is not None else 2.083
 
             # Group words into lines
             lines = []
@@ -262,10 +330,10 @@ def analyze_sequential_pdf(pdf_path, img_dir, bank_id, trade_name="General Trade
                                 py1 = min(page_cv.shape[0], int(pr['bottom'] * scale_y) + 4)
                                 px0 = max(0, int(pr['x0'] * scale_x) - 4)
                                 px1 = min(page_cv.shape[1], int(pr['x1'] * scale_x) + 4)
-                                crop = page_cv[py0:py1, px0:px1]
+                                crop = crop_box(page_cv, px0, py0, px1, py1)
                                 crop = tight_crop_image(crop)
                                 img_file = f"{bank_id}_p{p_num}_q{orig_num}.png"
-                                cv2.imwrite(os.path.join(img_dir, img_file), crop)
+                                save_crop_image(os.path.join(img_dir, img_file), crop)
                             pat_rects.remove(pr) # consumed
                             break
                             
@@ -276,13 +344,13 @@ def analyze_sequential_pdf(pdf_path, img_dir, bank_id, trade_name="General Trade
                                 has_img = True
                                 if page_cv is not None:
                                     py0 = max(0, int(im['top'] * scale_y) - 4)
-                                    py1 = min(page_cv.shape[0], int(im['bottom'] * scale_y) + 4)
+                                    py1 = min(img_h, int(im['bottom'] * scale_y) + 4)
                                     px0 = max(0, int(im['x0'] * scale_x) - 4)
-                                    px1 = min(page_cv.shape[1], int(im['x1'] * scale_x) + 4)
-                                    crop = page_cv[py0:py1, px0:px1]
+                                    px1 = min(img_w, int(im['x1'] * scale_x) + 4)
+                                    crop = crop_box(page_cv, px0, py0, px1, py1)
                                     crop = tight_crop_image(crop)
                                     img_file = f"{bank_id}_p{p_num}_q{orig_num}.png"
-                                    cv2.imwrite(os.path.join(img_dir, img_file), crop)
+                                    save_crop_image(os.path.join(img_dir, img_file), crop)
                                 break
 
                     current_q = {
@@ -413,10 +481,11 @@ def analyze_table_pdf(pdf_path, img_dir, bank_id, trade_name="General Trade"):
         
         for p_idx, page in enumerate(pdf.pages):
             page_img_path = find_rendered_page(temp_dir, p_idx + 1)
-            page_cv_img = cv2.imread(page_img_path) if page_img_path else None
-            
-            scale_y = page_cv_img.shape[0] / page.height if page_cv_img is not None else 2.083
-            scale_x = page_cv_img.shape[1] / page.width if page_cv_img is not None else 2.083
+            page_cv_img = read_page_image(page_img_path)
+            img_w = page_cv_img.shape[1] if hasattr(page_cv_img, 'shape') else (page_cv_img.width if page_cv_img else 1)
+            img_h = page_cv_img.shape[0] if hasattr(page_cv_img, 'shape') else (page_cv_img.height if page_cv_img else 1)
+            scale_x = img_w / page.width if page_cv_img is not None else 2.083
+            scale_y = img_h / page.height if page_cv_img is not None else 2.083
             
             tables = page.find_tables()
             if tables:
@@ -501,16 +570,28 @@ def analyze_table_pdf(pdf_path, img_dir, bank_id, trade_name="General Trade"):
                             ymin, ymax = min(all_y) - 4, max(all_y) + 4
                             
                             px0 = max(0, int(xmin * scale_x))
-                            px1 = min(page_cv_img.shape[1], int(xmax * scale_x))
+                            px1 = min(img_w, int(xmax * scale_x))
                             py0 = max(0, int(ymin * scale_y))
-                            py1 = min(page_cv_img.shape[0], int(ymax * scale_y))
+                            py1 = min(img_h, int(ymax * scale_y))
                             
                             if (px1 - px0) >= 30 and (py1 - py0) >= 30:
-                                crop = page_cv_img[py0:py1, px0:px1]
-                                gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
-                                _, th = cv2.threshold(gray, 230, 255, cv2.THRESH_BINARY_INV)
-                                if cv2.countNonZero(th) > 150:
-                                    cv2.imwrite(img_save_path, crop)
+                                crop = crop_box(page_cv_img, px0, py0, px1, py1)
+                                if cv2 is not None and hasattr(crop, 'shape'):
+                                    gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+                                    _, th = cv2.threshold(gray, 230, 255, cv2.THRESH_BINARY_INV)
+                                    is_valid = cv2.countNonZero(th) > 150
+                                elif isinstance(crop, Image.Image):
+                                    gray = crop.convert('L')
+                                    lut = [255 if p < 230 else 0 for p in range(256)]
+                                    mask = gray.point(lut, mode='1')
+                                    is_valid = (mask.tobytes().count(b'\xff') > 150)
+                                elif np is not None and hasattr(crop, 'shape'):
+                                    gray = np.mean(crop, axis=2).astype(np.uint8) if len(crop.shape) == 3 else crop
+                                    is_valid = np.count_nonzero(gray < 230) > 150
+                                else:
+                                    is_valid = True
+                                if is_valid:
+                                    save_crop_image(img_save_path, crop)
                                     has_img = True
                                 
                     q_obj = {

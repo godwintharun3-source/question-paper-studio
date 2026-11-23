@@ -6,7 +6,10 @@ questions from raw subject book / textbook PDFs.
 
 import os
 import re
-import cv2
+try:
+    import cv2
+except ImportError:
+    cv2 = None
 import json
 import uuid
 import pdfplumber
