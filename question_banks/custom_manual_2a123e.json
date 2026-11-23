@@ -1,0 +1,45 @@
+{
+  "module_id": "custom_manual_2a123e",
+  "module_name": "Manual Question Bank",
+  "trade": "Custom Trade",
+  "modules": [
+    "General",
+    "Workshop Theory"
+  ],
+  "questions": [
+    {
+      "orig_id": 1,
+      "global_id": 1,
+      "module": "Workshop Theory",
+      "subheading": "Level 1",
+      "q_en": "What is the melting point of Copper?",
+      "q_ta": "தாமிரத்தின் உருகுநிலை என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "1083°C",
+          "ta": "1083°C"
+        },
+        {
+          "opt": "B",
+          "en": "650°C",
+          "ta": "650°C"
+        },
+        {
+          "opt": "C",
+          "en": "1535°C",
+          "ta": "1535°C"
+        },
+        {
+          "opt": "D",
+          "en": "327°C",
+          "ta": "327°C"
+        }
+      ],
+      "ans": "A",
+      "has_img": false,
+      "img_file": null,
+      "is_manual": true
+    }
+  ]
+}

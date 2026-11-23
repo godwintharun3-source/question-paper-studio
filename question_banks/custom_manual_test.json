@@ -1,0 +1,58 @@
+{
+  "module_id": "custom_manual_test",
+  "module_name": "Teacher Custom Bank",
+  "trade": "Fitter Trade",
+  "modules": [
+    "General",
+    "Workshop Practice"
+  ],
+  "questions": [
+    {
+      "orig_id": 1,
+      "global_id": 1,
+      "module": "Workshop Practice",
+      "subheading": "Safety Procedures",
+      "q_en": "Which fire extinguisher is used for electrical fires?",
+      "q_ta": "மின் தீக்கு எந்த தீயணைப்பான் பயன்படுத்தப்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Halon extinguisher",
+          "ta": "ஹாலோன் தீயணைப்பான்"
+        },
+        {
+          "opt": "B",
+          "en": "Water extinguisher",
+          "ta": "நீர் தீயணைப்பான்"
+        },
+        {
+          "opt": "C",
+          "en": "Foam extinguisher",
+          "ta": "நுரை தீயணைப்பான்"
+        },
+        {
+          "opt": "D",
+          "en": "Dry powder extinguisher",
+          "ta": "உலர் தூள் தீயணைப்பான்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false,
+      "img_file": null,
+      "is_manual": true
+    },
+    {
+      "orig_id": 2,
+      "global_id": 2,
+      "module": "Workshop Practice",
+      "subheading": "Hand Tools",
+      "q_en": "Name the tool shown in the diagram and state its least count.",
+      "q_ta": "படத்தில் காட்டப்பட்டுள்ள கருவியின் பெயரை எழுதி அதன் மீச்சிற்றளவை குறிப்பிடுக.",
+      "options": [],
+      "ans": "",
+      "has_img": false,
+      "img_file": null,
+      "is_manual": true
+    }
+  ]
+}

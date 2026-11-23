@@ -1,0 +1,45 @@
+{
+  "module_id": "custom_manual_50bdf5",
+  "module_name": "Manual Question Bank",
+  "trade": "Custom Trade",
+  "modules": [
+    "General",
+    "Fitting Tools"
+  ],
+  "questions": [
+    {
+      "orig_id": 1,
+      "global_id": 1,
+      "module": "Fitting Tools",
+      "subheading": "Section C",
+      "q_en": "Identify the tool shown in the figure.",
+      "q_ta": "படத்தில் காட்டப்பட்டுள்ள கருவியை அடையாளம் காண்க.",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Try Square",
+          "ta": "ட்ரை ஸ்கொயர்"
+        },
+        {
+          "opt": "B",
+          "en": "Steel Rule",
+          "ta": "ஸ்டீல் ரூல்"
+        },
+        {
+          "opt": "C",
+          "en": "Scriber",
+          "ta": "ஸ்கிரைபர்"
+        },
+        {
+          "opt": "D",
+          "en": "Center Punch",
+          "ta": "சென்டர் பஞ்ச்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "manual_8d5bc969.png",
+      "is_manual": true
+    }
+  ]
+}

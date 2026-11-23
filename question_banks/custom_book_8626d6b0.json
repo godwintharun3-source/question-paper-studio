@@ -1,0 +1,257 @@
+{
+  "module_id": "custom_book_8626d6b0",
+  "module_name": "Docker and Nginx Workshop (From Subject Book)",
+  "trade": "Docker and Nginx Workshop",
+  "modules": [
+    "OUTPUT:"
+  ],
+  "questions": [
+    {
+      "orig_id": 1,
+      "global_id": 1,
+      "module": "OUTPUT:",
+      "page": 2,
+      "q_en": "What is the major technical characteristic or purpose of STEP_2?",
+      "q_ta": "STEP_2-ன் முக்கிய தொழில்நுட்ப பண்பு அல்லது நோக்கம் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "STEP_2",
+          "ta": "STEP_2"
+        },
+        {
+          "opt": "B",
+          "en": "Verify",
+          "ta": "Verify"
+        },
+        {
+          "opt": "C",
+          "en": "STEP_1",
+          "ta": "STEP_1"
+        },
+        {
+          "opt": "D",
+          "en": "OUTPUT",
+          "ta": "OUTPUT"
+        }
+      ],
+      "ans": "A",
+      "has_img": false,
+      "img_file": null
+    },
+    {
+      "orig_id": 2,
+      "global_id": 2,
+      "module": "OUTPUT:",
+      "page": 3,
+      "q_en": "In standard engineering practice, OUTPUT is primarily utilized for which function?",
+      "q_ta": "பொறியியல் நடைமுறையில் OUTPUT எந்த பயன்பாட்டிற்கு பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Pull",
+          "ta": "Pull"
+        },
+        {
+          "opt": "B",
+          "en": "OUTPUT",
+          "ta": "OUTPUT"
+        },
+        {
+          "opt": "C",
+          "en": "Verify",
+          "ta": "Verify"
+        },
+        {
+          "opt": "D",
+          "en": "STEP_2",
+          "ta": "STEP_2"
+        }
+      ],
+      "ans": "B",
+      "has_img": false,
+      "img_file": null
+    },
+    {
+      "orig_id": 3,
+      "global_id": 3,
+      "module": "OUTPUT:",
+      "page": 4,
+      "q_en": "Which tool / instrument is primarily employed for operations involving STEP_3?",
+      "q_ta": "STEP_3 பணிகளுக்கு பயன்படும் முதன்மையான கருவி / சாதனம் எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Verify",
+          "ta": "Verify"
+        },
+        {
+          "opt": "B",
+          "en": "STEP_2",
+          "ta": "STEP_2"
+        },
+        {
+          "opt": "C",
+          "en": "Pull",
+          "ta": "Pull"
+        },
+        {
+          "opt": "D",
+          "en": "STEP_3",
+          "ta": "STEP_3"
+        }
+      ],
+      "ans": "D",
+      "has_img": false,
+      "img_file": null
+    },
+    {
+      "orig_id": 4,
+      "global_id": 4,
+      "module": "OUTPUT:",
+      "page": 5,
+      "q_en": "What is the major technical characteristic or purpose of STEP_1?",
+      "q_ta": "STEP_1-ன் முக்கிய தொழில்நுட்ப பண்பு அல்லது நோக்கம் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Pull",
+          "ta": "Pull"
+        },
+        {
+          "opt": "B",
+          "en": "Verify",
+          "ta": "Verify"
+        },
+        {
+          "opt": "C",
+          "en": "STEP_3",
+          "ta": "STEP_3"
+        },
+        {
+          "opt": "D",
+          "en": "STEP_1",
+          "ta": "STEP_1"
+        }
+      ],
+      "ans": "D",
+      "has_img": false,
+      "img_file": null
+    },
+    {
+      "orig_id": 5,
+      "global_id": 5,
+      "module": "OUTPUT:",
+      "page": 6,
+      "q_en": "In standard engineering practice, Verify is primarily utilized for which function?",
+      "q_ta": "பொறியியல் நடைமுறையில் Verify எந்த பயன்பாட்டிற்கு பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "STEP_2",
+          "ta": "STEP_2"
+        },
+        {
+          "opt": "B",
+          "en": "OUTPUT",
+          "ta": "OUTPUT"
+        },
+        {
+          "opt": "C",
+          "en": "STEP_3",
+          "ta": "STEP_3"
+        },
+        {
+          "opt": "D",
+          "en": "Verify",
+          "ta": "Verify"
+        }
+      ],
+      "ans": "D",
+      "has_img": false,
+      "img_file": null
+    },
+    {
+      "orig_id": 6,
+      "global_id": 6,
+      "module": "OUTPUT:",
+      "page": 7,
+      "q_en": "Which tool / instrument is primarily employed for operations involving Pull?",
+      "q_ta": "Pull பணிகளுக்கு பயன்படும் முதன்மையான கருவி / சாதனம் எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Verify",
+          "ta": "Verify"
+        },
+        {
+          "opt": "B",
+          "en": "OUTPUT",
+          "ta": "OUTPUT"
+        },
+        {
+          "opt": "C",
+          "en": "Pull",
+          "ta": "Pull"
+        },
+        {
+          "opt": "D",
+          "en": "STEP_1",
+          "ta": "STEP_1"
+        }
+      ],
+      "ans": "C",
+      "has_img": false,
+      "img_file": null
+    }
+  ],
+  "header_config": {
+    "enabled": true,
+    "page1_only": true,
+    "inst_name": "GOVERNMENT INDUSTRIAL TRAINING INSTITUTE",
+    "test_title": "DOCKER AND NGINX WORKSHOP - SEMESTER EXAMINATION",
+    "session_text": "ACADEMIC YEAR 2026",
+    "date_text": "Date: ____________________",
+    "time_text": "Time: 2 Hours 30 Mins",
+    "reg_no_text": "Register No.: ____________________",
+    "marks_text": "Maximum Marks: 46",
+    "trade_text": "SUBJECT: DOCKER AND NGINX WORKSHOP",
+    "divider_char": "=",
+    "include_instructions": true,
+    "instructions": [
+      "1. Answer all questions in Part-A (6 x 1 = 6 Marks).",
+      "2. Answer all questions in Part-B (4 x 2 = 8 Marks).",
+      "3. Answer all questions in Part-C (2 x 16 = 32 Marks - Neat sketches carry marks).",
+      "4. Write all answers neatly and clearly."
+    ],
+    "part_a_title": "PART - A : OBJECTIVE / MULTIPLE CHOICE QUESTIONS",
+    "part_a_subtitle": "(6 x 1 = 6 Marks) - Answer all questions. Choose the correct option.",
+    "part_b_enabled": true,
+    "part_b_title": "PART - B : SHORT ANSWER QUESTIONS (2 MARKS EACH)",
+    "part_b_subtitle": "(4 x 2 = 8 Marks) - Answer all questions.",
+    "part_b_questions": [
+      "Define STEP_2 and state its primary industrial application.",
+      "State any two essential safety precautions while working with OUTPUT.",
+      "What is the principle, accuracy, and least count of STEP_3?",
+      "Mention any two key advantages of using STEP_1 in modern manufacturing."
+    ],
+    "part_c_enabled": true,
+    "part_c_title": "PART - C : DESCRIPTIVE / ESSAY QUESTIONS (16 MARKS EACH)",
+    "part_c_subtitle": "(2 x 16 = 32 Marks) - Answer with neat sketches.",
+    "part_c_questions": [
+      "Explain with a neat labeled sketch the construction, working principle, and applications of OUTPUT.",
+      "Describe in detail the various types and classifications of STEP_1 with suitable diagrams, specifications, and industrial safety procedures."
+    ]
+  },
+  "short_questions": [
+    "Define STEP_2 and state its primary industrial application.",
+    "State any two essential safety precautions while working with OUTPUT.",
+    "What is the principle, accuracy, and least count of STEP_3?",
+    "Mention any two key advantages of using STEP_1 in modern manufacturing."
+  ],
+  "long_questions": [
+    "Explain with a neat labeled sketch the construction, working principle, and applications of OUTPUT.",
+    "Describe in detail the various types and classifications of STEP_1 with suitable diagrams, specifications, and industrial safety procedures."
+  ],
+  "grand_total_marks": 46
+}

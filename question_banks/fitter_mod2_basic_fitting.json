@@ -1,0 +1,2973 @@
+{
+  "module_id": "mod2",
+  "module_name": "Module 2 - Basic Fitting",
+  "trade": "Fitter 1st Sem - NSQF",
+  "questions": [
+    {
+      "orig_id": 1,
+      "q_en": "Name the part of file marked as “x”.",
+      "q_ta": "படத்தில் \"X\" குறியிட்ட ஃபைல் பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Heel",
+          "ta": "ஹீல்"
+        },
+        {
+          "opt": "B",
+          "en": "Tang",
+          "ta": "டேங்"
+        },
+        {
+          "opt": "C",
+          "en": "Ferrule",
+          "ta": "ஃபெரூல்"
+        },
+        {
+          "opt": "D",
+          "en": "File length",
+          "ta": "ஃபைலின் நீளம்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "mod2_q01_clean.png"
+    },
+    {
+      "orig_id": 2,
+      "q_en": "What is the use of a try square?",
+      "q_ta": "ட்ரை ஸ்கொயரின் (மூலை மட்டம்) பயன் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "To check right angle",
+          "ta": "செங்கோணம் சரிபார்த்தல்"
+        },
+        {
+          "opt": "B",
+          "en": "To check acute angle",
+          "ta": "குறுங்கோணம் சரிபார்த்தல்"
+        },
+        {
+          "opt": "C",
+          "en": "To check obtuse angle",
+          "ta": "விரிகோணம் சரிபார்த்தல்"
+        },
+        {
+          "opt": "D",
+          "en": "To check straight angle",
+          "ta": "நேர்கோணம் சரிபார்த்தல்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 3,
+      "q_en": "Which marking media is poisonous?",
+      "q_ta": "எந்த மார்க்கிங் மீடியா விஷத்தன்மை வாய்ந்தது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "White wash",
+          "ta": "வெள்ளை சுண்ணாம்பு"
+        },
+        {
+          "opt": "B",
+          "en": "Prussian blue",
+          "ta": "பிரஷியன் ப்ளூ"
+        },
+        {
+          "opt": "C",
+          "en": "Copper sulphate",
+          "ta": "காப்பர் சல்பேட்"
+        },
+        {
+          "opt": "D",
+          "en": "Cellulose lacquer",
+          "ta": "செல்லுலோஸ் லேக்கர்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 4,
+      "q_en": "Which part of universal surface gauge holds the scriber?",
+      "q_ta": "யுனிவர்சல் சர்பேஸ் கேஜில் ஸ்கிரைபரை எந்த பாகம் பிடித்துக் கொண்டுள்ளது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Snug",
+          "ta": "ஸ்னக்"
+        },
+        {
+          "opt": "B",
+          "en": "Guide pin",
+          "ta": "கைடு பின்"
+        },
+        {
+          "opt": "C",
+          "en": "Rocker arm",
+          "ta": "ராக்கர் ஆர்ம்"
+        },
+        {
+          "opt": "D",
+          "en": "Fine adjustment screw",
+          "ta": "ஃபைன் அட்ஜெஸ்ட்மென்ட் ஸ்க்ரூ"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 5,
+      "q_en": "What is the name of the vice?",
+      "q_ta": "படத்தில் உள்ள வைஸின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Pin vice",
+          "ta": "பின் வைஸ்"
+        },
+        {
+          "opt": "B",
+          "en": "Pipe vice",
+          "ta": "பைப் வைஸ்"
+        },
+        {
+          "opt": "C",
+          "en": "Hand vice",
+          "ta": "ஹேண்ட் வைஸ்"
+        },
+        {
+          "opt": "D",
+          "en": "Quick releasing vice",
+          "ta": "குயிக் ரிலீசிங் வைஸ்"
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "mod2_q05_clean.png"
+    },
+    {
+      "orig_id": 6,
+      "q_en": "A new hacksaw blade after a few strokes, becomes loose because of?",
+      "q_ta": "புதிய ஹாக்சா பிளேடு பயன்படுத்திய சில ஸ்ட்ரோக்குகளுக்கு பின் ஏன் தளர்ந்து லூசாகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Stretching of blade",
+          "ta": "பிளேடு நீட்சி (ஸ்ட்ரெச்சிங்) ஆவதால்"
+        },
+        {
+          "opt": "B",
+          "en": "Wrong pitch of the blade",
+          "ta": "தவறான பிட்ச் உள்ள பிளேடு உபயோகிப்பதால்"
+        },
+        {
+          "opt": "C",
+          "en": "Improper selection of saw sets",
+          "ta": "சரியான சா செட் தேர்வு செய்யாததால்"
+        },
+        {
+          "opt": "D",
+          "en": "Nut thread being worn out",
+          "ta": "விங் நட் மைர தேய்ந்து போனதால்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 7,
+      "q_en": "Why breakage of teeth occur easily while sawing of thin walled work pieces and the start of cut?",
+      "q_ta": "மெல்லிய கனமுடைய பணிப்பொருளை ஹாக் சாயிங் செய்ய ஆரம்பிக்கும் பொழுது பிளேடின் பற்கள் ஏன் எளிதாக உடைந்து விடுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Hand force is too big",
+          "ta": "அதிகமான கை விசை கொடுப்பதால்"
+        },
+        {
+          "opt": "B",
+          "en": "Cutting section is too short",
+          "ta": "அறுபடும் பகுதி சிறியதாக இருப்பதால்"
+        },
+        {
+          "opt": "C",
+          "en": "Coarse blade to be used",
+          "ta": "கோர்ஸ் பிளேடு பயன்படுத்துவதால்"
+        },
+        {
+          "opt": "D",
+          "en": "Hand force acts only upon few teeth",
+          "ta": "குறிப்பிட்ட அளவு பற்களுக்கு மட்டும் கைவிசை செயல்படுவதால்"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 8,
+      "q_en": "Which chisel is used for squaring materials at the corners, joints?",
+      "q_ta": "சதுரவடிவ மூலைகளை செதுக்க பயன்படும் சிசல் (chisel) எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Flat chisel",
+          "ta": "பிளாட் சிசல்"
+        },
+        {
+          "opt": "B",
+          "en": "Cross cut chisel",
+          "ta": "கிராஸ்கட் சிசல்"
+        },
+        {
+          "opt": "C",
+          "en": "Diamond point chisel",
+          "ta": "டயமண்ட் பாயிண்ட் சிசல்"
+        },
+        {
+          "opt": "D",
+          "en": "Half round nose chisel",
+          "ta": "ஹாஃப் ரவுண்ட் நோஸ் சிசல்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 9,
+      "q_en": "Name the part of a hammer marked as ‘x’.",
+      "q_ta": "சுத்தியலில் குறிப்பிடப்பட்டுள்ள \"X\" பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Face",
+          "ta": "ஃபேஸ்"
+        },
+        {
+          "opt": "B",
+          "en": "Pein",
+          "ta": "பீன்"
+        },
+        {
+          "opt": "C",
+          "en": "Cheek",
+          "ta": "சீக்"
+        },
+        {
+          "opt": "D",
+          "en": "Eye hole",
+          "ta": "ஐ ஹோல்"
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "mod2_q09_clean.png"
+    },
+    {
+      "orig_id": 10,
+      "q_en": "Which angle is represented by the symbol “γ” on the cutting chisel?",
+      "q_ta": "சிசிலை பயன்படுத்தி செதுக்கும் போது படத்தில் காட்டியுள்ள \"γ\" எந்த கோணத்தினை குறிக்கிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Rake angle",
+          "ta": "ரேக் ஆங்கிள்"
+        },
+        {
+          "opt": "B",
+          "en": "Wedge angle",
+          "ta": "வெட்ஜ் ஆங்கிள்"
+        },
+        {
+          "opt": "C",
+          "en": "Cutting angle",
+          "ta": "கட்டிங் ஆங்கிள்"
+        },
+        {
+          "opt": "D",
+          "en": "Clearance angle",
+          "ta": "கிளியரன்ஸ் ஆங்கிள்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "mod2_q10_clean.png"
+    },
+    {
+      "orig_id": 11,
+      "q_en": "Name the property of metal which can be drawn into wire without rupture.",
+      "q_ta": "உலோகம் எந்த முறிவுமில்லாமல் கம்பியாக நீளும் தன்மைக்கு என்ன பெயர்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Ductility",
+          "ta": "டக்டிலிட்டி"
+        },
+        {
+          "opt": "B",
+          "en": "Tenacity",
+          "ta": "டெனாசிட்டி"
+        },
+        {
+          "opt": "C",
+          "en": "Elasticity",
+          "ta": "எலாஸ்டிசிட்டி"
+        },
+        {
+          "opt": "D",
+          "en": "Malleability",
+          "ta": "மேலியபிலிட்டி"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 12,
+      "q_en": "What is the spindle movement of one division of thimble with spindle thread of 0.5mm pitch?",
+      "q_ta": "0.5mm பிட்ச் உடைய ஸ்பிண்டிலை சுற்றும் போது திம்பிள் நகரும் ஒரு பிரிவின் மதிப்பு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "0.01 mm",
+          "ta": "0.01 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "0.10 mm",
+          "ta": "0.10 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "1.00 mm",
+          "ta": "1.00 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "10.0 mm",
+          "ta": "10.0 மி.மீ"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 13,
+      "q_en": "What is the reading of a vernier caliper?",
+      "q_ta": "படத்தில் வெர்னியர் காட்டும் அளவு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "35.1 mm",
+          "ta": "35.1 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "35.2 mm",
+          "ta": "35.2 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "35.3 mm",
+          "ta": "35.3 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "35.4 mm",
+          "ta": "35.4 மி.மீ"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "mod2_q13_clean.png"
+    },
+    {
+      "orig_id": 14,
+      "q_en": "What is the reading of vernier bevel protractor?",
+      "q_ta": "படத்தில் வெர்னியர் பெவல் புரோட்ராக்டர் காட்டும் அளவு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "18° 50'",
+          "ta": "18° 50'"
+        },
+        {
+          "opt": "B",
+          "en": "41° 50'",
+          "ta": "41° 50'"
+        },
+        {
+          "opt": "C",
+          "en": "50°",
+          "ta": "50°"
+        },
+        {
+          "opt": "D",
+          "en": "58° 50'",
+          "ta": "58° 50'"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "mod2_q14_clean.png"
+    },
+    {
+      "orig_id": 15,
+      "q_en": "What is the use of feeler gauge?",
+      "q_ta": "ஃபீலர் கேஜின் பயன் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Check the width",
+          "ta": "அகலத்தை சோதிக்க"
+        },
+        {
+          "opt": "B",
+          "en": "Check the height",
+          "ta": "உயரத்தை சோதிக்க"
+        },
+        {
+          "opt": "C",
+          "en": "Check the length",
+          "ta": "நீளத்தை சோதிக்க"
+        },
+        {
+          "opt": "D",
+          "en": "Check the gap between the mating parts",
+          "ta": "இணையும் இரு பாகங்களின் இடைவெளியினை சோதிக்க"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 16,
+      "q_en": "Read the measurement in the dial caliper.",
+      "q_ta": "படத்தில் டயல் காலிப்பர் காட்டும் அளவை குறிப்பிடுக.",
+      "options": [
+        {
+          "opt": "A",
+          "en": "24.2 mm",
+          "ta": "24.2 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "24.8 mm",
+          "ta": "24.8 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "25.2 mm",
+          "ta": "25.2 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "26.2 mm",
+          "ta": "26.2 மி.மீ"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "mod2_q16_clean.png"
+    },
+    {
+      "orig_id": 17,
+      "q_en": "What operation is carried out in a gang drilling machine?",
+      "q_ta": "கேங் டிரில்லிங் மெஷினில் செய்யப்படும் பணிகள் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Idle operation",
+          "ta": "ஐடில் ஆபரேஷன்"
+        },
+        {
+          "opt": "B",
+          "en": "Repeated operation of drilling",
+          "ta": "மீண்டும் மீண்டும் டிரில்லிங் செய்வதற்கு"
+        },
+        {
+          "opt": "C",
+          "en": "Continuous milling operation",
+          "ta": "தொடர்ந்து மில்லிங் செய்வதற்கு"
+        },
+        {
+          "opt": "D",
+          "en": "Successive operation of drilling",
+          "ta": "அடுத்தடுத்த டிரில்லிங் ஆபரேஷன் செய்வதற்கு"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 18,
+      "q_en": "Which is an integral part of the stock in vernier bevel protractor?",
+      "q_ta": "வெர்னியர் பெவல் புரோட்ராக்டரின் ஸ்டாக்கில் ஒருங்கிணைந்த பாகம் எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Disc",
+          "ta": "டிஸ்க்"
+        },
+        {
+          "opt": "B",
+          "en": "Dial",
+          "ta": "டயல்"
+        },
+        {
+          "opt": "C",
+          "en": "Blade",
+          "ta": "பிளேடு"
+        },
+        {
+          "opt": "D",
+          "en": "Main scale",
+          "ta": "மெயின் ஸ்கேல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 19,
+      "q_en": "Name the part marked as ‘x’ of the file.",
+      "q_ta": "\"X\" எனக் குறிப்பிடப்பட்டுள்ள ஃபைலின் பாகம் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Heel",
+          "ta": "ஹீல்"
+        },
+        {
+          "opt": "B",
+          "en": "Edge",
+          "ta": "எட்ஜ்"
+        },
+        {
+          "opt": "C",
+          "en": "Ferrule",
+          "ta": "ஃபெரூல்"
+        },
+        {
+          "opt": "D",
+          "en": "Shoulder",
+          "ta": "ஷோல்டர்"
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "mod2_q19_clean.png"
+    },
+    {
+      "orig_id": 20,
+      "q_en": "Which file is used to make the job close to the finishing size?",
+      "q_ta": "பணி முடிப்பிற்கு அளவிற்கு நெருக்கமாக கொண்டு வர பயன்படும் ஃபைல் எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Single cut file",
+          "ta": "சிங்கிள் கட் ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Curved cut file",
+          "ta": "கர்வ்டு கட் ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Second cut file",
+          "ta": "செகண்ட் கட் ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Double cut file",
+          "ta": "டபுள் கட் ஃபைல்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 21,
+      "q_en": "Which file has the parallel edges throughout the length?",
+      "q_ta": "ஃபைலின் நீளம் முழுவதும் இணையான விளிம்புகளைக் கொண்டுள்ள ஃபைல் எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Hand file",
+          "ta": "ஹேண்ட் ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Bastard file",
+          "ta": "பாஸ்டர்டு ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Rasp cut file",
+          "ta": "ராஸ்ப் கட் ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Single cut file",
+          "ta": "சிங்கிள் கட் ஃபைல்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 22,
+      "q_en": "What is the material to manufacture bench vice?",
+      "q_ta": "பெஞ்ச் வைஸ் எந்த உலோகத்தினால் தயாரிக்கப்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Tool steel",
+          "ta": "டூல் ஸ்டீல்"
+        },
+        {
+          "opt": "B",
+          "en": "High carbon steel",
+          "ta": "ஹை கார்பன் ஸ்டீல்"
+        },
+        {
+          "opt": "C",
+          "en": "Medium carbon steel",
+          "ta": "மீடியம் கார்பன் ஸ்டீல்"
+        },
+        {
+          "opt": "D",
+          "en": "Cast iron",
+          "ta": "கேஸ்ட் அயர்ன்"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 23,
+      "q_en": "Which marking media provide clear lines on machine finished surfaces?",
+      "q_ta": "இயந்திரத்தினைப் பயன்படுத்தி செய்யப்பட்ட மேற்பரப்புகளில் தெளிவான கோடுகள் வரைய பயன்படும் மார்க்கிங் மீடியா எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "White wash",
+          "ta": "ஒயிட் வாஷ்"
+        },
+        {
+          "opt": "B",
+          "en": "Prussian blue",
+          "ta": "புருசியன் புளூ"
+        },
+        {
+          "opt": "C",
+          "en": "Copper sulphate",
+          "ta": "காப்பர் சல்பேட்"
+        },
+        {
+          "opt": "D",
+          "en": "Cellulose lacquer",
+          "ta": "செல்லுலோஸ் லெக்கர்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 24,
+      "q_en": "What is the purpose of slots provided in the slotted angle plate?",
+      "q_ta": "ஆங்கிள் பிளேட்டுகளில் உள்ள காடிகள் என்ன உபயோகத்திற்காக வெட்டப்பட்டுள்ளது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Job clamping",
+          "ta": "ஜாப்பை பிடிப்பதற்கு"
+        },
+        {
+          "opt": "B",
+          "en": "Easy handling",
+          "ta": "எளிதாக கையாளுவதற்கு"
+        },
+        {
+          "opt": "C",
+          "en": "Reduce weight",
+          "ta": "எடை குறைப்பதற்கு"
+        },
+        {
+          "opt": "D",
+          "en": "Better appearance",
+          "ta": "நல்ல தோற்றத்திற்கு"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 25,
+      "q_en": "Which caliper is used to mark the centre of round bar?",
+      "q_ta": "உருளையின் மையத்தை கண்டுபிடித்து மார்க் பண்ணுவதற்கு பயன்படும் காலிப்பர் எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Jenny caliper",
+          "ta": "ஜென்னி காலிப்பர்"
+        },
+        {
+          "opt": "B",
+          "en": "Inside caliper",
+          "ta": "இன்சைடு காலிப்பர்"
+        },
+        {
+          "opt": "C",
+          "en": "Outside caliper",
+          "ta": "அவுட்சைடு காலிப்பர்"
+        },
+        {
+          "opt": "D",
+          "en": "Firm joint caliper",
+          "ta": "ஃபர்ம் ஜாயிண்ட் காலிப்பர்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 26,
+      "q_en": "Name the part marked as 'x'.",
+      "q_ta": "படத்தில் 'X' குறிப்பிட்ட பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Leg",
+          "ta": "லெக்"
+        },
+        {
+          "opt": "B",
+          "en": "Peg",
+          "ta": "பெக்"
+        },
+        {
+          "opt": "C",
+          "en": "Washer",
+          "ta": "வாசர்"
+        },
+        {
+          "opt": "D",
+          "en": "Fulcrum",
+          "ta": "ஃபல்கரம்"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q26_clean.png"
+    },
+    {
+      "orig_id": 27,
+      "q_en": "Name the angular measuring instrument.",
+      "q_ta": "படத்திலுள்ள கோண அளவை (ஆங்குலர் மெசர்மென்ட்) சரிபார்க்கும் கருவியின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Bevel gauge",
+          "ta": "பெவல் கேஜ்"
+        },
+        {
+          "opt": "B",
+          "en": "Bevel protractor",
+          "ta": "பெவல் புரோட்ராக்டர்"
+        },
+        {
+          "opt": "C",
+          "en": "Universal bevel gauge",
+          "ta": "யுனிவர்சல் பெவல் கேஜ்"
+        },
+        {
+          "opt": "D",
+          "en": "Universal surface gauge",
+          "ta": "யுனிவர்சல் சர்பேஸ் கேஜ்"
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "q27_clean.png"
+    },
+    {
+      "orig_id": 28,
+      "q_en": "Which is used for filing narrow grooves and angles above 10°?",
+      "q_ta": "குறுகிய காடிகள் மற்றும் 10° க்கு மேல் உள்ள கோணங்களை ஃபைலிங் செய்ய பயன்படும் ஃபைல் எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Square file",
+          "ta": "ஸ்கொயர் ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Half round file",
+          "ta": "ஹாஃப் ரவுண்டு ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Triangular file",
+          "ta": "டிரையாங்குலர் ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Knife edge file",
+          "ta": "நைஃப் எட்ஜ் ஃபைல்"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 29,
+      "q_en": "Name the defect that causes the metal chips to clog between the teeth of file?",
+      "q_ta": "ஃபைலின் பற்களுக்கு இடையே உலோகத் துகள்கள் சிக்குவதால் ஏற்படும் குறைபாடு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "File bite",
+          "ta": "ஃபைல் பைட்"
+        },
+        {
+          "opt": "B",
+          "en": "Pinning of file",
+          "ta": "பின்னிங் ஆஃப் ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Warping of file",
+          "ta": "வார்பிங் ஆஃப் ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Glazing of file",
+          "ta": "கிளாசிங் ஆஃப் ஃபைல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 30,
+      "q_en": "Which chisel is used for cutting oil grooves?",
+      "q_ta": "எண்ணெய் காடிகள் (oil groove) வெட்டப் பயன்படுத்தப்படும் சிசலின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Flat chisel",
+          "ta": "பிளாட் சிசல்"
+        },
+        {
+          "opt": "B",
+          "en": "Web chisel",
+          "ta": "வெப் சிசல்"
+        },
+        {
+          "opt": "C",
+          "en": "Half round nose chisel",
+          "ta": "ஹாஃப் ரவுண்டு நோஸ் சிசல்"
+        },
+        {
+          "opt": "D",
+          "en": "Diamond point chisel",
+          "ta": "டயமண்ட் பாயிண்ட் சிசல்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 31,
+      "q_en": "Name the file shown.",
+      "q_ta": "படத்தில் காட்டப்பட்டுள்ள ஃபைலின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Barrot file",
+          "ta": "பேரேட் ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Riffler file",
+          "ta": "ரிப்ளர் ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Crossing file",
+          "ta": "கிராசிங் ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Mill saw file",
+          "ta": "மில் சா ஃபைல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q31_clean.png"
+    },
+    {
+      "orig_id": 32,
+      "q_en": "What is the name of vice?",
+      "q_ta": "படத்தில் உள்ள வைஸின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Pin vice",
+          "ta": "பின் வைஸ்"
+        },
+        {
+          "opt": "B",
+          "en": "Pipe vice",
+          "ta": "பைப் வைஸ்"
+        },
+        {
+          "opt": "C",
+          "en": "Hand vice",
+          "ta": "ஹேண்ட் வைஸ்"
+        },
+        {
+          "opt": "D",
+          "en": "Machine vice",
+          "ta": "மெஷின் வைஸ்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "q32_clean.png"
+    },
+    {
+      "orig_id": 33,
+      "q_en": "Which grinding machine is used for heavy duty work?",
+      "q_ta": "கடினமான வேலைகளை கிரைண்டிங் செய்ய பயன்படும் கிரைண்டிங் மெஷின் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Bench grinder",
+          "ta": "பெஞ்ச் கிரைண்டர்"
+        },
+        {
+          "opt": "B",
+          "en": "Portable grinder",
+          "ta": "போர்ட்டபிள் கிரைண்டர்"
+        },
+        {
+          "opt": "C",
+          "en": "Pedestal grinder",
+          "ta": "பெடஸ்டல் கிரைண்டர்"
+        },
+        {
+          "opt": "D",
+          "en": "Surface grinder",
+          "ta": "சர்பேஸ் கிரைண்டர்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 34,
+      "q_en": "Which chisel is used for separating materials after chain drilling?",
+      "q_ta": "தொடர் டிரில்லிங் (chain drilling) செய்தபின் தனியாக உலோகத்தைப் பிரித்தெடுப்பதற்கு பயன்படும் சிசல் எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Web chisel",
+          "ta": "வெப் சிசல்"
+        },
+        {
+          "opt": "B",
+          "en": "Flat chisel",
+          "ta": "பிளாட் சிசல்"
+        },
+        {
+          "opt": "C",
+          "en": "Cross cut chisel",
+          "ta": "கிராஸ்கட் சிசல்"
+        },
+        {
+          "opt": "D",
+          "en": "Diamond point chisel",
+          "ta": "டயமண்ட் பாயிண்ட் சிசல்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 35,
+      "q_en": "Which file is used for sharpening the teeth of wood working saws?",
+      "q_ta": "மரங்களை அறுக்கப் பயன்படும் ரம்பத்தின் பற்களைக் கூர்மையாக்க எந்த அரம் பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Barrette file",
+          "ta": "பேரேட் ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Tinker's file",
+          "ta": "டிங்கர்ஸ் ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Millsaw file",
+          "ta": "மில் சா ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Riffler file",
+          "ta": "ரிப்ளர் ஃபைல்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 36,
+      "q_en": "Where will be the weight of the hammer stamped?",
+      "q_ta": "சுத்தியலின் எடையானது எந்த பாகத்தில் அச்சடிக்கப்பட்டிருக்கும்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Face",
+          "ta": "பேஸ்"
+        },
+        {
+          "opt": "B",
+          "en": "Pein",
+          "ta": "பீன்"
+        },
+        {
+          "opt": "C",
+          "en": "Cheek",
+          "ta": "சீக்"
+        },
+        {
+          "opt": "D",
+          "en": "Eye hole",
+          "ta": "ஐ ஹோல்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 37,
+      "q_en": "What will be the effect if the clearance angle of chisel is less than recommended angle while chipping?",
+      "q_ta": "சிப்பிங் செய்யும்போது சிசலின் கிளியரன்ஸ் கோணம் பரிந்துரைக்கப்பட்ட அளவை விட குறைவாக இருந்தால் என்ன விளைவு ஏற்படும்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Cutting edge cannot penetrate, chisel will slip",
+          "ta": "வெட்டுளி ஊடுருவ முடியாமல் வழுக்கும்"
+        },
+        {
+          "opt": "B",
+          "en": "Cutting edge digs in, cut will be deeper",
+          "ta": "வெட்டு முனை ஆழமாக வெட்டும்"
+        },
+        {
+          "opt": "C",
+          "en": "Cutting edge will break",
+          "ta": "வெட்டு முனை உடையும்"
+        },
+        {
+          "opt": "D",
+          "en": "Cutting edge move freely on straight line",
+          "ta": "வெட்டுமுனை நேர்கோட்டில் எளிதில் நகரும்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 38,
+      "q_en": "Name the property of metal to resist the effect of tensile forces without rupture.",
+      "q_ta": "இழுவிசை செலுத்தப்படும்போது உடையாமல் அதன் விளைவை எதிர்க்கும் உலோகத்தின் குணத்திற்கு என்ன பெயர்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Ductility",
+          "ta": "டக்டிலிட்டி"
+        },
+        {
+          "opt": "B",
+          "en": "Tenacity",
+          "ta": "டெனாசிட்டி"
+        },
+        {
+          "opt": "C",
+          "en": "Elasticity",
+          "ta": "எலாஸ்டிசிட்டி"
+        },
+        {
+          "opt": "D",
+          "en": "Malleability",
+          "ta": "மேலபிலிட்டி"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 39,
+      "q_en": "Name the part marked as 'x'.",
+      "q_ta": "படத்தில் 'X' குறியிட்டுள்ள பகுதியின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Anvil",
+          "ta": "அன்வில்"
+        },
+        {
+          "opt": "B",
+          "en": "Thimble",
+          "ta": "திம்பிள்"
+        },
+        {
+          "opt": "C",
+          "en": "Spindle",
+          "ta": "ஸ்பிண்டில்"
+        },
+        {
+          "opt": "D",
+          "en": "Spindle lock",
+          "ta": "ஸ்பிண்டில் லாக்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "q39_clean.png"
+    },
+    {
+      "orig_id": 40,
+      "q_en": "What is the accuracy of metric outside micrometer?",
+      "q_ta": "மெட்ரிக் அவுட்சைடு மைக்ரோமீட்டரின் துல்லியம் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "0.01 mm",
+          "ta": "0.01 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "0.001 mm",
+          "ta": "0.001 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "0.02 mm",
+          "ta": "0.02 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "0.002 mm",
+          "ta": "0.002 மி.மீ"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 41,
+      "q_en": "Name the part marked as 'x'.",
+      "q_ta": "படத்தில் 'X' குறியிட்டுள்ள பகுதியின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Lip",
+          "ta": "லிப்"
+        },
+        {
+          "opt": "B",
+          "en": "Land",
+          "ta": "லேண்ட்"
+        },
+        {
+          "opt": "C",
+          "en": "Flank",
+          "ta": "பிளாங்க்"
+        },
+        {
+          "opt": "D",
+          "en": "Point angle",
+          "ta": "பாயிண்ட் ஆங்கிள்"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q41_clean.png"
+    },
+    {
+      "orig_id": 42,
+      "q_en": "Which type of taper is provided in the drill shank?",
+      "q_ta": "டிரில் சாங்கில் எந்த வகை டேப்பர் கொடுக்கப்பட்டுள்ளது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Pin taper",
+          "ta": "பின் டேப்பர்"
+        },
+        {
+          "opt": "B",
+          "en": "Metric taper",
+          "ta": "மெட்ரிக் டேப்பர்"
+        },
+        {
+          "opt": "C",
+          "en": "Morse taper",
+          "ta": "மோர்ஸ் டேப்பர்"
+        },
+        {
+          "opt": "D",
+          "en": "Jerno taper",
+          "ta": "ஜெர்னோ டேப்பர்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 43,
+      "q_en": "Which is used to remove drills and sockets from the machine spindle?",
+      "q_ta": "டிரில்லிங் இயந்திர ஸ்பிண்டிலிலிருந்து டிரில் மற்றும் சாக்கெட்டை வெளியேற்ற எது பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Drift",
+          "ta": "டிரிப்ட்"
+        },
+        {
+          "opt": "B",
+          "en": "Sleeve",
+          "ta": "சிலீவ்"
+        },
+        {
+          "opt": "C",
+          "en": "Punch",
+          "ta": "பஞ்ச்"
+        },
+        {
+          "opt": "D",
+          "en": "Hammer",
+          "ta": "ஹேமர்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 44,
+      "q_en": "Name the tap wrench used in the restricted place.",
+      "q_ta": "நெருக்கடியான இடங்களில் பயன்படுத்தப்படும் டேப் ரிஞ்சின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Box type tap wrench",
+          "ta": "பாக்ஸ் டைப் டேப் ரிஞ்ச்"
+        },
+        {
+          "opt": "B",
+          "en": "'T' handle tap wrench",
+          "ta": "'T' ஹேண்டில் டேப் ரிஞ்ச்"
+        },
+        {
+          "opt": "C",
+          "en": "Solid type tap wrench",
+          "ta": "சாலிட் டைப் டேப் ரிஞ்ச்"
+        },
+        {
+          "opt": "D",
+          "en": "Double ended adjustable tap wrench",
+          "ta": "டபிள் எண்டட் அட்ஜஸ்டபிள் டேப் ரிஞ்ச்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 45,
+      "q_en": "In the ISO metric thread, calculate the tap drill size for M10 x 1.5 thread.",
+      "q_ta": "ISO மெட்ரிக் மறையில் M10 x 1.5 மறையிட ஏற்படுத்த வேண்டிய டிரிலின் அளவைக் கணக்கிடுக.",
+      "options": [
+        {
+          "opt": "A",
+          "en": "8.2 mm",
+          "ta": "8.2 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "8.7 mm",
+          "ta": "8.7 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "8.75 mm",
+          "ta": "8.75 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "8.65 mm",
+          "ta": "8.65 மி.மீ"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 46,
+      "q_en": "What is the unit of feed in drilling operation?",
+      "q_ta": "டிரில்லிங் வேலையில் ஊட்டத்தின் (Feed) அலகு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "m/rev",
+          "ta": "மீ/சுற்று"
+        },
+        {
+          "opt": "B",
+          "en": "mm/rev",
+          "ta": "மி.மீ/சுற்று"
+        },
+        {
+          "opt": "C",
+          "en": "m/min",
+          "ta": "மீ/நிமிடம்"
+        },
+        {
+          "opt": "D",
+          "en": "mm/min",
+          "ta": "மி.மீ/நிமிடம்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 47,
+      "q_en": "Name the part marked as 'x' in vernier caliper.",
+      "q_ta": "வெர்னியர் காலிப்பரில் 'X' குறியிட்டுள்ள பகுதியின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Beam",
+          "ta": "பீம்"
+        },
+        {
+          "opt": "B",
+          "en": "Fixed bar",
+          "ta": "பிக்ஸட் பார்"
+        },
+        {
+          "opt": "C",
+          "en": "Depth bar",
+          "ta": "டெப்த் பார்"
+        },
+        {
+          "opt": "D",
+          "en": "Thumb lever",
+          "ta": "தம்பு லீவர்"
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "q47_clean.png"
+    },
+    {
+      "orig_id": 48,
+      "q_en": "What is the accuracy of protractor head in combination set?",
+      "q_ta": "காம்பினேஷன் செட்டில் உள்ள பாகைமானி ஹெட்டின் நுணுக்கம் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "1°",
+          "ta": "1°"
+        },
+        {
+          "opt": "B",
+          "en": "5°",
+          "ta": "5°"
+        },
+        {
+          "opt": "C",
+          "en": "5'",
+          "ta": "5'"
+        },
+        {
+          "opt": "D",
+          "en": "5\"",
+          "ta": "5\""
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 49,
+      "q_en": "What is the accuracy of a try square?",
+      "q_ta": "ட்ரை ஸ்கொயரின் நுணுக்கம் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "0.02 mm per 10 mm length",
+          "ta": "10 மி.மீ நீளத்திற்கு 0.02 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "0.004 mm per 10 mm length",
+          "ta": "10 மி.மீ நீளத்திற்கு 0.004 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "0.002 mm per 10 mm length",
+          "ta": "10 மி.மீ நீளத்திற்கு 0.002 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "0.001 mm per 10 mm length",
+          "ta": "10 மி.மீ நீளத்திற்கு 0.001 மி.மீ"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 50,
+      "q_en": "Which punch is used for witness marks?",
+      "q_ta": "அடையாளக் குறியிட (Witness mark) எந்த பஞ்ச் பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Dot punch",
+          "ta": "டாட் பஞ்ச்"
+        },
+        {
+          "opt": "B",
+          "en": "Pin punch",
+          "ta": "பின் பஞ்ச்"
+        },
+        {
+          "opt": "C",
+          "en": "Bell punch",
+          "ta": "பெல் பஞ்ச்"
+        },
+        {
+          "opt": "D",
+          "en": "Centre punch",
+          "ta": "சென்டர் பஞ்ச்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 51,
+      "q_en": "What is the name of the caliper having one leg with an adjustable divider point and other leg is bent?",
+      "q_ta": "ஒரு கால் அட்ஜஸ்ட் பண்ணக்கூடிய டிவைடர் முனையாகவும் மற்றொரு கால் வளைந்தும் உள்ள காலிப்பரின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Jenny caliper",
+          "ta": "ஜென்னி காலிப்பர்"
+        },
+        {
+          "opt": "B",
+          "en": "Inside caliper",
+          "ta": "இன்சைடு காலிப்பர்"
+        },
+        {
+          "opt": "C",
+          "en": "Outside caliper",
+          "ta": "அவுட்சைடு காலிப்பர்"
+        },
+        {
+          "opt": "D",
+          "en": "Spring joint caliper",
+          "ta": "ஸ்பிரிங் ஜாயிண்ட் காலிப்பர்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 52,
+      "q_en": "What is the name of part marked as 'x' in surface gauge?",
+      "q_ta": "சர்பேஸ் கேஸில் 'X' குறியிட்டுள்ள பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Nut",
+          "ta": "நட்"
+        },
+        {
+          "opt": "B",
+          "en": "Snug",
+          "ta": "ஸ்னக்"
+        },
+        {
+          "opt": "C",
+          "en": "Spindle",
+          "ta": "ஸ்பிண்டில்"
+        },
+        {
+          "opt": "D",
+          "en": "Scriber",
+          "ta": "ஸ்கிரைபர்"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q52_clean.png"
+    },
+    {
+      "orig_id": 53,
+      "q_en": "What is the name of part marked as 'x' in combination set?",
+      "q_ta": "காம்பினேஷன் செட்டில் 'X' குறியிட்டுள்ள பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Bevel head",
+          "ta": "பெவல் ஹெட்"
+        },
+        {
+          "opt": "B",
+          "en": "Centre head",
+          "ta": "சென்டர் ஹெட்"
+        },
+        {
+          "opt": "C",
+          "en": "Square head",
+          "ta": "ஸ்கொயர் ஹெட்"
+        },
+        {
+          "opt": "D",
+          "en": "Protractor head",
+          "ta": "புரோட்ராக்டர் ஹெட்"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q53_clean.png"
+    },
+    {
+      "orig_id": 54,
+      "q_en": "Which type of datum is followed?",
+      "q_ta": "படத்தில் எந்த வகை ஆதார தளம் (Datum) பின்பற்றப்பட்டுள்ளது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Edge datum",
+          "ta": "எட்ஜ் டேட்டம்"
+        },
+        {
+          "opt": "B",
+          "en": "Point datum",
+          "ta": "பாயிண்ட் டேட்டம்"
+        },
+        {
+          "opt": "C",
+          "en": "Centre line datum",
+          "ta": "சென்டர் லைன் டேட்டம்"
+        },
+        {
+          "opt": "D",
+          "en": "Reference line datum",
+          "ta": "ரெப்ரான்ஸ் லைன் டேட்டம்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "q54_clean.png"
+    },
+    {
+      "orig_id": 55,
+      "q_en": "What is the name of parallel block?",
+      "q_ta": "பேரலல் பிளாக்கின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Solid parallel block",
+          "ta": "சாலிட் பேரலல் பிளாக்"
+        },
+        {
+          "opt": "B",
+          "en": "Tenon parallel block",
+          "ta": "டீனான் பேரலல் பிளாக்"
+        },
+        {
+          "opt": "C",
+          "en": "Angular parallel block",
+          "ta": "ஆங்குலர் பேரலல் பிளாக்"
+        },
+        {
+          "opt": "D",
+          "en": "Adjustable parallel block",
+          "ta": "அட்ஜஸ்டபிள் பேரலல் பிளாக்"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q55_clean.png"
+    },
+    {
+      "orig_id": 56,
+      "q_en": "Which material is used to manufacture grade 'A' 'V' blocks?",
+      "q_ta": "'A' கிரேடு 'V' பிளாக் தயாரிக்க எந்த உலோகம் பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Tool steel",
+          "ta": "டூல் ஸ்டீல்"
+        },
+        {
+          "opt": "B",
+          "en": "Carbon steel",
+          "ta": "கார்பன் ஸ்டீல்"
+        },
+        {
+          "opt": "C",
+          "en": "High quality steel",
+          "ta": "ஹை குவாலிட்டி ஸ்டீல்"
+        },
+        {
+          "opt": "D",
+          "en": "Closely grained cast iron",
+          "ta": "குளோஸ்லி கிரைண்டு கேஸ்ட் அயர்ன்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 57,
+      "q_en": "Which chisel is used for removing material on the corners of the keyways?",
+      "q_ta": "சாவி காடிகள் (Key ways) வெட்ட எந்த வெட்டுளி பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Flat chisel",
+          "ta": "பிளாட் சிசல்"
+        },
+        {
+          "opt": "B",
+          "en": "Diamond point chisel",
+          "ta": "டயமண்ட் பாயிண்ட் சிசல்"
+        },
+        {
+          "opt": "C",
+          "en": "Cross cut chisel",
+          "ta": "கிராஸ்கட் சிசல்"
+        },
+        {
+          "opt": "D",
+          "en": "Half round nose chisel",
+          "ta": "கால்ரவுண்டு நோஸ் சிசல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 58,
+      "q_en": "Which file is having rows of teeth cut in one direction?",
+      "q_ta": "எந்த ஃபைலில் ஒரே திசையில் பற்கள் வெட்டப்பட்டிருக்கும்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Single cut file",
+          "ta": "சிங்கிள் கட் ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Curved cut file",
+          "ta": "கர்வ்டு கட் ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Second cut file",
+          "ta": "செகண்டு கட் ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Double cut file",
+          "ta": "டபிள் கட் ஃபைல்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 59,
+      "q_en": "Which file is used for filing wood and leather?",
+      "q_ta": "மரம் மற்றும் தோலைத் தேய்க்க எந்த ஃபைல் பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Hand file",
+          "ta": "ஹேண்ட் ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Bastard file",
+          "ta": "பாஸ்டர்டு ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Rasp cut file",
+          "ta": "ராஸ்ப் கட் ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Single cut file",
+          "ta": "சிங்கிள் கட் ஃபைல்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 60,
+      "q_en": "Why the cutting faces of files are slightly bellied on length wise?",
+      "q_ta": "ஃபைல்களின் (file) வெட்டு முகப்பு பகுதி நீளவாக்கில் சற்று குவிந்திருப்பது ஏன்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Get proper grip over workpiece",
+          "ta": "பணிப்பொருளின் மீது சரியான பிடிப்பைப் பெற"
+        },
+        {
+          "opt": "B",
+          "en": "Filing flat surfaces is made easier",
+          "ta": "தேய்த்து சமதள பரப்புகளை எளிதில் உருவாக்க"
+        },
+        {
+          "opt": "C",
+          "en": "Permit clearance between file face and workpiece",
+          "ta": "ஃபைலின் முகப்பு மற்றும் பணிப்பொருளுக்கு இடையே இடைவெளிக்காக"
+        },
+        {
+          "opt": "D",
+          "en": "Ensure more pressure on workpiece while filing",
+          "ta": "பணிப்பொருள் மீது அதிக அழுத்தத்தை உறுதிப்படுத்த"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 61,
+      "q_en": "Which pitch of blade is used for cutting bronze, brass and cast iron?",
+      "q_ta": "எந்த பிட்ச் உள்ள பிளேடுகள் வெண்கலம், பித்தளை மற்றும் காஸ்ட் அயர்ன்களை வெட்டுவதற்கு பயன்படுகின்றன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "0.80 mm",
+          "ta": "0.80 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "1.00 mm",
+          "ta": "1.00 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "1.40 mm",
+          "ta": "1.40 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "1.80 mm",
+          "ta": "1.80 மி.மீ"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 62,
+      "q_en": "What happen if the clearance angle of chisel is too high?",
+      "q_ta": "சிசலில் (வெட்டுளியில்) கிளியரன்ஸ் கோணம் மிகவும் அதிகமானால் என்ன நிகழும்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Slipping of chisel",
+          "ta": "சிசல் வழுக்கும்"
+        },
+        {
+          "opt": "B",
+          "en": "Digging on the surface",
+          "ta": "மேற்பரப்பை ஆழமாக தோண்டும்"
+        },
+        {
+          "opt": "C",
+          "en": "Cutting edge will break",
+          "ta": "கட்டிங் எட்ஜ் உடையும்"
+        },
+        {
+          "opt": "D",
+          "en": "Heavy metal removal from the surface",
+          "ta": "மேற்பரப்பில் அதிகப்படியான உலோகத்தை வெளியேற்றும்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 63,
+      "q_en": "Which type of hammer is used for riveting purpose?",
+      "q_ta": "எந்த வகை சுத்தியல் ரிவெட்டிங் செய்ய பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Sledge hammer",
+          "ta": "ஸ்லெட்ஜ் சுத்தியல்"
+        },
+        {
+          "opt": "B",
+          "en": "Ball pein hammer",
+          "ta": "பால் பீன் சுத்தியல்"
+        },
+        {
+          "opt": "C",
+          "en": "Cross pein hammer",
+          "ta": "கிராஸ் பீன் சுத்தியல்"
+        },
+        {
+          "opt": "D",
+          "en": "Straight pein hammer",
+          "ta": "ஸ்ட்ரெய்ட் பீன் சுத்தியல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 64,
+      "q_en": "What is the unit of cutting speed in drilling operation?",
+      "q_ta": "துளையிடும் வேலையில் வெட்டும் வேகத்தின் (cutting speed) அலகு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "m/rev",
+          "ta": "மீ/சுற்று"
+        },
+        {
+          "opt": "B",
+          "en": "mm/rev",
+          "ta": "மி.மீ/சுற்று"
+        },
+        {
+          "opt": "C",
+          "en": "m/min",
+          "ta": "மீ/நிமிடம்"
+        },
+        {
+          "opt": "D",
+          "en": "mm/min",
+          "ta": "மி.மீ/நிமிடம்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 65,
+      "q_en": "What is the name of part marked as 'x' in drill?",
+      "q_ta": "டிரில்லில் 'X' குறியிட்டுள்ள பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Lip",
+          "ta": "லிப்"
+        },
+        {
+          "opt": "B",
+          "en": "Land",
+          "ta": "லேண்ட்"
+        },
+        {
+          "opt": "C",
+          "en": "Flank",
+          "ta": "பிளாங்க்"
+        },
+        {
+          "opt": "D",
+          "en": "Web",
+          "ta": "வெப்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "q65_clean.png"
+    },
+    {
+      "orig_id": 66,
+      "q_en": "What is the name of part marked as 'x' in drilling machine?",
+      "q_ta": "டிரில்லிங் மெஷினில் 'X' குறியிட்டுள்ள பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Drill chuck",
+          "ta": "டிரில் சக்"
+        },
+        {
+          "opt": "B",
+          "en": "Feed handle",
+          "ta": "ஃபீட் ஹேண்டில்"
+        },
+        {
+          "opt": "C",
+          "en": "Driving motor",
+          "ta": "டிரைவிங் மோட்டார்"
+        },
+        {
+          "opt": "D",
+          "en": "Depth gauge and stop",
+          "ta": "டெப்த் கேஜ் அண்ட் ஸ்டாப்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "q66_clean.png"
+    },
+    {
+      "orig_id": 67,
+      "q_en": "What is the minor diameter of thread?",
+      "q_ta": "மறையில் (திரெட்) மைனர் டயாமீட்டர் என்றால் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Minor dia = Major dia – (2 x pitch)",
+          "ta": "மைனர் டயா = மேஜர் டயா – (2 x பிட்ச்)"
+        },
+        {
+          "opt": "B",
+          "en": "Minor dia = Major dia + (2 x pitch)",
+          "ta": "மைனர் டயா = மேஜர் டயா + (2 x பிட்ச்)"
+        },
+        {
+          "opt": "C",
+          "en": "Minor dia = Major dia + (2 x depth)",
+          "ta": "மைனர் டயா = மேஜர் டயா + (2 x டெப்த்)"
+        },
+        {
+          "opt": "D",
+          "en": "Minor dia = Major dia – (2 x depth)",
+          "ta": "மைனர் டயா = மேஜர் டயா – (2 x டெப்த்)"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 68,
+      "q_en": "What is the name of the part marked as 'X'?",
+      "q_ta": "படத்தில் 'X' குறியிட்டுள்ள பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Spindle",
+          "ta": "ஸ்பிண்டில்"
+        },
+        {
+          "opt": "B",
+          "en": "Sleeve",
+          "ta": "சிலீவ்"
+        },
+        {
+          "opt": "C",
+          "en": "Thimble",
+          "ta": "திம்பிள்"
+        },
+        {
+          "opt": "D",
+          "en": "Spindle lock",
+          "ta": "ஸ்பிண்டில் லாக்"
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "q68_clean.png"
+    },
+    {
+      "orig_id": 69,
+      "q_en": "What is the reading of the outside micrometer 50 to 75mm?",
+      "q_ta": "50 to 75mm அளவுள்ள அவுட்சைட் மைக்ரோமீட்டர் காட்டும் அளவு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "63.63 mm",
+          "ta": "63.63 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "63.00 mm",
+          "ta": "63.00 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "63.36 mm",
+          "ta": "63.36 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "63.13 mm",
+          "ta": "63.13 மி.மீ"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "q69_clean.png"
+    },
+    {
+      "orig_id": 70,
+      "q_en": "What is the name of the part marked as 'X'?",
+      "q_ta": "படத்தில் 'X' குறியிட்டுள்ள பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Beam",
+          "ta": "பீம்"
+        },
+        {
+          "opt": "B",
+          "en": "Main scale",
+          "ta": "மெயின் ஸ்கேல்"
+        },
+        {
+          "opt": "C",
+          "en": "Fine adjusting nut",
+          "ta": "ஃபைன் அட்ஜஸ்டிங் நட்"
+        },
+        {
+          "opt": "D",
+          "en": "Fine adjusting slide",
+          "ta": "ஃபைன் அட்ஜஸ்டிங் ஸ்லைடு"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q70_clean.png"
+    },
+    {
+      "orig_id": 71,
+      "q_en": "What is the name of the vice?",
+      "q_ta": "படத்தில் கொடுக்கப்பட்ட வைஸின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Hand vice",
+          "ta": "ஹேண்ட் வைஸ்"
+        },
+        {
+          "opt": "B",
+          "en": "Bench vice",
+          "ta": "பெஞ்ச் வைஸ்"
+        },
+        {
+          "opt": "C",
+          "en": "Tool maker's vice",
+          "ta": "டூல் மேக்கர்ஸ் வைஸ்"
+        },
+        {
+          "opt": "D",
+          "en": "Quick releasing vice",
+          "ta": "குயிக் ரிலீசிங் வைஸ்"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q71_clean.png"
+    },
+    {
+      "orig_id": 72,
+      "q_en": "What is the name of the part marked as 'X'?",
+      "q_ta": "படத்தில் 'X' குறியிட்டுள்ள பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Tip",
+          "ta": "டிப்"
+        },
+        {
+          "opt": "B",
+          "en": "Heel",
+          "ta": "ஹீல்"
+        },
+        {
+          "opt": "C",
+          "en": "Tang",
+          "ta": "டாங்"
+        },
+        {
+          "opt": "D",
+          "en": "Safe edge",
+          "ta": "சேஃப் எட்ஜ்"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q72_clean.png"
+    },
+    {
+      "orig_id": 73,
+      "q_en": "What is the name of operation?",
+      "q_ta": "படத்தில் காட்டப்பட்டுள்ள செயல்பாட்டின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Marking line at 90°",
+          "ta": "90°-க்கு மார்க்கிங் செய்ய"
+        },
+        {
+          "opt": "B",
+          "en": "Checking flatness",
+          "ta": "பிளாட்னஸ் சரிபார்க்க"
+        },
+        {
+          "opt": "C",
+          "en": "Checking squareness",
+          "ta": "ஸ்கொயர்னஸ் சரிபார்க்க"
+        },
+        {
+          "opt": "D",
+          "en": "Setting work piece at right angle",
+          "ta": "பணிப்பொருளை செங்கோணத்தில் நிலைநிறுத்த"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q73_clean.png"
+    },
+    {
+      "orig_id": 74,
+      "q_en": "Which marking media is applied to rough forgings and castings?",
+      "q_ta": "ரஃப் ஃபோர்ஜிங் மற்றும் காஸ்டிங்கிற்கு எந்த மார்க்கிங் மீடியா பூசப்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "White wash",
+          "ta": "ஒயிட் வாஷ் (வெள்ளைப்பூச்சு)"
+        },
+        {
+          "opt": "B",
+          "en": "Prussian blue",
+          "ta": "பிரஷியன் ப்ளூ"
+        },
+        {
+          "opt": "C",
+          "en": "Copper sulphate",
+          "ta": "காப்பர் சல்பேட்"
+        },
+        {
+          "opt": "D",
+          "en": "Cellulose lacquer",
+          "ta": "செல்லுலோஸ் லேக்கர்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 75,
+      "q_en": "Which is used to finish the resharpened divider point?",
+      "q_ta": "டிவைடர் முனையை கூர்மைப்படுத்தி ஃபினிஷிங் செய்ய எது பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "File",
+          "ta": "ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Grinder",
+          "ta": "கிரைண்டர்"
+        },
+        {
+          "opt": "C",
+          "en": "Scraper",
+          "ta": "ஸ்கிராப்பர்"
+        },
+        {
+          "opt": "D",
+          "en": "Oil stone",
+          "ta": "ஆயில் ஸ்டோன்"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 76,
+      "q_en": "What is the use of bevel protractor?",
+      "q_ta": "பெவல் புரோட்ராக்டரின் பயன் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Check the length",
+          "ta": "நீளத்தை சரிபார்க்க"
+        },
+        {
+          "opt": "B",
+          "en": "Set the work piece",
+          "ta": "பணிப்பொருளை சரி செய்ய"
+        },
+        {
+          "opt": "C",
+          "en": "Measure the angle",
+          "ta": "கோணத்தை அளவிட"
+        },
+        {
+          "opt": "D",
+          "en": "Measure the depth",
+          "ta": "ஆழத்தை அளவிட"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 77,
+      "q_en": "Name the file shown.",
+      "q_ta": "படத்தில் கொடுக்கப்பட்ட ஃபைலின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Riffler file",
+          "ta": "ரிஃப்ளர் ஃபைல்"
+        },
+        {
+          "opt": "B",
+          "en": "Tinkers file",
+          "ta": "டிங்கர்ஸ் ஃபைல்"
+        },
+        {
+          "opt": "C",
+          "en": "Barrette file",
+          "ta": "பாரெட் ஃபைல்"
+        },
+        {
+          "opt": "D",
+          "en": "Crossing file",
+          "ta": "கிராஸிங் ஃபைல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q77_clean.png"
+    },
+    {
+      "orig_id": 78,
+      "q_en": "Which vice used for holding hollow cylindrical jobs?",
+      "q_ta": "உள்ளீடற்ற (ஹாலோ) உருளை பணிப்பொருளை பிடிக்க எந்த வைஸ் பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Pin vice",
+          "ta": "பின் வைஸ்"
+        },
+        {
+          "opt": "B",
+          "en": "Pipe vice",
+          "ta": "பைப் வைஸ்"
+        },
+        {
+          "opt": "C",
+          "en": "Hand vice",
+          "ta": "ஹேண்ட் வைஸ்"
+        },
+        {
+          "opt": "D",
+          "en": "Bench vice",
+          "ta": "பெஞ்ச் வைஸ்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 79,
+      "q_en": "What is the pitch of hacksaw blade used to cut conduit and other thin tubes?",
+      "q_ta": "கன்ட்யூட் குழாய் மற்றும் மெல்லிய டியூப்களை வெட்ட என்ன பிட்ச் கொண்ட ஹாக்சா பிளேடு பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "0.8 mm",
+          "ta": "0.8 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "1.0 mm",
+          "ta": "1.0 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "1.4 mm",
+          "ta": "1.4 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "1.8 mm",
+          "ta": "1.8 மி.மீ"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 80,
+      "q_en": "Which metal cutting saws is used for cutting different profiles?",
+      "q_ta": "வெவ்வேறு வடிவங்களை (profiles) வெட்டுவதற்கு எந்த உலோக கட்டிங் சா பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Power saw",
+          "ta": "பவர் சா"
+        },
+        {
+          "opt": "B",
+          "en": "Circular saw",
+          "ta": "சர்குலர் சா"
+        },
+        {
+          "opt": "C",
+          "en": "Contour band saw",
+          "ta": "கான்டூர் பேண்ட் சா"
+        },
+        {
+          "opt": "D",
+          "en": "Horizontal band saw",
+          "ta": "ஹரிசாண்டல் பேண்ட் சா"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 81,
+      "q_en": "What is the reason for scratches chips produced on filed surface?",
+      "q_ta": "ஃபைலிங் செய்த பரப்பில் கீறல் பிசிறுகள் உருவாக காரணம் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Pinning",
+          "ta": "பின்னிங்"
+        },
+        {
+          "opt": "B",
+          "en": "Glazing",
+          "ta": "கிளேஸிங்"
+        },
+        {
+          "opt": "C",
+          "en": "File bite",
+          "ta": "ஃபைல் பைட்"
+        },
+        {
+          "opt": "D",
+          "en": "Warping",
+          "ta": "வார்பிங்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 82,
+      "q_en": "What is the name of chisel?",
+      "q_ta": "படத்தில் கொடுக்கப்பட்ட சிசலின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Flat chisel",
+          "ta": "பிளாட் சிசல்"
+        },
+        {
+          "opt": "B",
+          "en": "Web chisel",
+          "ta": "வெப் சிசல்"
+        },
+        {
+          "opt": "C",
+          "en": "Cross cut chisel",
+          "ta": "கிராஸ் கட் சிசல்"
+        },
+        {
+          "opt": "D",
+          "en": "Diamond point chisel",
+          "ta": "டயமண்ட் பாயிண்ட் சிசல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q82_clean.png"
+    },
+    {
+      "orig_id": 83,
+      "q_en": "Why slight convexity is given on the face of hammer?",
+      "q_ta": "சுத்தியலின் முகப்பு பகுதியில் லேசான குவிந்த தன்மை கொடுக்கப்பட்டுள்ளது ஏன்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "To make effective striking",
+          "ta": "மிக சரியாக அடிப்பதற்கு"
+        },
+        {
+          "opt": "B",
+          "en": "To avoid digging of the edge",
+          "ta": "முனை பகுதி பதிந்து பள்ளம் ஏற்படுவதை தவிர்ப்பதற்கு"
+        },
+        {
+          "opt": "C",
+          "en": "To allow even load on striking",
+          "ta": "அடிக்கும் போது கொடுக்கப்பட்ட விசையை சமமாக செலுத்த"
+        },
+        {
+          "opt": "D",
+          "en": "To prevent damage to work surface",
+          "ta": "வேலையின் மேற்பரப்பில் சேதம் ஏற்படுவதை தவிர்ப்பதற்கு"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 84,
+      "q_en": "What is the name of hammer?",
+      "q_ta": "படத்தில் கொடுக்கப்பட்டுள்ள சுத்தியலின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Mallet hammer",
+          "ta": "மரச்சுத்தியல் (மாலெட்)"
+        },
+        {
+          "opt": "B",
+          "en": "Ball pein hammer",
+          "ta": "பால் பீன் சுத்தியல்"
+        },
+        {
+          "opt": "C",
+          "en": "Cross pein hammer",
+          "ta": "கிராஸ் பீன் சுத்தியல்"
+        },
+        {
+          "opt": "D",
+          "en": "Straight pein hammer",
+          "ta": "ஸ்ட்ரெய்ட் பீன் சுத்தியல்"
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "q84_clean.png"
+    },
+    {
+      "orig_id": 85,
+      "q_en": "What is the name of angle between the axis of chisel and job surface while chipping?",
+      "q_ta": "வேலையின் மேற்பரப்பை சிப்பிங் செய்யும் போது சிசலின் அச்சுக்கும் வேலையின் மேற்பரப்பிற்கும் இடையே உள்ள கோணத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Rake angle",
+          "ta": "ரேக் ஆங்கிள்"
+        },
+        {
+          "opt": "B",
+          "en": "Point angle",
+          "ta": "பாயிண்ட் ஆங்கிள்"
+        },
+        {
+          "opt": "C",
+          "en": "Clearance angle",
+          "ta": "கிளியரன்ஸ் ஆங்கிள்"
+        },
+        {
+          "opt": "D",
+          "en": "Angle of inclination",
+          "ta": "ஆங்கிள் ஆஃப் இன்கிளினேஷன் (சாய்வு கோணம்)"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 86,
+      "q_en": "What is the property of metal that permits no permanent distortion before breaking?",
+      "q_ta": "உலோகம் உடைவதற்கு முன்னால் நிரந்தர உருக்குலைவு ஆகாத நிலையில் எந்த குணம் பெற்றிருக்கும்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Tenacity",
+          "ta": "தெனாசிட்டி"
+        },
+        {
+          "opt": "B",
+          "en": "Hardness",
+          "ta": "ஹார்ட்னஸ்"
+        },
+        {
+          "opt": "C",
+          "en": "Brittleness",
+          "ta": "பிரிட்டல்னஸ் (நொறுங்கும் தன்மை)"
+        },
+        {
+          "opt": "D",
+          "en": "Toughness",
+          "ta": "டஃப்னஸ்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 87,
+      "q_en": "Name the part marked as ‘x’ in depth micrometer.",
+      "q_ta": "டெப்த் மைக்ரோமீட்டரில் \"X\" எனக் குறிப்பிடப்பட்ட பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Cap",
+          "ta": "கேப்"
+        },
+        {
+          "opt": "B",
+          "en": "Lock",
+          "ta": "லாக்"
+        },
+        {
+          "opt": "C",
+          "en": "Stock",
+          "ta": "ஸ்டாக்"
+        },
+        {
+          "opt": "D",
+          "en": "Thimble",
+          "ta": "திம்பிள்"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q87_clean.png"
+    },
+    {
+      "orig_id": 88,
+      "q_en": "Why the hand taps are chamfered at the lead?",
+      "q_ta": "ஹேண்ட் டேப்பின் லீட் பாகம் சரிவு (சாம்ஃபர்) செய்யப்பட்டுள்ளது ஏன்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Aligning",
+          "ta": "அலைன் செய்வதற்கு"
+        },
+        {
+          "opt": "B",
+          "en": "Finishing",
+          "ta": "ஃபினிஷிங் செய்வதற்கு"
+        },
+        {
+          "opt": "C",
+          "en": "Strengthening",
+          "ta": "பலப்படுத்துவதற்கு"
+        },
+        {
+          "opt": "D",
+          "en": "Gripping",
+          "ta": "கிரிப்பிங்கிற்கு"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 89,
+      "q_en": "What is the name of drilling machine?",
+      "q_ta": "படத்தில் உள்ள துளையிடும் இயந்திரத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Pillar drilling machine",
+          "ta": "பில்லர் டிரில்லிங் மெஷின்"
+        },
+        {
+          "opt": "B",
+          "en": "Gang drilling machine",
+          "ta": "கேங் டிரில்லிங் மெஷின்"
+        },
+        {
+          "opt": "C",
+          "en": "Bench drilling machine",
+          "ta": "பெஞ்ச் டிரில்லிங் மெஷின்"
+        },
+        {
+          "opt": "D",
+          "en": "Radial drilling machine",
+          "ta": "ரேடியல் டிரில்லிங் மெஷின்"
+        }
+      ],
+      "ans": "A",
+      "has_img": true,
+      "img_file": "q89_clean.png"
+    },
+    {
+      "orig_id": 90,
+      "q_en": "What is the reading of an outside micrometer (British)?",
+      "q_ta": "பிரிட்டிஷ் அவுட்சைட் மைக்ரோமீட்டரின் அளவு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "0.309\"",
+          "ta": "0.309\""
+        },
+        {
+          "opt": "B",
+          "en": "0.329\"",
+          "ta": "0.329\""
+        },
+        {
+          "opt": "C",
+          "en": "0.359\"",
+          "ta": "0.359\""
+        },
+        {
+          "opt": "D",
+          "en": "0.360\"",
+          "ta": "0.360\""
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "q90_clean.png"
+    },
+    {
+      "orig_id": 91,
+      "q_en": "What is the accuracy of Vernier bevel protractor?",
+      "q_ta": "வெர்னியர் பெவல் புரோட்ராக்டரின் துல்லியத்தன்மை (Accuracy) என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "1°",
+          "ta": "1°"
+        },
+        {
+          "opt": "B",
+          "en": "5°",
+          "ta": "5°"
+        },
+        {
+          "opt": "C",
+          "en": "5'",
+          "ta": "5' (5 நிமிடங்கள்)"
+        },
+        {
+          "opt": "D",
+          "en": "5\"",
+          "ta": "5\" (5 வினாடிகள்)"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 92,
+      "q_en": "What is the reading of vernier caliper?",
+      "q_ta": "படத்தில் கொடுக்கப்பட்ட வெர்னியர் காலிப்பரின் அளவு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "30.20 mm",
+          "ta": "30.20 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "30.40 mm",
+          "ta": "30.40 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "35.20 mm",
+          "ta": "35.20 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "35.50 mm",
+          "ta": "35.50 மி.மீ"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q92_clean.png"
+    },
+    {
+      "orig_id": 93,
+      "q_en": "Why surface plates are made of stress relieved good quality cast iron?",
+      "q_ta": "நல்ல தரமான வார்ப்பு இரும்பினால் சர்பேஸ் பிளேட் செய்யப்படுவது ஏன்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "To prevent corrosion",
+          "ta": "துருப்பிடிப்பதை தடுக்க"
+        },
+        {
+          "opt": "B",
+          "en": "To prevent breaking",
+          "ta": "உடைவதை தடுக்க"
+        },
+        {
+          "opt": "C",
+          "en": "To prevent distortion",
+          "ta": "உருக்குலைவதை தடுக்க"
+        },
+        {
+          "opt": "D",
+          "en": "To prevent thermal expansion",
+          "ta": "வெப்ப விரிவடைவதை தடுக்க"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 94,
+      "q_en": "What is the main advantage of adjustable parallel block?",
+      "q_ta": "அட்ஜஸ்டபிள் பேரலல் பிளாக்கின் முக்கியமான நன்மை என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "To set different angle",
+          "ta": "பலவித கோணங்களில் அமைப்பதற்கு"
+        },
+        {
+          "opt": "B",
+          "en": "To set different depth",
+          "ta": "பலவித ஆழத்தில் அமைப்பதற்கு"
+        },
+        {
+          "opt": "C",
+          "en": "To set different length",
+          "ta": "பலவித நீளத்தில் அமைப்பதற்கு"
+        },
+        {
+          "opt": "D",
+          "en": "To set different height",
+          "ta": "பலவித உயரத்தில் அமைப்பதற்கு"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 95,
+      "q_en": "Which part of universal surface gauge is used to set scriber at required position exactly?",
+      "q_ta": "யுனிவர்சல் சர்பேஸ் கேஜில் ஸ்கிரைபரை சரியான நிலையில் நிறுத்துவதற்கு எந்த பாகம் பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Snug",
+          "ta": "ஸ்னக்"
+        },
+        {
+          "opt": "B",
+          "en": "Guide pin",
+          "ta": "கைடு பின்"
+        },
+        {
+          "opt": "C",
+          "en": "Rocker arm",
+          "ta": "ராக்கர் ஆர்ம்"
+        },
+        {
+          "opt": "D",
+          "en": "Fine adjustment screw",
+          "ta": "ஃபைன் அட்ஜஸ்டிங் ஸ்க்ரூ"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 96,
+      "q_en": "Convert one metre into millimetre.",
+      "q_ta": "ஒரு மீட்டரை மில்லிமீட்டராக மாற்றுக.",
+      "options": [
+        {
+          "opt": "A",
+          "en": "10 mm",
+          "ta": "10 மி.மீ"
+        },
+        {
+          "opt": "B",
+          "en": "100 mm",
+          "ta": "100 மி.மீ"
+        },
+        {
+          "opt": "C",
+          "en": "1000 mm",
+          "ta": "1000 மி.மீ"
+        },
+        {
+          "opt": "D",
+          "en": "10000 mm",
+          "ta": "10000 மி.மீ"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 97,
+      "q_en": "What is the name of ‘V’ block?",
+      "q_ta": "படத்தில் உள்ள 'V' பிளாக்கின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "‘V’ grooved ‘V’ block",
+          "ta": "'V' குரூவ்டு 'V' பிளாக்"
+        },
+        {
+          "opt": "B",
+          "en": "Single level single groove ‘V’ block",
+          "ta": "சிங்கிள் லெவல் சிங்கிள் குரூவ் 'V' பிளாக்"
+        },
+        {
+          "opt": "C",
+          "en": "Double level single groove ‘V’ block",
+          "ta": "டபுள் லெவல் சிங்கிள் குரூவ் 'V' பிளாக்"
+        },
+        {
+          "opt": "D",
+          "en": "Single level double groove ‘V’ block",
+          "ta": "சிங்கிள் லெவல் டபுள் குரூவ் 'V' பிளாக்"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q97_clean.png"
+    },
+    {
+      "orig_id": 98,
+      "q_en": "What is the name of the part marked as ‘x’ in combination set?",
+      "q_ta": "காம்பினேஷன் செட்டில் 'X' குறிக்கப்பட்ட பாகத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Rule",
+          "ta": "ரூல்"
+        },
+        {
+          "opt": "B",
+          "en": "Scriber",
+          "ta": "ஸ்கிரைபர்"
+        },
+        {
+          "opt": "C",
+          "en": "Clamp nut",
+          "ta": "கிளாம்ப் நட்"
+        },
+        {
+          "opt": "D",
+          "en": "Spirit level",
+          "ta": "ஸ்பிரிட் லெவல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q98_clean.png"
+    },
+    {
+      "orig_id": 99,
+      "q_en": "Which caliper is used to find the centre of round bars?",
+      "q_ta": "உருளையின் மையத்தை கண்டுபிடிக்க எந்த வகை காலிப்பர் பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Inside caliper",
+          "ta": "இன்சைடு காலிப்பர்"
+        },
+        {
+          "opt": "B",
+          "en": "Jenny caliper",
+          "ta": "ஜென்னி காலிப்பர்"
+        },
+        {
+          "opt": "C",
+          "en": "Vernier caliper",
+          "ta": "வெர்னியர் காலிப்பர்"
+        },
+        {
+          "opt": "D",
+          "en": "Outside caliper",
+          "ta": "அவுட்சைடு காலிப்பர்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 100,
+      "q_en": "What is the name of angle marked ‘α’ (alpha) in chisel?",
+      "q_ta": "சிசலில் 'α' எனக் குறிக்கப்பட்ட கோணத்தின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Rake angle",
+          "ta": "ரேக் ஆங்கிள்"
+        },
+        {
+          "opt": "B",
+          "en": "Wedge angle",
+          "ta": "வெட்ஜ் ஆங்கிள்"
+        },
+        {
+          "opt": "C",
+          "en": "Cutting angle",
+          "ta": "கட்டிங் ஆங்கிள்"
+        },
+        {
+          "opt": "D",
+          "en": "Clearance angle",
+          "ta": "கிளியரன்ஸ் ஆங்கிள்"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q100_clean.png"
+    },
+    {
+      "orig_id": 101,
+      "global_id": 101,
+      "module": "Safety and Fitting",
+      "subheading": "Unit 1: Measurements",
+      "q_en": "What is the accuracy of an engineer steel rule?",
+      "q_ta": "பொறியியல் எஃகு அளவுகோலின் துல்லியம் என்ன?",
+      "options": [],
+      "ans": "",
+      "has_img": false,
+      "img_file": null,
+      "is_manual": true
+    },
+    {
+      "orig_id": 102,
+      "global_id": 102,
+      "module": "Safety and Fitting",
+      "subheading": "Unit 1: Measurements",
+      "q_en": "What is the accuracy of an engineer steel rule?",
+      "q_ta": "பொறியியல் எஃகு அளவுகோலின் துல்லியம் என்ன?",
+      "options": [],
+      "ans": "",
+      "has_img": false,
+      "img_file": null,
+      "is_manual": true
+    }
+  ],
+  "modules": [
+    "Safety and Fitting"
+  ]
+}

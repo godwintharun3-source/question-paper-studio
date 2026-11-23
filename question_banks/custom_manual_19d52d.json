@@ -1,0 +1,24 @@
+{
+  "module_id": "custom_manual_19d52d",
+  "module_name": "Manual Question Bank",
+  "trade": "Custom Trade",
+  "modules": [
+    "General",
+    "Workshop Theory"
+  ],
+  "questions": [
+    {
+      "orig_id": 1,
+      "global_id": 1,
+      "module": "Workshop Theory",
+      "subheading": "Level 2",
+      "q_en": "State two safety precautions to be followed while chipping.",
+      "q_ta": "சிப்பிங் செய்யும் போது பின்பற்ற வேண்டிய இரண்டு பாதுகாப்பு முன்னெச்சரிக்கைகளைக் கூறுக.",
+      "options": [],
+      "ans": "",
+      "has_img": false,
+      "img_file": null,
+      "is_manual": true
+    }
+  ]
+}

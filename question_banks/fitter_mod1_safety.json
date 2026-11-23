@@ -1,0 +1,592 @@
+{
+  "module_id": "mod1",
+  "module_name": "Module 1 - Safety",
+  "trade": "Fitter 1st Sem - NSQF",
+  "questions": [
+    {
+      "orig_id": 1,
+      "q_en": "Which one is the personal safety?",
+      "q_ta": "எது ஒன்று தனி நபர் பாதுகாப்பு?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Keep the machine clean",
+          "ta": "இயந்திரங்களை சுத்தமாக வைத்திருத்தல்"
+        },
+        {
+          "opt": "B",
+          "en": "Concentrate on your work",
+          "ta": "வேலையில் கவனம் செலுத்துதல்"
+        },
+        {
+          "opt": "C",
+          "en": "Keep the gang way and floor clean",
+          "ta": "தரை மற்றும் வழிப்பாதை சுத்தமாக வைத்திருத்தல்"
+        },
+        {
+          "opt": "D",
+          "en": "Keep the tools at their proper place",
+          "ta": "இக்கருவிகளை உரிய இடங்களில் வைத்து பாதுகாத்தல்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 2,
+      "q_en": "Name the mandatory symbol.",
+      "q_ta": "படத்தில் காட்டப்பட்டுள்ள குறியீடு ஆணையின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Stop",
+          "ta": "நிறுத்தம்"
+        },
+        {
+          "opt": "B",
+          "en": "Give way",
+          "ta": "வழி கொடு"
+        },
+        {
+          "opt": "C",
+          "en": "Guarded",
+          "ta": "பாதுகாக்கப்பட்டது"
+        },
+        {
+          "opt": "D",
+          "en": "Unguarded",
+          "ta": "பாதுகாப்பு இல்லை"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q02_symbol.png"
+    },
+    {
+      "orig_id": 3,
+      "q_en": "Flammable of liquifiable solids are classified as:",
+      "q_ta": "எரியக்கூடிய திரவநிலையாக மாறும் திடப்பொருளை இவ்வாறாக வகைப்படுத்தலாம்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Class 'A' fire",
+          "ta": "'A' வகை தீ"
+        },
+        {
+          "opt": "B",
+          "en": "Class 'B' fire",
+          "ta": "'B' வகை தீ"
+        },
+        {
+          "opt": "C",
+          "en": "Class 'C' fire",
+          "ta": "'C' வகை தீ"
+        },
+        {
+          "opt": "D",
+          "en": "Class 'D' fire",
+          "ta": "'D' வகை தீ"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 4,
+      "q_en": "Which is the immediate life saving procedure?",
+      "q_ta": "எந்த ஒன்று உடனடியாக வாழ்வை பாதுகாக்கும் நடவடிக்கை (செயல்பாடு) ஆகும்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "First Aid",
+          "ta": "முதலுதவி"
+        },
+        {
+          "opt": "B",
+          "en": "Call a doctor",
+          "ta": "மருத்துவரை அழைத்தல்"
+        },
+        {
+          "opt": "C",
+          "en": "Intensive care",
+          "ta": "தீவிர சிகிச்சை அளித்தல்"
+        },
+        {
+          "opt": "D",
+          "en": "Medical treatment",
+          "ta": "மருத்துவ சிகிச்சை"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 5,
+      "q_en": "Name the warning sign.",
+      "q_ta": "படத்தில் காட்டப்பட்டுள்ள எச்சரிக்கை குறியீட்டின் பெயர் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "School",
+          "ta": "பள்ளிக்கூடம்"
+        },
+        {
+          "opt": "B",
+          "en": "Guarded",
+          "ta": "பாதுகாப்பு"
+        },
+        {
+          "opt": "C",
+          "en": "Unguarded",
+          "ta": "பாதுகாப்பு இல்லை"
+        },
+        {
+          "opt": "D",
+          "en": "Pedestrian crossing",
+          "ta": "பாதசாரிகள் கடக்கும் இடம்"
+        }
+      ],
+      "ans": "C",
+      "has_img": true,
+      "img_file": "q05_symbol.png"
+    },
+    {
+      "orig_id": 6,
+      "q_en": "What is the class of fire caused by fire wood, paper, cloth?",
+      "q_ta": "மரம், காகிதம், துணி முதலியவைகளால் ஏற்படும் தீ எந்த வகை தீயைச் சார்ந்தது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Class 'A' fire",
+          "ta": "'A' வகை தீ"
+        },
+        {
+          "opt": "B",
+          "en": "Class 'B' fire",
+          "ta": "'B' வகை தீ"
+        },
+        {
+          "opt": "C",
+          "en": "Class 'C' fire",
+          "ta": "'C' வகை தீ"
+        },
+        {
+          "opt": "D",
+          "en": "Class 'D' fire",
+          "ta": "'D' வகை தீ"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 7,
+      "q_en": "Which fire extinguisher filled with carbon tetra chloride and bromochlorodifluoro methane (BCF)?",
+      "q_ta": "எந்த வகை தீயணைப்பானில் கார்பன் டெட்ரா குளோரைடு மற்றும் புரோமோ குளோரோ புளோரோ மீத்தேன் (BCF) நிரப்பப்பட்டிருக்கும்?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Carbon dioxide",
+          "ta": "கார்பன்-டை-ஆக்சைடு"
+        },
+        {
+          "opt": "B",
+          "en": "Halon extinguisher",
+          "ta": "ஹாலான் தீயணைப்பான்"
+        },
+        {
+          "opt": "C",
+          "en": "Foam extinguisher",
+          "ta": "நுரைவகை தீயணைப்பான்"
+        },
+        {
+          "opt": "D",
+          "en": "Dry powder extinguisher",
+          "ta": "உலர்பவுடர் வகை தீயணைப்பான்"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 8,
+      "q_en": "Which comes under mechanical occupational hazards?",
+      "q_ta": "எது ஒன்று இயந்திரங்களின் இயந்திரமுறை (மெக்கானிக்கல்) தீங்கு என்று குறிப்பிடப்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Noise",
+          "ta": "சத்தம் (இரைச்சல்)"
+        },
+        {
+          "opt": "B",
+          "en": "Toxic",
+          "ta": "நச்சுத்தன்மை"
+        },
+        {
+          "opt": "C",
+          "en": "Unskilled",
+          "ta": "திறமையில்லாத பணியாளர்கள்"
+        },
+        {
+          "opt": "D",
+          "en": "Unguarded machinery",
+          "ta": "பாதுகாப்பற்ற இயந்திரங்கள்"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 9,
+      "q_en": "How to stop bleeding of injured person?",
+      "q_ta": "காயப்பட்டவருடைய இரத்தப்போக்கு ஏற்படுவதை எப்படி நிறுத்துவது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Tie bandage",
+          "ta": "இறுக்கமாக கட்டு கட்டுவதால்"
+        },
+        {
+          "opt": "B",
+          "en": "Apply ointment",
+          "ta": "மருந்து தடவுவதால்"
+        },
+        {
+          "opt": "C",
+          "en": "Apply tincture over the wound",
+          "ta": "காயத்தின் மேல் டிங்சர் தடவுவதால்"
+        },
+        {
+          "opt": "D",
+          "en": "Apply pressure over the wound",
+          "ta": "காயத்தின் மேல் அழுத்தம் கொடுப்பதால்"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    },
+    {
+      "orig_id": 10,
+      "q_en": "What is the name of sign?",
+      "q_ta": "படத்தில் காட்டப்பட்டுள்ள குறியீடு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "School",
+          "ta": "பள்ளிக்கூடம்"
+        },
+        {
+          "opt": "B",
+          "en": "Guarded",
+          "ta": "பாதுகாப்பு"
+        },
+        {
+          "opt": "C",
+          "en": "Unguarded",
+          "ta": "பாதுகாப்பு இல்லை"
+        },
+        {
+          "opt": "D",
+          "en": "Pedestrian crossing",
+          "ta": "பாதசாரிகள் கடந்து செல்லும் இடம்"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q10_symbol.png"
+    },
+    {
+      "orig_id": 11,
+      "q_en": "What are the three factors causes fire?",
+      "q_ta": "தீ ஏற்பட முதன்மையான மூன்று காரணிகள் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Fuel, Heat, Oxygen",
+          "ta": "எரிபொருள், வெப்பம், ஆக்சிஜன்"
+        },
+        {
+          "opt": "B",
+          "en": "Oxygen, Fuel, Nitrogen",
+          "ta": "ஆக்சிஜன், எரிபொருள், நைட்ரஜன்"
+        },
+        {
+          "opt": "C",
+          "en": "Heat, Nitrogen, Oxygen",
+          "ta": "வெப்பம், நைட்ரஜன், ஆக்சிஜன்"
+        },
+        {
+          "opt": "D",
+          "en": "Fuel, Carbon-dioxide, Heat",
+          "ta": "எரிபொருள், கார்பன்-டை-ஆக்சைடு, வெப்பம்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 12,
+      "q_en": "What is the period referred as 'golden hours'?",
+      "q_ta": "'தங்கமான நேரம்' என்பது எதைக் குறிப்பிடுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "First 30 minutes after incident",
+          "ta": "சம்பவம் நடந்த பின் உள்ள 30 நிமிடங்கள்"
+        },
+        {
+          "opt": "B",
+          "en": "First 30 minutes",
+          "ta": "முதல் 30 நிமிடங்கள்"
+        },
+        {
+          "opt": "C",
+          "en": "First 45 minutes of admission",
+          "ta": "அனுமதிப்பதற்கு முன் 45 நிமிடங்கள்"
+        },
+        {
+          "opt": "D",
+          "en": "First 60 minutes after treatment",
+          "ta": "மருத்துவத்திற்கு பிறகு முதல் 60 நிமிடங்கள்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 13,
+      "q_en": "What is the first step of avoiding accident in work place?",
+      "q_ta": "பணி செய்யுமிடங்களில் விபத்து நேராமல் தடுப்பதற்கான முதல் படி எது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "By wearing safety equipment",
+          "ta": "பாதுகாப்பு சாதனங்கள் அணிதல்"
+        },
+        {
+          "opt": "B",
+          "en": "Doing things in one’s own way",
+          "ta": "ஒருவரின் சொந்த வழியில் செய்வது"
+        },
+        {
+          "opt": "C",
+          "en": "By observing safety precautions",
+          "ta": "பாதுகாப்பு முன்னெச்சரிக்கை மேற்கொள்வது"
+        },
+        {
+          "opt": "D",
+          "en": "Doing things with a highly skilled working practice",
+          "ta": "திறமையான உயர்வகை பணி மேற்கொள்வது"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 14,
+      "q_en": "What does the symbol denotes?",
+      "q_ta": "படத்தில் உள்ள குறியீடு உணர்த்துவது என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Stop",
+          "ta": "நில் (stop)"
+        },
+        {
+          "opt": "B",
+          "en": "Give way",
+          "ta": "வழி விடு"
+        },
+        {
+          "opt": "C",
+          "en": "Pedestrian crossing",
+          "ta": "பாதசாரிகள் கடக்கும் இடம்"
+        },
+        {
+          "opt": "D",
+          "en": "Over taking prohibited",
+          "ta": "முந்தி செல்வது தடை செய்யப்பட்டுள்ளது"
+        }
+      ],
+      "ans": "B",
+      "has_img": true,
+      "img_file": "q14_symbol.png"
+    },
+    {
+      "orig_id": 15,
+      "q_en": "What is the colour code of bins for waste paper segregation?",
+      "q_ta": "தேவையற்ற காகித தாள்களை சேகரிப்பதற்கான குப்பை கூடையின் நிறம் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Red",
+          "ta": "சிவப்பு"
+        },
+        {
+          "opt": "B",
+          "en": "Blue",
+          "ta": "நீலம்"
+        },
+        {
+          "opt": "C",
+          "en": "Black",
+          "ta": "கருப்பு"
+        },
+        {
+          "opt": "D",
+          "en": "Green",
+          "ta": "பச்சை"
+        }
+      ],
+      "ans": "B",
+      "has_img": false
+    },
+    {
+      "orig_id": 16,
+      "q_en": "What is the kind of road sign?",
+      "q_ta": "படத்தில் குறிப்பிட்டுள்ள சாலை குறியீடு என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Police signal",
+          "ta": "காவல்துறையின் குறியீடு"
+        },
+        {
+          "opt": "B",
+          "en": "Cautionary sign",
+          "ta": "எச்சரிக்கை குறியீடு"
+        },
+        {
+          "opt": "C",
+          "en": "Mandatory sign",
+          "ta": "கட்டாய ஆணை குறியீடு"
+        },
+        {
+          "opt": "D",
+          "en": "Information sign",
+          "ta": "தகவல் குறியீடு"
+        }
+      ],
+      "ans": "D",
+      "has_img": true,
+      "img_file": "q16_symbol.png"
+    },
+    {
+      "orig_id": 17,
+      "q_en": "Which fire extinguisher is used for flammable and running liquid fire?",
+      "q_ta": "எந்த வகை தீயணைப்பான் தொடர்ந்து எரியக்கூடிய திரவ வகை தீயினை அணைக்கப் பயன்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Foam extinguisher",
+          "ta": "நுரை வகை தீயணைப்பான்"
+        },
+        {
+          "opt": "B",
+          "en": "Halon extinguisher",
+          "ta": "ஹாலான் வகை தீயணைப்பான்"
+        },
+        {
+          "opt": "C",
+          "en": "Dry powder extinguisher",
+          "ta": "உலர்பவுடர் வகை தீயணைப்பான்"
+        },
+        {
+          "opt": "D",
+          "en": "Carbon dioxide (CO2) extinguisher",
+          "ta": "கார்பன்-டை-ஆக்சைடு (CO2) வகை தீயணைப்பான்"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 18,
+      "q_en": "What 'A' denotes in ABC of first aid?",
+      "q_ta": "முதலுதவியில் 'ABC'யில் 'A' எழுத்து எதைக் குறிக்கிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Air way",
+          "ta": "ஏர்வே (சுவாச வழி)"
+        },
+        {
+          "opt": "B",
+          "en": "Attention",
+          "ta": "கவனம் (அட்டென்சன்)"
+        },
+        {
+          "opt": "C",
+          "en": "Arresting",
+          "ta": "நிறுத்துதல் (அரெஸ்டிங்)"
+        },
+        {
+          "opt": "D",
+          "en": "Atmosphere",
+          "ta": "அட்மாஸ்பியர் (கால சூழ்நிலை)"
+        }
+      ],
+      "ans": "A",
+      "has_img": false
+    },
+    {
+      "orig_id": 19,
+      "q_en": "What is the process of breaking down the materials into organic compounds and can be used as manure?",
+      "q_ta": "கழிவுப் பொருட்களிலிருந்து ஆர்கானிக் பொருட்கள் (உரங்கள்) தயாரிக்க எந்த முறை கையாளப்படுகிறது?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Land fills",
+          "ta": "குழிவெட்டி நிரப்புதல்"
+        },
+        {
+          "opt": "B",
+          "en": "Recycling",
+          "ta": "மறுசுழற்சி முறை"
+        },
+        {
+          "opt": "C",
+          "en": "Composting",
+          "ta": "மக்கவைத்து உரமாக்குதல்"
+        },
+        {
+          "opt": "D",
+          "en": "Burning waste material",
+          "ta": "வேஸ்ட் பொருட்களை எரிப்பதனால்"
+        }
+      ],
+      "ans": "C",
+      "has_img": false
+    },
+    {
+      "orig_id": 20,
+      "q_en": "What is the colour code for plastic waste bin?",
+      "q_ta": "பிளாஸ்டிக் கழிவு குப்பை கூடையின் நிறம் என்ன?",
+      "options": [
+        {
+          "opt": "A",
+          "en": "Red",
+          "ta": "சிவப்பு"
+        },
+        {
+          "opt": "B",
+          "en": "Blue",
+          "ta": "நீலம்"
+        },
+        {
+          "opt": "C",
+          "en": "Green",
+          "ta": "பச்சை"
+        },
+        {
+          "opt": "D",
+          "en": "Yellow",
+          "ta": "மஞ்சள்"
+        }
+      ],
+      "ans": "D",
+      "has_img": false
+    }
+  ]
+}

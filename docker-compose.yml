@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  question-paper-studio:
+    build: .
+    container_name: question_paper_studio
+    ports:
+      - "5050:5050"
+    environment:
+      - PORT=5050
+    volumes:
+      - ./uploads:/app/uploads
+      - ./exports:/app/exports
+      - ./question_banks:/app/question_banks
+    restart: unless-stopped

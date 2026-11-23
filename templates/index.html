@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QP Studio">
+  <meta name="theme-color" content="#312e81">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/static/icons/icon-192.png">
+  <title>Question Paper Studio - ITI Trade Exams</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .page-preview-container {
+      background: #525659;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .preview-frame {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+      background: white;
+      transition: transform 0.2s ease;
+    }
+    /* Hide scrollbars for cleaner look */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 h-screen flex flex-col overflow-hidden">
+
+  <!-- Top App Bar -->
+  <header class="bg-indigo-900 text-white shadow-md z-30 flex-shrink-0">
+    <div class="w-full px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center space-x-2 sm:space-x-3 min-w-0">
+        <button id="btn-mobile-sidebar-toggle" class="md:hidden p-1.5 rounded-lg bg-indigo-800 hover:bg-indigo-700 text-white focus:outline-none transition" title="Open Controls">
+          <i class="fa-solid fa-bars text-sm"></i>
+        </button>
+        <div class="bg-indigo-700 p-1.5 sm:p-2 rounded-lg flex-shrink-0">
+          <i class="fa-solid fa-file-lines text-lg sm:text-2xl text-yellow-400"></i>
+        </div>
+        <div class="min-w-0">
+          <h1 class="text-sm sm:text-base md:text-lg font-bold tracking-tight truncate">Question Paper Studio</h1>
+          <p class="text-[10px] sm:text-xs text-indigo-200 hidden md:block truncate">ITI Trade Exam Generator • Multi-Page Auto-Fitting • PDF & DOCX</p>
+        </div>
+      </div>
+      <div class="flex items-center flex-wrap gap-1 sm:gap-2 flex-shrink-0">
+        <button id="btn-install-app" class="hidden inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-indigo-700 hover:bg-indigo-600 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm border border-indigo-400 transition" title="Install App on Phone / Desktop">
+          <i class="fa-solid fa-mobile-screen-button sm:mr-1.5 text-yellow-300"></i> <span class="hidden sm:inline">Install App</span><span class="sm:hidden">Install</span>
+        </button>
+        <button id="btn-open-manual-create" class="inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm transition">
+          <i class="fa-solid fa-plus sm:mr-1.5"></i> <span class="hidden sm:inline">Add Question</span><span class="sm:hidden">Add</span>
+        </button>
+        <button id="btn-open-format-modal" class="inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm transition">
+          <i class="fa-solid fa-shapes sm:mr-1.5"></i> <span class="hidden sm:inline">Paper Format</span><span class="sm:hidden">Format</span>
+        </button>
+        <button id="btn-open-google-form" class="inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm transition">
+          <i class="fa-brands fa-google sm:mr-1.5"></i> <span class="hidden sm:inline">Google Form</span><span class="sm:hidden">Form</span>
+        </button>
+        <button id="btn-export-pdf" class="inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm transition">
+          <i class="fa-solid fa-file-pdf sm:mr-1.5"></i> <span>PDF</span>
+        </button>
+        <button id="btn-export-docx" class="inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm transition">
+          <i class="fa-solid fa-file-word sm:mr-1.5"></i> <span>DOCX</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="flex-1 flex overflow-hidden w-full relative">
+    
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden transition-opacity duration-300"></div>
+
+    <!-- Left Configuration Sidebar -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 z-40 w-[85vw] max-w-sm bg-white border-r border-gray-200 flex flex-col h-full overflow-y-auto p-3.5 space-y-3.5 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:w-96 lg:w-[410px] md:shadow-sm md:z-20 md:flex-shrink-0">
+      
+      <!-- Mobile Sidebar Top Close Bar -->
+      <div class="flex items-center justify-between pb-2 border-b border-gray-200 md:hidden">
+        <span class="font-bold text-sm text-gray-800 flex items-center">
+          <i class="fa-solid fa-sliders text-indigo-600 mr-2"></i> Paper Settings & Range
+        </span>
+        <button id="btn-close-sidebar-mobile" class="p-1.5 text-gray-400 hover:text-gray-700 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      
+      <!-- 1. Question Source & Range -->
+      <div class="bg-gray-50/70 rounded-xl border border-gray-200 p-3.5">
+        <h2 class="text-xs font-bold text-gray-900 uppercase tracking-wider mb-2.5 flex items-center">
+          <i class="fa-solid fa-database text-indigo-600 mr-2"></i> 1. Question Bank & Range
+        </h2>
+        
+        <div class="space-y-2.5 text-xs">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-semibold text-gray-700">Module / Question Bank</label>
+              <div class="flex items-center space-x-1.5">
+                <button type="button" id="btn-quick-manual" class="text-xs text-emerald-600 hover:text-emerald-800 font-bold flex items-center">
+                  <i class="fa-solid fa-plus-circle mr-1"></i> + Manual
+                </button>
+                <button type="button" id="btn-open-upload" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold flex items-center">
+                  <i class="fa-solid fa-cloud-arrow-up mr-1"></i> + QB PDF
+                </button>
+                <button type="button" id="btn-open-book-modal" class="text-xs text-amber-700 hover:text-amber-900 font-bold flex items-center bg-amber-50 px-1.5 py-0.5 rounded border border-amber-300 transition" title="Generate Question Paper from raw Subject Textbook PDF">
+                  <i class="fa-solid fa-book-open mr-1"></i> + Subject Book
+                </button>
+              </div>
+            </div>
+            <select id="bank-select" class="w-full rounded-md border-gray-300 border p-2 text-xs focus:ring-indigo-500 bg-white">
+              <option value="fitter_mod2_basic_fitting.json">Module 2 - Basic Fitting (100 Questions)</option>
+              <option value="fitter_mod1_safety.json">Module 1 - Safety (20 Questions)</option>
+            </select>
+            <div id="module-filter-container" class="mt-2 hidden">
+              <label class="block font-semibold text-gray-700 mb-1">Select Module / Section</label>
+              <select id="module-filter-select" class="w-full text-xs rounded border border-gray-300 p-2 focus:ring-indigo-500 bg-white">
+                <option value="all">All Modules in Bank</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-semibold text-gray-700">Question Selection Mode</label>
+              <button type="button" class="preset-btn px-2 py-0.5 border border-purple-300 hover:bg-purple-50 text-purple-700 rounded text-[11px] font-medium flex items-center gap-1 transition" data-range="page_range" id="btn-page-range-toggle">
+                <i class="bi bi-file-earmark-ruled"></i> Page Range
+              </button>
+            </div>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button type="button" class="preset-btn px-2 py-1.5 border border-indigo-600 bg-indigo-50 text-indigo-700 rounded text-xs font-semibold text-center" data-range="preset" data-start="1" data-count="20">
+                Q1 – Q20
+              </button>
+              <button type="button" class="preset-btn px-2 py-1.5 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded text-xs font-medium text-center" data-range="preset" data-start="21" data-count="20">
+                Q21 – Q40
+              </button>
+              <button type="button" class="preset-btn px-2 py-1.5 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded text-xs font-medium text-center" data-range="preset" data-start="41" data-count="20">
+                Q41 – Q60
+              </button>
+              <button type="button" class="preset-btn px-2 py-1.5 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded text-xs font-medium text-center" data-range="preset" data-start="61" data-count="20">
+                Q61 – Q80
+              </button>
+              <button type="button" class="preset-btn px-2 py-1.5 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded text-xs font-medium text-center" data-range="preset" data-start="81" data-count="20">
+                Q81 – Q100
+              </button>
+              <button type="button" class="preset-btn px-2 py-1.5 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded text-xs font-medium text-center" data-range="all">
+                All Available
+              </button>
+            </div>
+
+            <!-- Page Range Filter Container -->
+            <div id="page-range-wrapper" class="mt-2 p-2.5 bg-purple-50 border border-purple-200 rounded-md" style="display: none;">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-semibold text-purple-900"><i class="bi bi-file-earmark-text me-1"></i> Specify Page Numbers or Ranges:</span>
+                <span class="text-[10px] text-purple-600 font-mono">e.g. 1-10, 15, 24-32 or 1,4,6,8</span>
+              </div>
+              <div class="flex gap-1.5">
+                <input type="text" id="input-page-range" class="flex-1 rounded border-purple-300 border px-2 py-1 text-xs bg-white focus:ring-purple-500 font-mono" placeholder="e.g. 1-10, 15, 24-32 or 1,4,6,8">
+                <button type="button" id="btn-apply-page-range" class="px-2.5 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-xs font-semibold shadow-sm transition">
+                  Apply
+                </button>
+              </div>
+              <p class="text-[10px] text-purple-700 mt-1 mb-0">Questions are extracted strictly from these selected PDF pages.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <div>
+              <label class="block font-semibold text-gray-700 mb-1">Total Questions</label>
+              <input type="number" id="input-total-q" value="20" min="1" max="100" class="w-full rounded-md border-gray-300 border p-1.5 text-xs bg-white focus:ring-indigo-500">
+            </div>
+            <div>
+              <label class="block font-semibold text-gray-700 mb-1">Allocation Mode</label>
+              <select id="select-allocation" class="w-full rounded-md border-gray-300 border p-1.5 text-xs bg-white focus:ring-indigo-500">
+                <option value="random">Random Allocation</option>
+                <option value="sequential">Sequential (In Order)</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="seed-container" class="flex items-center space-x-2 pt-1">
+            <span class="text-[11px] text-gray-500">Random Seed:</span>
+            <input type="number" id="input-seed" value="42" class="w-16 text-xs rounded border border-gray-300 p-1 bg-white">
+            <button id="btn-re-shuffle" class="text-xs text-indigo-600 hover:underline"><i class="fa-solid fa-arrows-rotate mr-1"></i>Re-shuffle</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Paper Size, Angle & Fitting -->
+      <div class="bg-gray-50/70 rounded-xl border border-gray-200 p-3.5">
+        <h2 class="text-xs font-bold text-gray-900 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+          <span><i class="fa-solid fa-file-contract text-indigo-600 mr-2"></i> 2. Paper Size, Angle & Pages</span>
+          <span id="badge-page-fit" class="text-[11px] px-2 py-0.5 bg-green-100 text-green-800 rounded font-bold">Auto-Fit OK</span>
+        </h2>
+        
+        <div class="space-y-2.5 text-xs">
+          <!-- Page Size -->
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Page Size</label>
+            <select id="select-page-size" class="w-full rounded-md border-gray-300 border p-1.5 text-xs font-semibold bg-white focus:ring-indigo-500">
+              <option value="A4" selected>A4 (Standard 210 × 297 mm)</option>
+              <option value="A3">A3 (Large Format 297 × 420 mm)</option>
+              <option value="Letter">Letter (8.5 × 11 in / 216 × 279 mm)</option>
+              <option value="Legal">Legal (8.5 × 14 in / 216 × 356 mm)</option>
+              <option value="A5">A5 (Compact Booklet 148 × 210 mm)</option>
+            </select>
+          </div>
+
+          <!-- Angle / Orientation -->
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Paper Angle / Orientation</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" id="btn-orient-portrait" class="orient-btn py-2 px-2 border-2 border-indigo-600 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 transition" data-orient="portrait">
+                <i class="fa-solid fa-file-lines text-sm"></i>
+                <span>Vertical (Portrait)</span>
+              </button>
+              <button type="button" id="btn-orient-landscape" class="orient-btn py-2 px-2 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg text-xs font-semibold flex items-center justify-center space-x-1.5 transition" data-orient="landscape">
+                <i class="fa-solid fa-file-lines fa-rotate-90 text-sm text-gray-500"></i>
+                <span>Horizontal (Landscape)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Landscape 2-Column Toggle (visible in landscape) -->
+          <div id="landscape-columns-container" class="hidden flex items-center justify-between bg-indigo-50/80 p-2 rounded-lg border border-indigo-200 text-xs">
+            <div>
+              <span class="font-bold text-indigo-900 block text-xs">2 Columns per Page</span>
+              <span class="text-[10px] text-indigo-700">NCVT exam standard for wide horizontal layout</span>
+            </div>
+            <input type="checkbox" id="check-landscape-columns" checked class="h-4 w-4 text-indigo-600 rounded">
+          </div>
+
+          <!-- Target Pages -->
+          <div class="border-t border-gray-200 pt-2">
+            <label class="block font-semibold text-gray-700 mb-1">Target Number of Pages</label>
+            <div class="flex items-center space-x-1.5">
+              <button type="button" class="page-btn flex-1 py-1.5 border border-gray-300 rounded text-xs font-semibold" data-pages="1">1 Page</button>
+              <button type="button" class="page-btn flex-1 py-1.5 border-2 border-indigo-600 bg-indigo-50 text-indigo-700 rounded text-xs font-bold" data-pages="2">2 Pages</button>
+              <button type="button" class="page-btn flex-1 py-1.5 border border-gray-300 rounded text-xs font-semibold" data-pages="3">3 Pages</button>
+              <button type="button" class="page-btn flex-1 py-1.5 border border-gray-300 rounded text-xs font-semibold" data-pages="4">4 Pages</button>
+            </div>
+            <div class="mt-2 flex items-center text-xs text-gray-600">
+              <span class="mr-2">Custom Pages:</span>
+              <input type="number" id="input-target-pages" value="2" min="1" max="10" class="w-16 rounded border border-gray-300 p-1 text-center font-bold bg-white">
+            </div>
+          </div>
+
+          <div class="border-t border-gray-200 pt-2">
+            <div class="flex items-center justify-between mb-1">
+              <label class="font-semibold text-gray-700">Auto-Fit Scaling</label>
+              <input type="checkbox" id="check-auto-fit" checked class="h-4 w-4 text-indigo-600 rounded">
+            </div>
+            <p class="text-[11px] text-gray-500 mb-2">Dynamically tunes font sizes & spacing to strictly fit within the target page count.</p>
+
+            <!-- Manual font controls (collapsible) -->
+            <div id="manual-font-controls" class="space-y-2 hidden pt-1 bg-white p-2.5 rounded border border-gray-200">
+              <div class="flex items-center justify-between text-xs">
+                <span>Question Font Size:</span>
+                <span id="val-q-font" class="font-bold">11pt</span>
+              </div>
+              <input type="range" id="slider-q-font" min="8" max="14" step="0.5" value="11" class="w-full">
+              
+              <div class="flex items-center justify-between text-xs pt-1">
+                <span>Options Font Size:</span>
+                <span id="val-opt-font" class="font-bold">9.5pt</span>
+              </div>
+              <input type="range" id="slider-opt-font" min="7" max="12" step="0.5" value="9.5" class="w-full">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Question Paper Format / Template -->
+      <div class="bg-gray-50/70 rounded-xl border border-gray-200 p-3.5">
+        <div class="flex items-center justify-between mb-1.5">
+          <h2 class="text-xs font-bold text-gray-900 uppercase tracking-wider flex items-center">
+            <i class="fa-solid fa-shapes text-indigo-600 mr-2"></i> 3. Question Paper Format
+          </h2>
+          <button type="button" id="btn-quick-format" class="text-xs text-amber-600 hover:text-amber-800 font-bold flex items-center">
+            <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Upload Format
+          </button>
+        </div>
+        <p class="text-[11px] text-gray-500 mb-2">Select from standard layout models or upload your own sample paper format.</p>
+        <select id="select-template-preset" class="w-full rounded-md border-gray-300 border p-1.5 text-xs bg-white font-medium focus:ring-amber-500">
+          <option value="veerakerlampudur_standard">GITI Veerakerlampudur Standard (A4 Portrait)</option>
+          <option value="ncvt_landscape_2col">NCVT / NIMI Exam (A4 Landscape 2-Column)</option>
+          <option value="polytechnic_a3_large">Large Format Workshop Exam (A3 Portrait)</option>
+          <option value="weekly_quiz_a5">Compact Weekly Test (A5 Booklet)</option>
+        </select>
+      </div>
+
+      <!-- 4. Header Customization -->
+      <div class="bg-gray-50/70 rounded-xl border border-gray-200 p-3.5">
+        <div class="flex items-center justify-between mb-2.5">
+          <h2 class="text-xs font-bold text-gray-900 uppercase tracking-wider flex items-center">
+            <i class="fa-solid fa-heading text-indigo-600 mr-2"></i> 4. Header Settings
+          </h2>
+          <label class="flex items-center space-x-1.5 cursor-pointer">
+            <input type="checkbox" id="check-enable-header" checked class="h-4 w-4 text-indigo-600 rounded">
+            <span class="text-xs font-semibold text-gray-700">Include Header</span>
+          </label>
+        </div>
+
+        <div id="header-fields" class="space-y-2 text-xs">
+          <div>
+            <label class="block font-medium text-gray-600 mb-0.5">Institution Name</label>
+            <input type="text" id="hdr-inst" value="FITTER, GITI.,VEERAKERLAMPUDUR." class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+          </div>
+          <div>
+            <label class="block font-medium text-gray-600 mb-0.5">Test Title</label>
+            <input type="text" id="hdr-title" value="MONTHLY TEST-FIRST YEAR" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block font-medium text-gray-600 mb-0.5">Session / Month-Year</label>
+              <input type="text" id="hdr-session" value="NOVEMBER 2026" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+            </div>
+            <div>
+              <label class="block font-medium text-gray-600 mb-0.5">Time Label</label>
+              <input type="text" id="hdr-time" value="Time: ____________________" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block font-medium text-gray-600 mb-0.5">Date Label</label>
+              <input type="text" id="hdr-date" value="Date: ____________________" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+            </div>
+            <div>
+              <label class="block font-medium text-gray-600 mb-0.5">Register No Label</label>
+              <input type="text" id="hdr-reg" value="Register No.: ____________________" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+            </div>
+          </div>
+          <div>
+            <label class="block font-medium text-gray-600 mb-0.5">Marks Label</label>
+            <input type="text" id="hdr-marks" value="Maximum Marks: 50" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+          </div>
+
+          <!-- General Instructions Accordion -->
+          <div class="border-t border-gray-200 pt-2">
+            <div class="flex items-center justify-between mb-1">
+              <label class="font-semibold text-gray-700">General Instructions</label>
+              <input type="checkbox" id="check-enable-instructions" class="h-4 w-4 text-indigo-600 rounded">
+            </div>
+            <div id="instructions-container" class="hidden space-y-1.5 pt-1">
+              <textarea id="hdr-instructions" rows="3" class="w-full text-[11px] font-mono rounded border border-gray-300 p-1.5 bg-white" placeholder="1. Answer all questions.&#10;2. Choose the correct answer..."></textarea>
+            </div>
+          </div>
+
+          <!-- Parts / Sections -->
+          <div class="border-t border-gray-200 pt-2 space-y-2">
+            <label class="block font-semibold text-gray-700">Additional Exam Sections</label>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-700">Part B (Short Answer - 5 Qs)</span>
+              <input type="checkbox" id="check-enable-part-b" class="h-4 w-4 text-indigo-600 rounded">
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-700">Part C (Descriptive - 4 Qs)</span>
+              <input type="checkbox" id="check-enable-part-c" class="h-4 w-4 text-indigo-600 rounded">
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-1 border-t border-gray-200">
+            <span class="text-gray-700">Display Header:</span>
+            <select id="hdr-placement" class="text-xs rounded border border-gray-300 p-1 bg-white">
+              <option value="p1_only">Page 1 Only (Standard)</option>
+              <option value="all_pages">All Pages</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Footer Customization -->
+      <div class="bg-gray-50/70 rounded-xl border border-gray-200 p-3.5">
+        <div class="flex items-center justify-between mb-2.5">
+          <h2 class="text-xs font-bold text-gray-900 uppercase tracking-wider flex items-center">
+            <i class="fa-solid fa-shoe-prints text-indigo-600 mr-2"></i> 5. Footer Settings
+          </h2>
+          <label class="flex items-center space-x-1.5 cursor-pointer">
+            <input type="checkbox" id="check-enable-footer" class="h-4 w-4 text-indigo-600 rounded">
+            <span class="text-xs font-semibold text-gray-700">Include Footer</span>
+          </label>
+        </div>
+
+        <div id="footer-fields" class="space-y-2 text-xs opacity-50 pointer-events-none">
+          <div>
+            <label class="block font-medium text-gray-600 mb-0.5">Footer Text</label>
+            <input type="text" id="ftr-text" placeholder="e.g. FITTER, GITI.,VEERAKERLAMPUDUR." class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+          </div>
+          <div class="flex items-center space-x-2 pt-1">
+            <input type="checkbox" id="check-ftr-pagenum" class="h-4 w-4 text-indigo-600 rounded">
+            <label for="check-ftr-pagenum" class="text-gray-700">Include Page Numbering (e.g. Page 1 of 2)</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Styling, Borders & Conditions -->
+      <div class="bg-gray-50/70 rounded-xl border border-gray-200 p-3.5">
+        <h2 class="text-xs font-bold text-gray-900 uppercase tracking-wider mb-2.5 flex items-center">
+          <i class="fa-solid fa-paintbrush text-indigo-600 mr-2"></i> 6. Styling & Conditions
+        </h2>
+        
+        <div class="space-y-2.5 text-xs">
+          <div>
+            <label class="block font-medium text-gray-600 mb-1">Language Mode</label>
+            <select id="select-language-mode" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+              <option value="bilingual">Bilingual (English + Tamil - Default)</option>
+              <option value="english_only">English Only (Official Board Exam / Compact)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block font-medium text-gray-600 mb-1">Question Divider</label>
+              <select id="select-divider" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+                <option value="dashed">Dashed Line (Default)</option>
+                <option value="solid">Solid Line</option>
+                <option value="none">None (Clean)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-gray-600 mb-1">Options Layout</label>
+              <select id="select-options-layout" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+                <option value="2col">2 Columns (A/B, C/D)</option>
+                <option value="4col">4 Columns (Inline)</option>
+                <option value="1col">1 Column (Vertical)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-medium text-gray-600 mb-1">Special Conditions / Instructions Note</label>
+            <input type="text" id="input-conditions" placeholder="e.g. Answer all questions. Each question carries 2.5 marks." class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+          </div>
+
+          <!-- Formal Exam Features -->
+          <div class="border-t border-gray-200 pt-2 space-y-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="font-bold text-gray-800 block text-xs">Full Page Box Border</span>
+                <span class="text-[10px] text-gray-500">Government exam style solid outer border</span>
+              </div>
+              <input type="checkbox" id="check-page-border" class="h-4 w-4 text-indigo-600 rounded">
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="font-bold text-gray-800 block text-xs">Marks Distribution Table</span>
+                <span class="text-[10px] text-gray-500">Summary table at end of question paper</span>
+              </div>
+              <input type="checkbox" id="check-marks-table" class="h-4 w-4 text-indigo-600 rounded">
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="font-bold text-gray-800 block text-xs">End of Paper Marker</span>
+                <span class="text-[10px] text-gray-500">Prints *** END OF QUESTION PAPER ***</span>
+              </div>
+              <input type="checkbox" id="check-end-marker" class="h-4 w-4 text-indigo-600 rounded">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Apply & View Floating Button -->
+      <div class="pt-2 pb-6 block md:hidden">
+        <button type="button" id="btn-apply-and-view" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs shadow-md flex items-center justify-center">
+          <i class="fa-solid fa-eye mr-2"></i> View Question Paper
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Right Live Preview & Verification Workspace -->
+    <div class="flex-1 min-w-0 flex flex-col h-full bg-slate-300 overflow-hidden relative">
+      
+      <!-- Preview Tabs & Status Bar -->
+      <div class="bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between gap-2 z-10 shadow-sm overflow-x-auto flex-shrink-0">
+        <div class="flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
+          <button id="btn-toggle-sidebar" class="px-2.5 py-1.5 text-xs bg-gray-100 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-200 flex items-center transition" title="Toggle Controls Sidebar">
+            <i class="fa-solid fa-bars mr-1.5 text-indigo-600"></i> <span id="sidebar-toggle-text">Controls</span>
+          </button>
+          
+          <button id="tab-btn-preview" class="px-2.5 sm:px-3 py-1.5 bg-indigo-50 text-indigo-700 font-bold text-xs rounded-lg shadow-sm border border-indigo-200 flex items-center">
+            <i class="fa-solid fa-eye mr-1 sm:mr-1.5"></i> <span class="hidden xs:inline">Page </span>Preview
+          </button>
+          <button id="tab-btn-diagrams" class="px-2.5 sm:px-3 py-1.5 text-gray-600 hover:text-gray-900 font-medium text-xs rounded-lg flex items-center">
+            <i class="fa-solid fa-image mr-1 sm:mr-1.5"></i> Diagrams (<span id="diagram-count-badge">0</span>)
+          </button>
+          <button id="tab-btn-answers" class="px-2.5 sm:px-3 py-1.5 text-gray-600 hover:text-gray-900 font-medium text-xs rounded-lg flex items-center">
+            <i class="fa-solid fa-key mr-1 sm:mr-1.5"></i> Answers
+          </button>
+        </div>
+
+        <div class="flex items-center gap-1.5 sm:gap-2 text-xs text-gray-600 flex-shrink-0">
+          <span id="status-pill" class="bg-indigo-50 text-indigo-800 px-2 py-0.5 rounded font-semibold border border-indigo-100 hidden lg:inline-block">20 Questions • 2 Pages</span>
+          
+          <!-- Page Selector Buttons -->
+          <div id="page-nav-group" class="flex items-center space-x-1 bg-gray-100 p-1 rounded-lg border border-gray-200">
+            <span class="text-[11px] font-semibold text-gray-500 px-1 hidden sm:inline">Page:</span>
+            <div id="page-buttons-container" class="flex items-center space-x-1">
+              <button class="page-view-btn px-2 py-0.5 rounded text-xs font-semibold bg-indigo-600 text-white shadow-xs" data-page="all">All</button>
+              <button class="page-view-btn px-2 py-0.5 rounded text-xs font-medium text-gray-700 hover:bg-gray-200" data-page="0">P1</button>
+              <button class="page-view-btn px-2 py-0.5 rounded text-xs font-medium text-gray-700 hover:bg-gray-200" data-page="1">P2</button>
+            </div>
+          </div>
+
+          <!-- View Mode: Exact PDF toggle -->
+          <button id="btn-toggle-pdf" class="px-2 py-1 bg-white hover:bg-red-50 border border-gray-200 rounded text-xs text-red-700 font-semibold flex items-center shadow-xs transition-colors" title="Toggle between Exact Compiled PDF and Interactive Sheets">
+            <i class="fa-solid fa-file-pdf sm:mr-1 text-red-500"></i> <span id="pdf-toggle-label" class="hidden sm:inline">Exact PDF</span><span class="sm:hidden">PDF</span>
+          </button>
+
+          <!-- Zoom Controls -->
+          <div class="flex items-center space-x-0.5 sm:space-x-1 bg-gray-100 p-1 rounded-lg border border-gray-200">
+            <button id="btn-zoom-fit-width" class="px-1.5 sm:px-2 py-1 bg-white hover:bg-gray-50 border border-gray-200 rounded text-xs text-gray-700 font-medium flex items-center" title="Fit to Width">
+              <i class="fa-solid fa-arrows-left-right text-gray-500 sm:mr-1"></i> <span class="hidden sm:inline">Fit Width</span>
+            </button>
+            <button id="btn-zoom-fit-page" class="px-1.5 sm:px-2 py-1 bg-white hover:bg-gray-50 border border-gray-200 rounded text-xs text-gray-700 font-medium flex items-center" title="Fit Entire Page">
+              <i class="fa-solid fa-expand text-gray-500 sm:mr-1"></i> <span class="hidden sm:inline">Fit Page</span>
+            </button>
+            <button id="btn-zoom-out" class="h-6 w-6 bg-white hover:bg-gray-50 border border-gray-200 rounded text-xs text-gray-700 flex items-center justify-center font-bold" title="Zoom Out">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span id="zoom-level-text" class="text-xs font-bold px-1 text-gray-700 min-w-[32px] sm:min-w-[36px] text-center">100%</span>
+            <button id="btn-zoom-in" class="h-6 w-6 bg-white hover:bg-gray-50 border border-gray-200 rounded text-xs text-gray-700 flex items-center justify-center font-bold" title="Zoom In">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 1: Live Page Preview -->
+      <div id="tab-content-preview" class="flex-1 overflow-auto p-2 sm:p-4 md:p-6 flex flex-col items-center justify-start bg-slate-300 relative" style="min-height: 0;">
+        <div id="preview-scaler-box" class="relative transition-all duration-150 mx-auto" style="overflow: hidden;">
+          <iframe id="preview-frame" class="border-0 bg-transparent transition-all shadow-xl rounded-sm" style="width: 794px; height: 1123px; position: absolute; left: 0; top: 0; transform-origin: top left;" src="about:blank"></iframe>
+        </div>
+      </div>
+
+      <!-- Tab Content 2: Diagram Inspector -->
+      <div id="tab-content-diagrams" class="flex-1 p-6 overflow-y-auto hidden">
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-4 flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-bold text-gray-900">Diagram Analysis & Verification</h3>
+              <p class="text-xs text-gray-500">Verify that all diagrams attached to the selected questions are rendered without missing.</p>
+            </div>
+            <span class="text-xs bg-indigo-100 text-indigo-800 font-bold px-2.5 py-1 rounded-full" id="diag-verified-tag">All Diagrams Intact</span>
+          </div>
+          
+          <div id="diagrams-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 3: Answer Key -->
+      <div id="tab-content-answers" class="flex-1 p-6 overflow-y-auto hidden">
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-4 flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-bold text-gray-900">Complete Answer Key</h3>
+              <p class="text-xs text-gray-500">Mapping of question numbers, original bank IDs, correct options and bilingual answers.</p>
+            </div>
+            <button id="btn-copy-answers" class="text-xs px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded border border-gray-300">
+              <i class="fa-solid fa-copy mr-1"></i> Copy Table
+            </button>
+          </div>
+          
+          <div class="overflow-x-auto border border-gray-200 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200 text-xs">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-3 py-2 text-left font-bold text-gray-700">Q#</th>
+                  <th class="px-3 py-2 text-left font-bold text-gray-700">Orig #</th>
+                  <th class="px-3 py-2 text-left font-bold text-gray-700">Page</th>
+                  <th class="px-3 py-2 text-left font-bold text-gray-700">Question Summary</th>
+                  <th class="px-3 py-2 text-center font-bold text-gray-700">Key</th>
+                  <th class="px-3 py-2 text-left font-bold text-gray-700">Correct Answer</th>
+                </tr>
+              </thead>
+              <tbody id="answers-table-body" class="bg-white divide-y divide-gray-100">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Upload Modal -->
+  <div id="upload-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden p-3 sm:p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-4 sm:p-6 relative max-h-[90vh] overflow-y-auto">
+      <button id="btn-close-upload" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center space-x-3 mb-4">
+        <div class="bg-indigo-100 text-indigo-700 p-2.5 rounded-xl">
+          <i class="fa-solid fa-file-pdf text-xl"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-gray-900">Upload & Analyze New PDF</h3>
+          <p class="text-xs text-gray-500">Automatically parses questions, options, answer keys & diagrams</p>
+        </div>
+      </div>
+
+      <form id="upload-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Select Question Bank PDF</label>
+          <div id="dropzone" class="border-2 border-dashed border-gray-300 hover:border-indigo-500 rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition bg-gray-50 hover:bg-indigo-50/30">
+            <i class="fa-solid fa-file-arrow-up text-3xl text-indigo-500 mb-2"></i>
+            <span class="text-xs font-semibold text-gray-700" id="file-chosen-label">Click to browse or drag & drop PDF here</span>
+            <span class="text-[10px] text-gray-400 mt-1">Supports ITI NIMMI exam PDFs or custom question bank PDFs</span>
+            <input type="file" id="pdf-file-input" name="pdf_file" accept=".pdf" class="hidden">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Trade / Course Name (Optional)</label>
+          <input type="text" id="trade-name-input" name="trade_name" placeholder="e.g. Fitter 1st Sem / Electrician / Welder" class="w-full text-xs rounded-lg border border-gray-300 p-2.5">
+        </div>
+
+        <!-- Progress Bar (hidden by default) -->
+        <div id="upload-progress-container" class="hidden space-y-2 pt-2">
+          <div class="flex justify-between text-xs text-gray-600">
+            <span id="upload-status-text">Analyzing PDF & detecting diagrams...</span>
+            <span id="upload-percent-text">In Progress</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+            <div id="upload-progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300 animate-pulse" style="width: 75%"></div>
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-2 pt-2 border-t border-gray-100">
+          <button type="button" id="btn-cancel-upload" class="px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
+          <button type="submit" id="btn-submit-upload" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shadow-sm">
+            <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> Analyze & Import
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Subject Book to Question Paper Modal -->
+  <div id="book-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-4 sm:p-6 relative my-auto max-h-[90vh] overflow-y-auto">
+      <button id="btn-close-book" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center space-x-3 mb-4">
+        <div class="bg-amber-100 text-amber-700 p-2.5 rounded-xl">
+          <i class="fa-solid fa-book-open text-xl"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-gray-900">Generate Question Paper from Subject Book</h3>
+          <p class="text-xs text-gray-500">Synthesize 1-Mark MCQs, 2-Mark Short, and 16-Mark Descriptive questions from textbook PDFs</p>
+        </div>
+      </div>
+
+      <form id="book-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Select Subject Book / Textbook PDF</label>
+          <div id="book-dropzone" class="border-2 border-dashed border-amber-300 hover:border-amber-500 rounded-xl p-5 flex flex-col items-center justify-center cursor-pointer transition bg-amber-50/40 hover:bg-amber-50">
+            <i class="fa-solid fa-file-pdf text-3xl text-amber-600 mb-2"></i>
+            <span class="text-xs font-semibold text-gray-800" id="book-file-label">Click to browse or drop Subject Book PDF</span>
+            <span class="text-[10px] text-gray-500 mt-1">Accepts raw textbook chapters, theory books, syllabus notes</span>
+            <input type="file" id="book-file-input" name="pdf_file" accept=".pdf" class="hidden">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Subject / Trade Title</label>
+            <input type="text" id="book-subject-title" name="subject_title" placeholder="e.g. Fitter Trade Theory" class="w-full text-xs rounded-lg border border-gray-300 p-2 focus:ring-amber-500" required>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Page Range (Optional)</label>
+            <input type="text" id="book-page-range" name="page_range" placeholder="e.g. 1-25 or leave blank for all" class="w-full text-xs rounded-lg border border-gray-300 p-2 focus:ring-amber-500 font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1.5">Question Paper Blueprint & Structure</label>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <label class="flex items-center space-x-2 border rounded-lg p-2.5 cursor-pointer hover:bg-amber-50 border-amber-300 bg-amber-50/50">
+              <input type="radio" name="paper_format" value="combined" checked class="text-amber-600 focus:ring-amber-500">
+              <div>
+                <div class="font-bold text-gray-900">Comprehensive Exam</div>
+                <div class="text-[10px] text-gray-500">Part A (MCQ) + Part B (2M) + Part C (16M)</div>
+              </div>
+            </label>
+            <label class="flex items-center space-x-2 border rounded-lg p-2.5 cursor-pointer hover:bg-gray-50 border-gray-200">
+              <input type="radio" name="paper_format" value="mcq_only" class="text-amber-600 focus:ring-amber-500">
+              <div>
+                <div class="font-bold text-gray-900">Part A Only (MCQ)</div>
+                <div class="text-[10px] text-gray-500">Pure Objective / 1-Mark Questions</div>
+              </div>
+            </label>
+            <label class="flex items-center space-x-2 border rounded-lg p-2.5 cursor-pointer hover:bg-gray-50 border-gray-200">
+              <input type="radio" name="paper_format" value="short_only" class="text-amber-600 focus:ring-amber-500">
+              <div>
+                <div class="font-bold text-gray-900">Part B Only (Short)</div>
+                <div class="text-[10px] text-gray-500">2 / 3 Marks Definitions & Differences</div>
+              </div>
+            </label>
+            <label class="flex items-center space-x-2 border rounded-lg p-2.5 cursor-pointer hover:bg-gray-50 border-gray-200">
+              <input type="radio" name="paper_format" value="long_only" class="text-amber-600 focus:ring-amber-500">
+              <div>
+                <div class="font-bold text-gray-900">Part C Only (Essay)</div>
+                <div class="text-[10px] text-gray-500">10 / 16 Marks Sketches & Principles</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-3 border border-gray-200 grid grid-cols-3 gap-2.5 text-xs">
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Part A: MCQs (1M)</label>
+            <input type="number" id="book-mcq-count" name="mcq_count" value="20" min="0" max="100" class="w-full text-xs rounded border border-gray-300 p-1.5 bg-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Part B: Short</label>
+            <div class="flex gap-1">
+              <input type="number" id="book-short-count" name="short_count" value="5" min="0" max="20" class="w-16 text-xs rounded border border-gray-300 p-1.5 bg-white" title="Count">
+              <select id="book-short-marks" name="short_marks" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white" title="Marks per Q">
+                <option value="2">2 Marks</option>
+                <option value="3">3 Marks</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Part C: Essay</label>
+            <div class="flex gap-1">
+              <input type="number" id="book-long-count" name="long_count" value="3" min="0" max="10" class="w-16 text-xs rounded border border-gray-300 p-1.5 bg-white" title="Count">
+              <select id="book-long-marks" name="long_marks" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white" title="Marks per Q">
+                <option value="16">16 Marks</option>
+                <option value="10">10 Marks</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div id="book-progress-container" class="hidden space-y-2 pt-1">
+          <div class="flex justify-between text-xs text-amber-900 font-semibold">
+            <span id="book-status-text"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Reading textbook chapters & synthesizing questions...</span>
+            <span id="book-percent-text">Synthesizing</span>
+          </div>
+          <div class="w-full bg-amber-100 rounded-full h-2 overflow-hidden">
+            <div id="book-progress-bar" class="bg-amber-600 h-2 rounded-full transition-all duration-300 animate-pulse" style="width: 80%"></div>
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-2 pt-2 border-t border-gray-100">
+          <button type="button" id="btn-cancel-book" class="px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
+          <button type="submit" id="btn-submit-book" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-sm">
+            <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> Synthesize & Generate Paper
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Manual Question Modal -->
+  <div id="manual-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-4 sm:p-6 relative my-auto max-h-[90vh] overflow-y-auto">
+      <button id="btn-close-manual" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center space-x-3 mb-4">
+        <div class="bg-emerald-100 text-emerald-700 p-2.5 rounded-xl">
+          <i class="fa-solid fa-pen-to-square text-xl"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-gray-900">Add Question Manually</h3>
+          <p class="text-xs text-gray-500">Create MCQ or short questions, attach diagrams, and specify bilingual text</p>
+        </div>
+      </div>
+
+      <form id="manual-form" class="space-y-4">
+        <!-- Target Question Bank -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-gray-50 p-3 rounded-xl border border-gray-200">
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Target Question Bank</label>
+            <select id="manual-bank-select" class="w-full text-xs rounded-lg border border-gray-300 p-2 bg-white">
+              <option value="new">+ Create New Custom Bank</option>
+            </select>
+          </div>
+          <div id="manual-new-bank-fields" class="space-y-2">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-0.5">New Bank Name</label>
+              <input type="text" id="manual-new-bank-name" placeholder="e.g. My Semester 1 Exam" class="w-full text-xs rounded border border-gray-300 p-1.5">
+            </div>
+          </div>
+        </div>
+
+        <!-- Module & Subheading -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Module / Topic</label>
+            <input type="text" id="manual-module" placeholder="e.g. Workshop Practice / Assembly" value="General" class="w-full text-xs rounded-lg border border-gray-300 p-2">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Subdivided Heading / Section (Optional)</label>
+            <input type="text" id="manual-subheading" placeholder="e.g. Level 1 / Section A / Gauges" class="w-full text-xs rounded-lg border border-gray-300 p-2">
+          </div>
+        </div>
+
+        <!-- Question Text (Bilingual) -->
+        <div class="space-y-2">
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">
+              Question Text (English) <span class="text-red-500">*</span>
+            </label>
+            <textarea id="manual-q-en" rows="2" placeholder="Enter question in English..." required class="w-full text-xs rounded-lg border border-gray-300 p-2.5 focus:ring-emerald-500 focus:border-emerald-500"></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">
+              Tamil Translation (Optional)
+            </label>
+            <textarea id="manual-q-ta" rows="2" placeholder="கேள்வியை தமிழில் உள்ளிடவும் (விரும்பினால்)..." class="w-full text-xs rounded-lg border border-gray-300 p-2.5 focus:ring-emerald-500 focus:border-emerald-500"></textarea>
+          </div>
+        </div>
+
+        <!-- Options Toggle Switch -->
+        <div class="border-t border-gray-200 pt-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <input type="checkbox" id="manual-has-options" checked class="h-4 w-4 text-emerald-600 rounded">
+              <label for="manual-has-options" class="text-xs font-bold text-gray-800">
+                Include Multiple-Choice Options (A, B, C, D)
+              </label>
+            </div>
+            <span class="text-[11px] text-gray-500">Uncheck for short answer / descriptive question</span>
+          </div>
+
+          <!-- Options Grid -->
+          <div id="manual-options-container" class="space-y-2.5 bg-gray-50 p-3 rounded-xl border border-gray-200">
+            <span class="text-[11px] text-gray-600 font-semibold block mb-1">Enter Options & select the correct radio button:</span>
+            
+            <!-- Option A -->
+            <div class="flex items-center space-x-2">
+              <input type="radio" name="manual_correct_ans" value="A" checked class="h-4 w-4 text-emerald-600">
+              <span class="text-xs font-bold w-4">A:</span>
+              <input type="text" id="manual-opt-a-en" placeholder="Option A (English)" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white">
+              <input type="text" id="manual-opt-a-ta" placeholder="Option A (Tamil - Optional)" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white">
+            </div>
+
+            <!-- Option B -->
+            <div class="flex items-center space-x-2">
+              <input type="radio" name="manual_correct_ans" value="B" class="h-4 w-4 text-emerald-600">
+              <span class="text-xs font-bold w-4">B:</span>
+              <input type="text" id="manual-opt-b-en" placeholder="Option B (English)" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white">
+              <input type="text" id="manual-opt-b-ta" placeholder="Option B (Tamil - Optional)" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white">
+            </div>
+
+            <!-- Option C -->
+            <div class="flex items-center space-x-2">
+              <input type="radio" name="manual_correct_ans" value="C" class="h-4 w-4 text-emerald-600">
+              <span class="text-xs font-bold w-4">C:</span>
+              <input type="text" id="manual-opt-c-en" placeholder="Option C (English)" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white">
+              <input type="text" id="manual-opt-c-ta" placeholder="Option C (Tamil - Optional)" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white">
+            </div>
+
+            <!-- Option D -->
+            <div class="flex items-center space-x-2">
+              <input type="radio" name="manual_correct_ans" value="D" class="h-4 w-4 text-emerald-600">
+              <span class="text-xs font-bold w-4">D:</span>
+              <input type="text" id="manual-opt-d-en" placeholder="Option D (English)" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white">
+              <input type="text" id="manual-opt-d-ta" placeholder="Option D (Tamil - Optional)" class="flex-1 text-xs rounded border border-gray-300 p-1.5 bg-white">
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Attachment -->
+        <div class="border-t border-gray-200 pt-3">
+          <label class="block text-xs font-semibold text-gray-700 mb-1">
+            <i class="fa-solid fa-image text-indigo-500 mr-1"></i> Attach Diagram / Image (Optional)
+          </label>
+          <div class="flex items-center space-x-3">
+            <input type="file" id="manual-img-file" accept="image/*" class="text-xs text-gray-500 file:mr-2 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+            <div id="manual-img-preview-box" class="hidden flex items-center space-x-2 bg-gray-100 p-1 rounded border">
+              <img id="manual-img-preview" class="h-10 w-10 object-contain rounded bg-white">
+              <button type="button" id="btn-remove-manual-img" class="text-red-500 hover:text-red-700 text-xs px-1">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-2 pt-3 border-t border-gray-200">
+          <button type="button" id="btn-cancel-manual" class="px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
+          <button type="submit" id="btn-save-manual" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-sm">
+            <i class="fa-solid fa-check mr-1.5"></i> Save & Add to Bank
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Google Forms Converter Modal -->
+  <div id="google-form-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full p-4 sm:p-6 relative my-auto max-h-[90vh] overflow-y-auto">
+      <button id="btn-close-google-form" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center space-x-3 mb-4">
+        <div class="bg-purple-100 text-purple-700 p-2.5 rounded-xl">
+          <i class="fa-brands fa-google text-2xl"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-gray-900">Convert to Google Form</h3>
+          <p class="text-xs text-gray-500">Auto-generation via Google Apps Script or fast manual copy-paste format</p>
+        </div>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex border-b border-gray-200 mb-4">
+        <button type="button" id="tab-btn-gf-auto" class="py-2 px-4 border-b-2 border-purple-600 font-bold text-xs text-purple-700 flex items-center">
+          <i class="fa-solid fa-bolt mr-1.5 text-yellow-500"></i> Auto Progression (Google Apps Script)
+        </button>
+        <button type="button" id="tab-btn-gf-manual" class="py-2 px-4 border-b-2 border-transparent font-medium text-xs text-gray-500 hover:text-gray-700 flex items-center">
+          <i class="fa-solid fa-clipboard mr-1.5 text-indigo-500"></i> Manual / Form Builder Format
+        </button>
+      </div>
+
+      <!-- Tab Content: Auto Progression -->
+      <div id="tab-content-gf-auto" class="space-y-4">
+        <div class="bg-purple-50 border border-purple-200 rounded-xl p-3.5 text-xs text-purple-900">
+          <div class="font-bold flex items-center mb-1">
+            <i class="fa-solid fa-circle-check text-purple-600 mr-1.5"></i> 1-Click Auto Creation Instructions:
+          </div>
+          <ol class="list-decimal list-inside space-y-1 text-purple-800 ml-1">
+            <li>Click <strong>Copy Script</strong> below (or download the script).</li>
+            <li>Click <strong>Open Google Apps Script</strong> (<a href="https://script.google.com/new" target="_blank" class="underline font-bold text-purple-900">script.google.com/new</a>).</li>
+            <li>Paste the code, click <strong>Save</strong> (<i class="fa-solid fa-floppy-disk"></i>), and click <strong>Run</strong> (<i class="fa-solid fa-play"></i>).</li>
+            <li>A complete Google Form Quiz with all bilingual questions, options, answer key & points is created in your Google Drive!</li>
+          </ol>
+        </div>
+
+        <div class="relative">
+          <div class="flex justify-between items-center bg-gray-800 text-gray-300 px-3 py-1.5 rounded-t-lg text-xs font-mono">
+            <span>GoogleAppsScript_CreateForm.gs</span>
+            <div class="space-x-2">
+              <button type="button" id="btn-copy-gf-script" class="text-xs bg-purple-600 hover:bg-purple-700 text-white font-bold px-2.5 py-1 rounded">
+                <i class="fa-solid fa-copy mr-1"></i> Copy Script
+              </button>
+              <button type="button" id="btn-download-gf-script" class="text-xs bg-gray-700 hover:bg-gray-600 text-white px-2.5 py-1 rounded">
+                <i class="fa-solid fa-download mr-1"></i> Download .gs
+              </button>
+            </div>
+          </div>
+          <textarea id="gf-script-code" readonly rows="12" class="w-full font-mono text-[11px] bg-gray-900 text-emerald-400 p-3 rounded-b-lg border border-gray-700 focus:outline-none"></textarea>
+        </div>
+
+        <div class="flex justify-between items-center pt-2 border-t border-gray-100">
+          <span class="text-xs text-gray-500" id="gf-script-stats">20 questions ready for Google Form</span>
+          <a href="https://script.google.com/new" target="_blank" class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-lg shadow-sm">
+            <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Open Google Apps Script
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab Content: Manual Format -->
+      <div id="tab-content-gf-manual" class="space-y-4 hidden">
+        <p class="text-xs text-gray-600">
+          Formatted plain-text quiz with bilingual text and correct answers marked (<code class="bg-gray-100 px-1 rounded">*</code>). You can paste this directly into Form Builder extensions or Google Docs.
+        </p>
+        <div class="relative">
+          <div class="flex justify-between items-center bg-gray-100 text-gray-700 px-3 py-1.5 rounded-t-lg text-xs font-semibold border border-b-0 border-gray-300">
+            <span>Formatted Quiz Text</span>
+            <button type="button" id="btn-copy-gf-text" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-2.5 py-1 rounded">
+              <i class="fa-solid fa-copy mr-1"></i> Copy All Text
+            </button>
+          </div>
+          <textarea id="gf-manual-text" readonly rows="14" class="w-full font-mono text-xs bg-gray-50 text-gray-800 p-3 rounded-b-lg border border-gray-300 focus:outline-none"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Format Template Modal -->
+  <div id="format-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-4 sm:p-6 relative my-auto max-h-[90vh] overflow-y-auto">
+      <button id="btn-close-format-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center space-x-3 mb-4">
+        <div class="bg-amber-100 text-amber-700 p-2.5 rounded-xl">
+          <i class="fa-solid fa-shapes text-xl"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-gray-900">Question Paper Format & Model</h3>
+          <p class="text-xs text-gray-500">Upload a sample question paper format (PDF/DOCX) or choose an official exam model</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Upload Box -->
+        <div class="bg-amber-50/60 border-2 border-dashed border-amber-300 rounded-xl p-5 text-center cursor-pointer hover:bg-amber-50 transition" id="format-dropzone">
+          <i class="fa-solid fa-file-arrow-up text-3xl text-amber-600 mb-2"></i>
+          <p class="text-xs font-bold text-gray-800">Upload Sample Question Paper (PDF or Word DOCX)</p>
+          <p class="text-[11px] text-gray-500 mt-1">We'll detect your institution header, title, page size, angle, and layout!</p>
+          <input type="file" id="format-file-input" accept=".pdf,.docx" class="hidden">
+          <button type="button" id="btn-browse-format" class="mt-3 px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-sm">
+            <i class="fa-solid fa-folder-open mr-1.5"></i> Select Format File
+          </button>
+        </div>
+
+        <div id="format-analyze-progress" class="hidden text-center py-3">
+          <i class="fa-solid fa-spinner fa-spin text-amber-600 text-lg mr-2"></i>
+          <span class="text-xs font-semibold text-gray-700">Analyzing template format...</span>
+        </div>
+
+        <!-- Extracted Format Details Preview -->
+        <div id="format-extracted-box" class="hidden bg-gray-50 border border-gray-200 rounded-xl p-4 text-xs space-y-2">
+          <div class="flex items-center justify-between border-b pb-2">
+            <span class="font-bold text-gray-900 flex items-center text-xs">
+              <i class="fa-solid fa-circle-check text-green-600 mr-1.5"></i> Detected Format Settings
+            </span>
+            <span id="format-detected-file" class="text-gray-500 text-[11px]">sample.pdf</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[11px]">
+            <div><strong>Page Size:</strong> <span id="ext-page-size" class="text-indigo-700 font-bold">A4</span></div>
+            <div><strong>Angle / Orientation:</strong> <span id="ext-orientation" class="text-indigo-700 font-bold">Portrait</span></div>
+            <div class="col-span-2"><strong>Institution:</strong> <span id="ext-inst-name">-</span></div>
+            <div class="col-span-2"><strong>Test Title:</strong> <span id="ext-test-title">-</span></div>
+            <div><strong>Date Label:</strong> <span id="ext-date-text">-</span></div>
+            <div><strong>Marks Label:</strong> <span id="ext-marks-text">-</span></div>
+          </div>
+          <button type="button" id="btn-apply-extracted-format" class="w-full mt-2 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs shadow-sm">
+            <i class="fa-solid fa-check mr-1.5"></i> Apply This Format to My Exam Paper
+          </button>
+        </div>
+
+        <!-- Pre-set Templates Section -->
+        <div class="border-t pt-3">
+          <label class="block text-xs font-bold text-gray-800 mb-2">Or Choose from Official Model Presets:</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="format-presets-list">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
