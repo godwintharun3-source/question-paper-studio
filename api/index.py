@@ -40,20 +40,15 @@ def app(environ, start_response):
         if not original_path.startswith('/'):
             original_path = '/' + original_path
         environ['PATH_INFO'] = original_path
-        # Clean __path out of QUERY_STRING
         del qs['__path']
         environ['QUERY_STRING'] = urlencode(qs, doseq=True)
     elif environ.get('HTTP_X_MATCHED_PATH'):
         environ['PATH_INFO'] = environ['HTTP_X_MATCHED_PATH']
-    else:
-        path = environ.get('PATH_INFO', '')
-        for prefix in ['/api/index.py', '/api/index', '/api']:
-            if path == prefix:
-                environ['PATH_INFO'] = '/'
-                break
-            elif path.startswith(prefix + '/'):
-                environ['PATH_INFO'] = path[len(prefix):]
-                break
+
+    # Normalize entrypoint
+    path = environ.get('PATH_INFO', '')
+    if path in ['/api/index.py', '/api/index', '/api', '']:
+        environ['PATH_INFO'] = '/'
 
     try:
         return flask_app(environ, start_response)
