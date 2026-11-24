@@ -782,14 +782,16 @@ def ai_generate_questions():
         difficulty = payload.get('difficulty', 'medium')
         save_to_bank = payload.get('save_to_bank', True)
         bank_id = payload.get('bank_id', '').strip()
+        custom_key = payload.get('api_key', '').strip() or None
 
-        # Generate via Gemini Generative AI
-        ai_questions = generate_questions_ai(
+        # Generate via Gemini Generative AI (with auto-recovery fallback)
+        ai_questions, engine_used = generate_questions_ai(
             topic=topic,
             trade=trade,
             count=count,
             q_type=q_type,
-            difficulty=difficulty
+            difficulty=difficulty,
+            custom_key=custom_key
         )
 
         formatted_questions = []
@@ -858,13 +860,15 @@ def ai_generate_questions():
                 'bank_id': bank_id,
                 'bank_name': bank_data.get('module_name'),
                 'total_questions': len(bank_data['questions']),
-                'message': f"Generated {len(formatted_questions)} questions with Gemini Generative AI!"
+                'engine': engine_used,
+                'message': f"Generated {len(formatted_questions)} questions via {engine_used}!"
             })
 
         return jsonify({
             'status': 'success',
             'questions': formatted_questions,
-            'message': f"Generated {len(formatted_questions)} questions with Gemini Generative AI!"
+            'engine': engine_used,
+            'message': f"Generated {len(formatted_questions)} questions via {engine_used}!"
         })
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500

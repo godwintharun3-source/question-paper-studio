@@ -1983,6 +1983,9 @@ function setupAiGeneratorModal() {
       targetBankId = currentPayload.bank_id || '';
     }
 
+    const customKeyInput = document.getElementById('ai-custom-key');
+    const customKey = customKeyInput ? customKeyInput.value.trim() : '';
+
     loading.classList.remove('hidden');
     resultsBox.classList.add('hidden');
     document.getElementById('btn-submit-ai').disabled = true;
@@ -1998,7 +2001,8 @@ function setupAiGeneratorModal() {
           q_type,
           difficulty,
           save_to_bank: true,
-          bank_id: targetBankId
+          bank_id: targetBankId,
+          api_key: customKey
         })
       });
 
@@ -2006,7 +2010,7 @@ function setupAiGeneratorModal() {
       if (data.status === 'success') {
         lastGeneratedBankId = data.bank_id;
         const questions = data.questions || [];
-        resultCount.textContent = questions.length;
+        resultCount.innerHTML = `${questions.length} <span class="font-normal text-[10px] text-gray-500">(${data.engine || 'Gemini AI'})</span>`;
 
         // Render questions
         previewList.innerHTML = questions.map((q, idx) => `
