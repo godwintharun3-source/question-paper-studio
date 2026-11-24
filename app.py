@@ -766,6 +766,136 @@ def add_manual_question():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+@app.route('/api/ai/generate', methods=['POST'])
+def ai_generate_questions():
+    try:
+        from gemini_ai import generate_questions_ai
+        payload = request.json or {}
+        topic = payload.get('topic', '').strip()
+        if not topic:
+            return jsonify({'status': 'error', 'message': 'Topic or syllabus prompt is required.'}), 400
+
+        trade = payload.get('trade', 'Fitter').strip()
+        count = int(payload.get('count', 5))
+        count = max(1, min(count, 30))
+        q_type = payload.get('q_type', 'mcq')
+        difficulty = payload.get('difficulty', 'medium')
+        save_to_bank = payload.get('save_to_bank', True)
+        bank_id = payload.get('bank_id', '').strip()
+
+        # Generate via Gemini Generative AI
+        ai_questions = generate_questions_ai(
+            topic=topic,
+            trade=trade,
+            count=count,
+            q_type=q_type,
+            difficulty=difficulty
+        )
+
+        formatted_questions = []
+        for idx, q in enumerate(ai_questions, 1):
+            options = []
+            if q.get('opt_a_en') or q.get('opt_a_ta'):
+                options = [
+                    {"opt": "A", "en": q.get('opt_a_en', ''), "ta": q.get('opt_a_ta', '')},
+                    {"opt": "B", "en": q.get('opt_b_en', ''), "ta": q.get('opt_b_ta', '')},
+                    {"opt": "C", "en": q.get('opt_c_en', ''), "ta": q.get('opt_c_ta', '')},
+                    {"opt": "D", "en": q.get('opt_d_en', ''), "ta": q.get('opt_d_ta', '')}
+                ]
+            formatted_questions.append({
+                "orig_id": idx,
+                "global_id": idx,
+                "module": topic,
+                "subheading": f"GenAI - {difficulty.title()}",
+                "q_en": q.get('q_en', ''),
+                "q_ta": q.get('q_ta', q.get('q_en', '')),
+                "options": options,
+                "ans": q.get('correct_ans', 'A').strip().upper() if options else '',
+                "marks": q.get('marks', 1 if options else 2),
+                "has_img": False,
+                "img_file": None,
+                "explanation_en": q.get('explanation_en', ''),
+                "explanation_ta": q.get('explanation_ta', ''),
+                "is_ai_generated": True
+            })
+
+        if save_to_bank:
+            if not bank_id or bank_id == 'new':
+                bank_id = f"custom_ai_{uuid.uuid4().hex[:8]}.json"
+            elif not bank_id.endswith('.json'):
+                bank_id = f"{bank_id}.json"
+
+            bank_read_path = find_bank_file(bank_id)
+            if bank_read_path and os.path.exists(bank_read_path):
+                bank_data = load_question_bank(bank_read_path)
+            else:
+                bank_name = payload.get('bank_name', '').strip() or f"{trade} - {topic} (Gemini AI)"
+                bank_data = {
+                    "module_id": os.path.splitext(bank_id)[0],
+                    "module_name": bank_name,
+                    "trade": trade,
+                    "modules": [topic],
+                    "questions": []
+                }
+
+            start_id = len(bank_data.get('questions', [])) + 1
+            for q in formatted_questions:
+                q['orig_id'] = start_id
+                q['global_id'] = start_id
+                start_id += 1
+                bank_data['questions'].append(q)
+
+            if topic and topic not in bank_data.get('modules', []):
+                bank_data.setdefault('modules', []).append(topic)
+
+            save_bank_path = get_writable_bank_file(bank_id)
+            with open(save_bank_path, 'w', encoding='utf-8') as f:
+                json.dump(bank_data, f, ensure_ascii=False, indent=2)
+
+            return jsonify({
+                'status': 'success',
+                'questions': formatted_questions,
+                'bank_id': bank_id,
+                'bank_name': bank_data.get('module_name'),
+                'total_questions': len(bank_data['questions']),
+                'message': f"Generated {len(formatted_questions)} questions with Gemini Generative AI!"
+            })
+
+        return jsonify({
+            'status': 'success',
+            'questions': formatted_questions,
+            'message': f"Generated {len(formatted_questions)} questions with Gemini Generative AI!"
+        })
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/ai/translate', methods=['POST'])
+def ai_translate():
+    try:
+        from gemini_ai import translate_to_tamil_ai
+        payload = request.json or {}
+        text_en = payload.get('text_en', '').strip()
+        if not text_en:
+            return jsonify({'status': 'error', 'message': 'text_en is required'}), 400
+        text_ta = translate_to_tamil_ai(text_en)
+        return jsonify({'status': 'success', 'text_ta': text_ta})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/ai/distractors', methods=['POST'])
+def ai_distractors():
+    try:
+        from gemini_ai import generate_distractors_ai
+        payload = request.json or {}
+        q_en = payload.get('q_en', '').strip()
+        correct_ans = payload.get('correct_ans', '').strip()
+        if not q_en or not correct_ans:
+            return jsonify({'status': 'error', 'message': 'q_en and correct_ans are required'}), 400
+        distractors = generate_distractors_ai(q_en, correct_ans)
+        return jsonify({'status': 'success', 'distractors': distractors})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 @app.route('/api/export/google-form', methods=['POST'])
 def export_google_form():
     try:

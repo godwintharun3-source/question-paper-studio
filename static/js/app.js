@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupManualQuestionModal();
   setupGoogleFormModal();
   setupFormatModal();
+  setupAiGeneratorModal();
   loadQuestionBanks();
   updateIframeDimensions();
   updatePreview();
@@ -1914,4 +1915,149 @@ function setupSubjectBookModal() {
       btnSubmit.disabled = false;
     }
   });
+}
+
+function setupAiGeneratorModal() {
+  const modal = document.getElementById('ai-modal');
+  const btnOpen = document.getElementById('btn-open-ai-generator');
+  const btnClose = document.getElementById('btn-close-ai-modal');
+  const form = document.getElementById('ai-generator-form');
+  const countSlider = document.getElementById('ai-count');
+  const countVal = document.getElementById('ai-count-val');
+  const loading = document.getElementById('ai-loading');
+  const resultsBox = document.getElementById('ai-results-box');
+  const resultCount = document.getElementById('ai-result-count');
+  const previewList = document.getElementById('ai-questions-preview-list');
+  const btnApply = document.getElementById('btn-apply-ai-to-preview');
+  let lastGeneratedBankId = null;
+
+  if (!modal || !btnOpen) return;
+
+  btnOpen.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    resultsBox.classList.add('hidden');
+    loading.classList.add('hidden');
+  });
+
+  if (btnClose) {
+    btnClose.addEventListener('click', () => modal.classList.add('hidden'));
+  }
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.add('hidden');
+  });
+
+  if (countSlider && countVal) {
+    countSlider.addEventListener('input', () => {
+      countVal.textContent = countSlider.value;
+    });
+  }
+
+  // Quick suggestion topics
+  document.querySelectorAll('.ai-quick-topic').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const topicInput = document.getElementById('ai-topic');
+      if (topicInput) {
+        topicInput.value = btn.dataset.topic;
+        topicInput.focus();
+      }
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const topic = document.getElementById('ai-topic').value.trim();
+    if (!topic) {
+      alert('Please enter an exam topic or syllabus prompt.');
+      return;
+    }
+
+    const trade = document.getElementById('ai-trade').value;
+    const q_type = document.getElementById('ai-q-type').value;
+    const difficulty = document.getElementById('ai-difficulty').value;
+    const count = parseInt(countSlider.value, 10) || 5;
+    const targetStorage = document.getElementById('ai-target-bank').value;
+
+    let targetBankId = '';
+    if (targetStorage === 'current') {
+      targetBankId = currentPayload.bank_id || '';
+    }
+
+    loading.classList.remove('hidden');
+    resultsBox.classList.add('hidden');
+    document.getElementById('btn-submit-ai').disabled = true;
+
+    try {
+      const res = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic,
+          trade,
+          count,
+          q_type,
+          difficulty,
+          save_to_bank: true,
+          bank_id: targetBankId
+        })
+      });
+
+      const data = await res.json();
+      if (data.status === 'success') {
+        lastGeneratedBankId = data.bank_id;
+        const questions = data.questions || [];
+        resultCount.textContent = questions.length;
+
+        // Render questions
+        previewList.innerHTML = questions.map((q, idx) => `
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-xs">
+            <div class="flex items-center justify-between text-[11px] font-bold text-indigo-700 mb-1">
+              <span>Q#${idx + 1} (${q.marks || 1} Mark)</span>
+              ${q.ans ? `<span class="bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-mono">Ans: ${q.ans}</span>` : ''}
+            </div>
+            <p class="font-semibold text-gray-900">${q.q_en}</p>
+            <p class="text-indigo-900 text-[11px] mt-0.5">${q.q_ta}</p>
+            ${q.options && q.options.length ? `
+              <div class="grid grid-cols-2 gap-1.5 mt-2 text-[11px]">
+                ${q.options.map(o => `
+                  <div class="bg-white border rounded px-1.5 py-1 ${o.opt === q.ans ? 'border-green-400 bg-green-50/50 font-semibold' : 'border-gray-200'}">
+                    <span class="text-gray-500 font-bold">${o.opt}.</span> ${o.en} <br><span class="text-gray-600 text-[10px]">${o.ta}</span>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+            ${q.explanation_en ? `
+              <div class="mt-2 text-[10px] bg-purple-50 text-purple-900 p-1.5 rounded border border-purple-200">
+                <strong>Explanation:</strong> ${q.explanation_en}<br>${q.explanation_ta || ''}
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+
+        resultsBox.classList.remove('hidden');
+      } else {
+        alert('AI Question Generation failed: ' + (data.message || 'Unknown error'));
+      }
+    } catch (err) {
+      alert('Error communicating with Gemini AI: ' + err.message);
+    } finally {
+      loading.classList.add('hidden');
+      document.getElementById('btn-submit-ai').disabled = false;
+    }
+  });
+
+  if (btnApply) {
+    btnApply.addEventListener('click', async () => {
+      if (!lastGeneratedBankId) return;
+      await loadQuestionBanks();
+      const sel = document.getElementById('bank-select');
+      if (sel) {
+        sel.value = lastGeneratedBankId;
+        currentPayload.bank_id = lastGeneratedBankId;
+      }
+      currentPayload.range_type = 'all';
+      updatePreview();
+      modal.classList.add('hidden');
+    });
+  }
 }

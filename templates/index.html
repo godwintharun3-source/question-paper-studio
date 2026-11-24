@@ -53,6 +53,9 @@
         <button id="btn-install-app" class="hidden inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-indigo-700 hover:bg-indigo-600 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm border border-indigo-400 transition" title="Install App on Phone / Desktop">
           <i class="fa-solid fa-mobile-screen-button sm:mr-1.5 text-yellow-300"></i> <span class="hidden sm:inline">Install App</span><span class="sm:hidden">Install</span>
         </button>
+        <button id="btn-open-ai-generator" class="inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm border border-purple-300/40 transition" title="Generate Exam Questions with Gemini AI">
+          <i class="fa-solid fa-wand-magic-sparkles sm:mr-1.5 text-yellow-300"></i> <span class="hidden sm:inline">AI Question Gen</span><span class="sm:hidden">AI Gen</span>
+        </button>
         <button id="btn-open-manual-create" class="inline-flex items-center px-2 py-1.5 sm:px-3 sm:py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm transition">
           <i class="fa-solid fa-plus sm:mr-1.5"></i> <span class="hidden sm:inline">Add Question</span><span class="sm:hidden">Add</span>
         </button>
@@ -1051,6 +1054,142 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="format-presets-list">
             <!-- Populated via JS -->
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gemini Generative AI Modal -->
+  <div id="ai-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-4 sm:p-6 relative my-auto max-h-[90vh] overflow-y-auto border border-purple-200">
+      <button id="btn-close-ai-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="flex items-center space-x-3 mb-4">
+        <div class="bg-gradient-to-tr from-purple-600 to-indigo-600 text-white p-3 rounded-xl shadow-md">
+          <i class="fa-solid fa-wand-magic-sparkles text-xl text-yellow-300"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-gray-900">Gemini Generative AI Question Studio</h3>
+            <span class="text-[10px] bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded-full border border-purple-300">Google Gemini 3.5</span>
+          </div>
+          <p class="text-xs text-gray-500">Auto-generate dual-language (Tamil & English) syllabus questions from any topic or prompt</p>
+        </div>
+      </div>
+
+      <form id="ai-generator-form" class="space-y-4">
+        <!-- Topic / Concept Prompt -->
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">
+            Exam Topic / Concept / Chapter <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="ai-topic" required placeholder="e.g. Micrometer zero error and least count, Lathe safety, Welding defects" class="w-full text-xs p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none">
+          
+          <!-- Quick Suggestion Pills -->
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            <span class="text-[10px] text-gray-500 font-semibold self-center">Suggestions:</span>
+            <button type="button" class="ai-quick-topic text-[11px] bg-purple-50 hover:bg-purple-100 text-purple-700 px-2 py-0.5 rounded-md border border-purple-200 transition" data-topic="Workshop Safety and Fire Extinguishers">🔥 Fire Safety</button>
+            <button type="button" class="ai-quick-topic text-[11px] bg-purple-50 hover:bg-purple-100 text-purple-700 px-2 py-0.5 rounded-md border border-purple-200 transition" data-topic="Micrometer and Vernier Caliper Precision Measurement">📏 Micrometer & Caliper</button>
+            <button type="button" class="ai-quick-topic text-[11px] bg-purple-50 hover:bg-purple-100 text-purple-700 px-2 py-0.5 rounded-md border border-purple-200 transition" data-topic="Lathe Machine Operations, Chucks, and Turning Tools">⚙️ Lathe Operations</button>
+            <button type="button" class="ai-quick-topic text-[11px] bg-purple-50 hover:bg-purple-100 text-purple-700 px-2 py-0.5 rounded-md border border-purple-200 transition" data-topic="Oxy-Acetylene Welding and Arc Welding Safety">⚡ Welding Safety</button>
+            <button type="button" class="ai-quick-topic text-[11px] bg-purple-50 hover:bg-purple-100 text-purple-700 px-2 py-0.5 rounded-md border border-purple-200 transition" data-topic="Heat Treatment of Steel: Annealing, Normalising, Hardening">🔥 Heat Treatment</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Trade Selector -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Trade / Course</label>
+            <select id="ai-trade" class="w-full text-xs p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none">
+              <option value="Fitter" selected>Fitter</option>
+              <option value="Electrician">Electrician</option>
+              <option value="Welder">Welder</option>
+              <option value="Machinist">Machinist</option>
+              <option value="Turner">Turner</option>
+              <option value="Mechanic Motor Vehicle">Mechanic Motor Vehicle</option>
+              <option value="Wireman">Wireman</option>
+              <option value="Electronic Mechanic">Electronic Mechanic</option>
+              <option value="General Engineering">General Engineering</option>
+            </select>
+          </div>
+
+          <!-- Question Format -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Question Type</label>
+            <select id="ai-q-type" class="w-full text-xs p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none">
+              <option value="mcq" selected>MCQs (1 Mark - 4 Options)</option>
+              <option value="short">Short Answer (2 / 3 Marks)</option>
+              <option value="long">Long Essay (16 Marks)</option>
+              <option value="mixed">Mixed (Part A + B + C)</option>
+            </select>
+          </div>
+
+          <!-- Difficulty -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Difficulty Level</label>
+            <select id="ai-difficulty" class="w-full text-xs p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none">
+              <option value="medium" selected>Medium (Standard NIMI)</option>
+              <option value="easy">Easy (Foundational)</option>
+              <option value="hard">Hard (Advanced / NCVT Final)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
+          <!-- Count -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">
+              Number of Questions: <span id="ai-count-val" class="text-purple-600 font-extrabold text-sm">5</span>
+            </label>
+            <input type="range" id="ai-count" min="1" max="20" value="5" class="w-full accent-purple-600 cursor-pointer">
+            <div class="flex justify-between text-[10px] text-gray-400">
+              <span>1</span>
+              <span>5</span>
+              <span>10</span>
+              <span>15</span>
+              <span>20</span>
+            </div>
+          </div>
+
+          <!-- Save to Bank Option -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Target Storage</label>
+            <select id="ai-target-bank" class="w-full text-xs p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none">
+              <option value="new" selected>Create New AI Question Bank</option>
+              <option value="current">Append to Current Bank</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="btn-submit-ai" class="w-full py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md transition flex items-center justify-center space-x-2">
+          <i class="fa-solid fa-wand-magic-sparkles text-yellow-300"></i>
+          <span>Generate Dual-Language Questions with Gemini AI</span>
+        </button>
+      </form>
+
+      <!-- Loading State -->
+      <div id="ai-loading" class="hidden text-center py-6 space-y-2">
+        <i class="fa-solid fa-spinner fa-spin text-purple-600 text-2xl"></i>
+        <p class="text-xs font-bold text-gray-800">Google Gemini is generating syllabus-aligned questions...</p>
+        <p class="text-[11px] text-gray-500">Drafting English & Tamil terminology, distractors, and correct answer keys</p>
+      </div>
+
+      <!-- Generated Results Container -->
+      <div id="ai-results-box" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-bold text-gray-800 flex items-center">
+            <i class="fa-solid fa-circle-check text-green-600 mr-1.5"></i> Generated Questions (<span id="ai-result-count">0</span>)
+          </h4>
+          <button type="button" id="btn-apply-ai-to-preview" class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg text-xs shadow-sm transition flex items-center">
+            <i class="fa-solid fa-eye mr-1.5"></i> Load in Exam Preview
+          </button>
+        </div>
+        <div id="ai-questions-preview-list" class="max-h-60 overflow-y-auto space-y-2 pr-1">
+          <!-- Rendered questions -->
         </div>
       </div>
     </div>
