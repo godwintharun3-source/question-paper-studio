@@ -102,18 +102,25 @@ window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
   const btnInstall = document.getElementById('btn-install-app');
+  const btnMobileInstall = document.getElementById('btn-mobile-install-app');
+  const handleInstall = async () => {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      const choice = await deferredInstallPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        if (btnInstall) btnInstall.classList.add('hidden');
+        if (btnMobileInstall) btnMobileInstall.classList.add('hidden');
+      }
+      deferredInstallPrompt = null;
+    }
+  };
   if (btnInstall) {
     btnInstall.classList.remove('hidden');
-    btnInstall.onclick = async () => {
-      if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        const choice = await deferredInstallPrompt.userChoice;
-        if (choice.outcome === 'accepted') {
-          btnInstall.classList.add('hidden');
-        }
-        deferredInstallPrompt = null;
-      }
-    };
+    btnInstall.onclick = handleInstall;
+  }
+  if (btnMobileInstall) {
+    btnMobileInstall.classList.remove('hidden');
+    btnMobileInstall.onclick = handleInstall;
   }
 });
 
@@ -547,9 +554,127 @@ function setupEventListeners() {
   // Tabs
   setupTabs();
 
+  // Mobile navigation, dock & touch gestures
+  setupMobileMenu();
+  setupMobileDock();
+  setupMobileGestures();
+
   // Export buttons
   document.getElementById('btn-export-pdf').addEventListener('click', exportPDF);
   document.getElementById('btn-export-docx').addEventListener('click', exportDOCX);
+}
+
+function setupMobileMenu() {
+  const toggleBtn = document.getElementById('btn-mobile-more-toggle');
+  const dropdown = document.getElementById('mobile-more-dropdown');
+  if (!toggleBtn || !dropdown) return;
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('hidden');
+  });
+
+  // Close dropdown on outside tap
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target) && !toggleBtn.contains(e.target)) {
+      dropdown.classList.add('hidden');
+    }
+  });
+
+  const actions = [
+    { mId: 'btn-mobile-manual-create', targetId: 'btn-open-manual-create' },
+    { mId: 'btn-mobile-format-modal', targetId: 'btn-open-format-modal' },
+    { mId: 'btn-mobile-google-form', targetId: 'btn-open-google-form' },
+    { mId: 'btn-mobile-export-docx', targetId: 'btn-export-docx' }
+  ];
+
+  actions.forEach(({ mId, targetId }) => {
+    const mEl = document.getElementById(mId);
+    const targetEl = document.getElementById(targetId);
+    if (mEl && targetEl) {
+      mEl.addEventListener('click', () => {
+        dropdown.classList.add('hidden');
+        targetEl.click();
+      });
+    }
+  });
+}
+
+function setupMobileDock() {
+  const btnReadMode = document.getElementById('btn-mobile-read-mode');
+  const btnZoomIn = document.getElementById('btn-mobile-zoom-in');
+  const btnZoomOut = document.getElementById('btn-mobile-zoom-out');
+  const btnOpenSidebar = document.getElementById('btn-mobile-open-sidebar');
+
+  if (btnReadMode) {
+    btnReadMode.addEventListener('click', toggleMobileReadMode);
+  }
+  if (btnZoomIn) {
+    btnZoomIn.addEventListener('click', () => setZoom(currentZoom + 0.15));
+  }
+  if (btnZoomOut) {
+    btnZoomOut.addEventListener('click', () => setZoom(currentZoom - 0.15));
+  }
+  if (btnOpenSidebar) {
+    btnOpenSidebar.addEventListener('click', openMobileSidebar);
+  }
+}
+
+function toggleMobileReadMode() {
+  const isReadMode = currentZoom >= 0.85;
+  if (isReadMode) {
+    fitWidth();
+  } else {
+    setZoom(1.0);
+    const viewport = document.getElementById('tab-content-preview');
+    if (viewport) {
+      viewport.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+  }
+}
+
+function setupMobileGestures() {
+  const container = document.getElementById('tab-content-preview');
+  if (!container) return;
+
+  let initialDist = 0;
+  let startZoom = currentZoom;
+  let lastTapTime = 0;
+
+  container.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+      initialDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      startZoom = currentZoom;
+    } else if (e.touches.length === 1) {
+      const now = Date.now();
+      if (now - lastTapTime < 320) {
+        e.preventDefault();
+        toggleMobileReadMode();
+      }
+      lastTapTime = now;
+    }
+  }, { passive: false });
+
+  container.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2 && initialDist > 0) {
+      e.preventDefault();
+      const currentDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const factor = currentDist / initialDist;
+      setZoom(startZoom * factor);
+    }
+  }, { passive: false });
+
+  container.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+      initialDist = 0;
+    }
+  });
 }
 
 function setupTabs() {
@@ -822,6 +947,9 @@ function setZoom(zoom) {
   currentZoom = Math.max(0.18, Math.min(2.5, Math.round(zoom * 100) / 100));
   const scalerBox = document.getElementById('preview-scaler-box') || document.getElementById('preview-wrapper');
   const zoomText = document.getElementById('zoom-level-text');
+  const mobileZoomLevel = document.getElementById('mobile-zoom-level');
+  const mobileReadModeText = document.getElementById('mobile-read-mode-text');
+  const btnMobileReadMode = document.getElementById('btn-mobile-read-mode');
   const iframe = document.getElementById('preview-frame');
   
   if (scalerBox && iframe) {
@@ -845,8 +973,28 @@ function setZoom(zoom) {
     iframe.style.left = '0';
     iframe.style.top = '0';
   }
+
+  const pctStr = `${Math.round(currentZoom * 100)}%`;
   if (zoomText) {
-    zoomText.textContent = `${Math.round(currentZoom * 100)}%`;
+    zoomText.textContent = pctStr;
+  }
+  if (mobileZoomLevel) {
+    mobileZoomLevel.textContent = pctStr;
+  }
+  if (mobileReadModeText && btnMobileReadMode) {
+    if (currentZoom >= 0.85) {
+      mobileReadModeText.textContent = 'Fit Page';
+      btnMobileReadMode.classList.remove('bg-indigo-600', 'hover:bg-indigo-500');
+      btnMobileReadMode.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+      const icon = btnMobileReadMode.querySelector('i');
+      if (icon) icon.className = 'fa-solid fa-compress text-white';
+    } else {
+      mobileReadModeText.textContent = 'Read 100%';
+      btnMobileReadMode.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
+      btnMobileReadMode.classList.add('bg-indigo-600', 'hover:bg-indigo-500');
+      const icon = btnMobileReadMode.querySelector('i');
+      if (icon) icon.className = 'fa-solid fa-glasses text-yellow-300';
+    }
   }
 }
 
@@ -854,7 +1002,7 @@ function fitWidth() {
   const viewport = document.getElementById('tab-content-preview');
   const iframe = document.getElementById('preview-frame');
   if (!viewport || !iframe) return;
-  const pad = window.innerWidth < 640 ? 16 : 40;
+  const pad = window.innerWidth < 640 ? 12 : 40;
   const availableWidth = viewport.clientWidth - pad;
   const iframeW = parseFloat(iframe.style.width) || 794;
   if (availableWidth > 50 && iframeW > 0) {
