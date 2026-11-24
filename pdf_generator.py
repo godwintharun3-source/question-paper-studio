@@ -626,6 +626,7 @@ body {{
                 img_path = os.path.join(img_dir, q['img_file'])
                 if not os.path.exists(img_path):
                     for alt_dir in [
+                        '/tmp/extracted_imgs',
                         '/Users/tharungodwin/Downloads/question_paper_app/question_banks/extracted_imgs',
                         '/Users/tharungodwin/Downloads/question/extracted_imgs'
                     ]:

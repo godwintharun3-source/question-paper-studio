@@ -40,20 +40,39 @@ BANKS_DIR = os.path.join(BASE_DIR, 'question_banks')
 IMG_DIR = os.path.join(BANKS_DIR, 'extracted_imgs')
 
 if os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'):
+    CUSTOM_BANKS_DIR = '/tmp/question_banks'
+    CUSTOM_IMG_DIR = '/tmp/extracted_imgs'
     EXPORTS_DIR = '/tmp/exports'
     UPLOADS_DIR = '/tmp/uploads'
 else:
+    CUSTOM_BANKS_DIR = BANKS_DIR
+    CUSTOM_IMG_DIR = IMG_DIR
     EXPORTS_DIR = os.path.join(BASE_DIR, 'exports')
     UPLOADS_DIR = os.path.join(BASE_DIR, 'uploads')
 
-try:
-    os.makedirs(EXPORTS_DIR, exist_ok=True)
-    os.makedirs(UPLOADS_DIR, exist_ok=True)
-except Exception:
-    EXPORTS_DIR = '/tmp/exports'
-    UPLOADS_DIR = '/tmp/uploads'
-    os.makedirs(EXPORTS_DIR, exist_ok=True)
-    os.makedirs(UPLOADS_DIR, exist_ok=True)
+for d in [CUSTOM_BANKS_DIR, CUSTOM_IMG_DIR, EXPORTS_DIR, UPLOADS_DIR]:
+    try:
+        os.makedirs(d, exist_ok=True)
+    except Exception:
+        pass
+
+def find_bank_file(bank_id):
+    if not bank_id:
+        return None
+    if not bank_id.endswith('.json'):
+        bank_id = f"{bank_id}.json"
+    p = os.path.join(CUSTOM_BANKS_DIR, bank_id)
+    if os.path.exists(p):
+        return p
+    p = os.path.join(BANKS_DIR, bank_id)
+    if os.path.exists(p):
+        return p
+    return os.path.join(CUSTOM_BANKS_DIR, bank_id)
+
+def get_writable_bank_file(bank_id):
+    if not bank_id.endswith('.json'):
+        bank_id = f"{bank_id}.json"
+    return os.path.join(CUSTOM_BANKS_DIR, bank_id)
 
 @app.route('/')
 def index():
@@ -61,6 +80,8 @@ def index():
 
 @app.route('/extracted_imgs/<filename>')
 def serve_image(filename):
+    if os.path.exists(os.path.join(CUSTOM_IMG_DIR, filename)):
+        return send_from_directory(CUSTOM_IMG_DIR, filename)
     if os.path.exists(os.path.join(IMG_DIR, filename)):
         return send_from_directory(IMG_DIR, filename)
     fallback_dir = '/Users/tharungodwin/Downloads/question/extracted_imgs'
@@ -72,28 +93,33 @@ def serve_image(filename):
 @app.route('/api/banks', methods=['GET'])
 def get_banks():
     banks = []
-    for f in os.listdir(BANKS_DIR):
-        if f.endswith('.json'):
-            path = os.path.join(BANKS_DIR, f)
-            data = load_question_bank(path)
-            if data:
-                modules = data.get('modules', [])
-                if not modules:
-                    # extract unique modules from questions if available
-                    mods = []
-                    for q in data.get('questions', []):
-                        m = q.get('module')
-                        if m and m not in mods:
-                            mods.append(m)
-                    modules = mods
-                    
-                banks.append({
-                    'id': f,
-                    'name': data.get('module_name', f),
-                    'trade': data.get('trade', 'General'),
-                    'total_questions': len(data.get('questions', [])),
-                    'modules': modules
-                })
+    seen = set()
+    scan_dirs = [CUSTOM_BANKS_DIR, BANKS_DIR] if CUSTOM_BANKS_DIR != BANKS_DIR else [BANKS_DIR]
+    for s_dir in scan_dirs:
+        if not os.path.exists(s_dir):
+            continue
+        for f in os.listdir(s_dir):
+            if f.endswith('.json') and f not in seen:
+                seen.add(f)
+                path = os.path.join(s_dir, f)
+                data = load_question_bank(path)
+                if data:
+                    modules = data.get('modules', [])
+                    if not modules:
+                        mods = []
+                        for q in data.get('questions', []):
+                            m = q.get('module')
+                            if m and m not in mods:
+                                mods.append(m)
+                        modules = mods
+                        
+                    banks.append({
+                        'id': f,
+                        'name': data.get('module_name', f),
+                        'trade': data.get('trade', 'General'),
+                        'total_questions': len(data.get('questions', [])),
+                        'modules': modules
+                    })
     return jsonify({'banks': banks})
 
 @app.route('/api/upload', methods=['POST'])
@@ -117,10 +143,10 @@ def upload_pdf():
         
         # Run automated analysis
         from analyzer import analyze_pdf
-        bank_data = analyze_pdf(saved_pdf_path, IMG_DIR, bank_id=bank_id, trade_name=trade_name)
+        bank_data = analyze_pdf(saved_pdf_path, CUSTOM_IMG_DIR, bank_id=bank_id, trade_name=trade_name)
         
         # Save question bank JSON
-        bank_json_path = os.path.join(BANKS_DIR, f"{bank_id}.json")
+        bank_json_path = get_writable_bank_file(bank_id)
         with open(bank_json_path, 'w', encoding='utf-8') as f:
             json.dump(bank_data, f, ensure_ascii=False, indent=2)
             
@@ -169,7 +195,7 @@ def upload_book():
         
         # 1. Extract text, definitions, concepts and figures from the subject book
         extracted_data = extract_text_and_diagrams_from_book(
-            saved_pdf_path, IMG_DIR, bank_id, selected_pages=selected_pages
+            saved_pdf_path, CUSTOM_IMG_DIR, bank_id, selected_pages=selected_pages
         )
         
         # 2. Synthesize Part A, Part B, Part C questions
@@ -186,7 +212,7 @@ def upload_book():
         )
         
         # 3. Save Question Bank JSON
-        bank_json_path = os.path.join(BANKS_DIR, f"{bank_id}.json")
+        bank_json_path = get_writable_bank_file(bank_id)
         with open(bank_json_path, 'w', encoding='utf-8') as f:
             json.dump(bank_data, f, ensure_ascii=False, indent=2)
             
@@ -255,8 +281,8 @@ def parse_page_range(range_str):
 def build_paper_data(payload):
     import re
     bank_id = payload.get('bank_id', 'fitter_mod2_basic_fitting.json')
-    bank_path = os.path.join(BANKS_DIR, bank_id)
-    bank_data = load_question_bank(bank_path)
+    bank_path = find_bank_file(bank_id)
+    bank_data = load_question_bank(bank_path) if bank_path else None
     if not bank_data:
         raise ValueError(f"Question bank {bank_id} not found.")
 
@@ -646,8 +672,8 @@ def add_manual_question():
         elif not bank_id.endswith('.json'):
             bank_id = f"{bank_id}.json"
 
-        bank_path = os.path.join(BANKS_DIR, bank_id)
-        if os.path.exists(bank_path):
+        bank_path = find_bank_file(bank_id)
+        if bank_path and os.path.exists(bank_path):
             bank_data = load_question_bank(bank_path)
         else:
             new_title = request.form.get('new_bank_name', 'Manual Question Bank').strip() or 'Manual Question Bank'
@@ -679,7 +705,7 @@ def add_manual_question():
             s_filename = secure_filename(img_file.filename)
             ext = os.path.splitext(s_filename)[1].lower() or '.png'
             img_filename = f"manual_{uuid.uuid4().hex[:8]}{ext}"
-            img_save_path = os.path.join(IMG_DIR, img_filename)
+            img_save_path = os.path.join(CUSTOM_IMG_DIR, img_filename)
             img_file.save(img_save_path)
             has_img = True
 
@@ -726,7 +752,8 @@ def add_manual_question():
         if module and module not in bank_data.get('modules', []):
             bank_data.setdefault('modules', []).append(module)
 
-        with open(bank_path, 'w', encoding='utf-8') as f:
+        save_bank_path = get_writable_bank_file(bank_id)
+        with open(save_bank_path, 'w', encoding='utf-8') as f:
             json.dump(bank_data, f, ensure_ascii=False, indent=2)
 
         return jsonify({
