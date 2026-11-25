@@ -1183,6 +1183,72 @@ async function exportPDF() {
   }
 }
 
+// Robust JSON Fetch helper that handles non-JSON (413, 504, HTML error pages) safely
+async function safeFetchJSON(url, options = {}) {
+  let res;
+  try {
+    res = await fetch(url, options);
+  } catch (netErr) {
+    throw new Error(`Network connection error: ${netErr.message || 'Unable to reach server. Please check your internet connection.'}`);
+  }
+
+  const rawText = await res.text();
+  let data;
+  try {
+    data = JSON.parse(rawText);
+  } catch (parseErr) {
+    if (res.status === 413) {
+      throw new Error("File exceeds server payload limit (4.5 MB). Automatic batching will split it into smaller slices.");
+    } else if (res.status === 504 || res.status === 408) {
+      throw new Error("Server processing timed out. Please select a smaller page range or allow auto-batching.");
+    } else if (res.status === 404) {
+      throw new Error(`Endpoint not found (404): ${url}`);
+    } else {
+      const cleanMsg = rawText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+      throw new Error(`Server returned HTTP ${res.status}: ${cleanMsg || res.statusText || 'Unexpected response'}`);
+    }
+  }
+
+  if (!res.ok) {
+    throw new Error(data.message || `Request failed with status ${res.status}`);
+  }
+  return data;
+}
+
+function parseRangeToIndices(rangeStr, maxPages) {
+  if (!rangeStr || !rangeStr.trim()) {
+    return Array.from({ length: maxPages }, (_, i) => i);
+  }
+  const indices = new Set();
+  const parts = rangeStr.split(/[,;\s]+/);
+  for (const part of parts) {
+    if (!part) continue;
+    if (part.includes('-')) {
+      const [startStr, endStr] = part.split('-');
+      const start = Math.max(1, parseInt(startStr, 10) || 1);
+      const end = Math.min(maxPages, parseInt(endStr, 10) || maxPages);
+      for (let p = start; p <= end; p++) {
+        indices.add(p - 1);
+      }
+    } else {
+      const p = parseInt(part, 10);
+      if (p >= 1 && p <= maxPages) {
+        indices.add(p - 1);
+      }
+    }
+  }
+  const sorted = Array.from(indices).sort((a, b) => a - b);
+  return sorted.length > 0 ? sorted : Array.from({ length: maxPages }, (_, i) => i);
+}
+
+async function slicePDFToBlob(pdfDoc, pageIndices) {
+  const subDoc = await window.PDFLib.PDFDocument.create();
+  const copiedPages = await subDoc.copyPages(pdfDoc, pageIndices);
+  copiedPages.forEach(p => subDoc.addPage(p));
+  const pdfBytes = await subDoc.save();
+  return new Blob([pdfBytes], { type: 'application/pdf' });
+}
+
 function setupUploadModal() {
   const modal = document.getElementById('upload-modal');
   const btnOpen = document.getElementById('btn-open-upload');
@@ -1191,27 +1257,73 @@ function setupUploadModal() {
   const dropzone = document.getElementById('dropzone');
   const fileInput = document.getElementById('pdf-file-input');
   const fileLabel = document.getElementById('file-chosen-label');
+  const docMeta = document.getElementById('upload-doc-meta');
+  const pageRangeInput = document.getElementById('upload-page-range');
   const form = document.getElementById('upload-form');
   const progressContainer = document.getElementById('upload-progress-container');
+  const progressBar = document.getElementById('upload-progress-bar');
+  const statusText = document.getElementById('upload-status-text');
+  const percentText = document.getElementById('upload-percent-text');
   const btnSubmit = document.getElementById('btn-submit-upload');
+
+  let loadedPdfDoc = null;
+  let detectedPageCount = 0;
+
+  async function onFileSelected(file) {
+    if (!file) return;
+    const mbSize = (file.size / 1024 / 1024).toFixed(2);
+    fileLabel.innerHTML = `<span class="text-indigo-600 font-bold">${file.name}</span> (${mbSize} MB)`;
+    if (docMeta) {
+      docMeta.classList.remove('hidden');
+      docMeta.innerHTML = `<span class="text-indigo-600 font-semibold"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Inspecting PDF structure...</span>`;
+    }
+
+    try {
+      if (window.PDFLib && window.PDFLib.PDFDocument) {
+        const ab = await file.arrayBuffer();
+        loadedPdfDoc = await window.PDFLib.PDFDocument.load(ab);
+        detectedPageCount = loadedPdfDoc.getPageCount();
+        const batchEstimate = Math.ceil(detectedPageCount / 10);
+        if (docMeta) {
+          docMeta.innerHTML = `
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-indigo-900"><i class="fa-solid fa-file-lines mr-1 text-indigo-600"></i> ${detectedPageCount} Pages</span>
+              <span class="text-gray-500 font-medium">(${mbSize} MB)</span>
+            </div>
+            <div class="text-[11px] font-semibold text-indigo-700">
+              ${batchEstimate > 1 ? `<i class="fa-solid fa-layer-group mr-1"></i> ${batchEstimate} Micro-Batches (Auto-sliced)` : '<i class="fa-solid fa-bolt mr-1"></i> Fast Single Slice'}
+            </div>
+          `;
+        }
+      }
+    } catch (err) {
+      console.warn('PDF inspection notice:', err);
+      if (docMeta) {
+        docMeta.innerHTML = `<span class="text-gray-600 font-medium"><i class="fa-solid fa-file mr-1"></i> ${file.name} (${mbSize} MB)</span>`;
+      }
+    }
+  }
 
   btnOpen.addEventListener('click', () => {
     modal.classList.remove('hidden');
     progressContainer.classList.add('hidden');
     btnSubmit.disabled = false;
     form.reset();
+    loadedPdfDoc = null;
+    detectedPageCount = 0;
     fileLabel.textContent = 'Click to browse or drag & drop PDF here';
+    if (docMeta) docMeta.classList.add('hidden');
   });
 
   [btnClose, btnCancel].forEach(b => {
-    b.addEventListener('click', () => modal.classList.add('hidden'));
+    if (b) b.addEventListener('click', () => modal.classList.add('hidden'));
   });
 
   dropzone.addEventListener('click', () => fileInput.click());
 
   fileInput.addEventListener('change', () => {
     if (fileInput.files.length > 0) {
-      fileLabel.innerHTML = `<span class="text-indigo-600 font-bold">${fileInput.files[0].name}</span> (${(fileInput.files[0].size / 1024 / 1024).toFixed(2)} MB)`;
+      onFileSelected(fileInput.files[0]);
     }
   });
 
@@ -1230,7 +1342,7 @@ function setupUploadModal() {
     dropzone.classList.remove('border-indigo-600', 'bg-indigo-50');
     if (e.dataTransfer.files.length > 0) {
       fileInput.files = e.dataTransfer.files;
-      fileLabel.innerHTML = `<span class="text-indigo-600 font-bold">${fileInput.files[0].name}</span> (${(fileInput.files[0].size / 1024 / 1024).toFixed(2)} MB)`;
+      onFileSelected(fileInput.files[0]);
     }
   });
 
@@ -1241,53 +1353,125 @@ function setupUploadModal() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('pdf_file', fileInput.files[0]);
-    formData.append('trade_name', document.getElementById('trade-name-input').value || 'Custom Trade');
+    const file = fileInput.files[0];
+    const tradeName = document.getElementById('trade-name-input')?.value.trim() || 'Custom Trade';
+    const rangeStr = pageRangeInput?.value.trim() || '';
+    const cleanDocTitle = file.name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ').trim();
 
     progressContainer.classList.remove('hidden');
     btnSubmit.disabled = true;
-    btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Analyzing...';
-
-    const statusTexts = [
-      'Scanning PDF pages & table structures...',
-      'Extracting questions, options & answer keys...',
-      'Analyzing & cropping diagrams with computer vision...',
-      'Finalizing new question bank...'
-    ];
-    let step = 0;
-    const interval = setInterval(() => {
-      step = (step + 1) % statusTexts.length;
-      document.getElementById('upload-status-text').textContent = statusTexts[step];
-    }, 1500);
+    btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Processing...';
+    progressBar.style.width = '10%';
+    percentText.textContent = 'Preparing...';
+    statusText.textContent = 'Initializing document processor...';
 
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
-      });
-      clearInterval(interval);
-      const data = await res.json();
+      // 1. Ensure PDF is loaded with pdf-lib if available
+      if (!loadedPdfDoc && window.PDFLib && window.PDFLib.PDFDocument) {
+        statusText.textContent = 'Reading PDF page catalog...';
+        const ab = await file.arrayBuffer();
+        loadedPdfDoc = await window.PDFLib.PDFDocument.load(ab);
+        detectedPageCount = loadedPdfDoc.getPageCount();
+      }
 
-      if (data.status === 'success') {
+      const totalPages = detectedPageCount || 1;
+      const targetIndices = parseRangeToIndices(rangeStr, totalPages);
+      
+      const BATCH_SIZE = 10;
+      const isBatchingNeeded = (loadedPdfDoc && (targetIndices.length > BATCH_SIZE || file.size > 3.5 * 1024 * 1024));
+
+      let lastBankData = null;
+      const sharedBankId = `custom_${Math.random().toString(36).substring(2, 10)}`;
+
+      if (isBatchingNeeded) {
+        // Divide targetIndices into slices of BATCH_SIZE
+        const batches = [];
+        for (let i = 0; i < targetIndices.length; i += BATCH_SIZE) {
+          batches.push(targetIndices.slice(i, i + BATCH_SIZE));
+        }
+
+        const totalBatches = batches.length;
+        for (let b = 0; b < totalBatches; b++) {
+          const sliceIndices = batches[b];
+          const firstPageNum = sliceIndices[0] + 1;
+          const lastPageNum = sliceIndices[sliceIndices.length - 1] + 1;
+          const pct = Math.round(((b + 0.1) / totalBatches) * 100);
+
+          statusText.textContent = `Slicing pages ${firstPageNum}–${lastPageNum} (Batch ${b + 1} of ${totalBatches})...`;
+          percentText.textContent = `${pct}%`;
+          progressBar.style.width = `${pct}%`;
+
+          const slicedBlob = await slicePDFToBlob(loadedPdfDoc, sliceIndices);
+
+          statusText.textContent = `Extracting questions & diagrams from pages ${firstPageNum}–${lastPageNum}...`;
+
+          const formData = new FormData();
+          formData.append('pdf_file', slicedBlob, `batch_${b + 1}.pdf`);
+          formData.append('bank_id', sharedBankId);
+          formData.append('append', b > 0 ? 'true' : 'false');
+          formData.append('trade_name', tradeName);
+          formData.append('doc_title', cleanDocTitle);
+
+          const result = await safeFetchJSON('/api/upload', {
+            method: 'POST',
+            body: formData
+          });
+
+          lastBankData = result.bank;
+          const endPct = Math.round(((b + 1) / totalBatches) * 100);
+          percentText.textContent = `${endPct}%`;
+          progressBar.style.width = `${endPct}%`;
+        }
+      } else {
+        // Single direct or sliced upload
+        let uploadBlob = file;
+        let uploadFilename = file.name;
+
+        if (loadedPdfDoc && rangeStr) {
+          statusText.textContent = 'Extracting requested page range...';
+          uploadBlob = await slicePDFToBlob(loadedPdfDoc, targetIndices);
+          uploadFilename = 'custom_range.pdf';
+        }
+
+        statusText.textContent = 'Scanning questions, options & diagrams...';
+        progressBar.style.width = '50%';
+        percentText.textContent = '50%';
+
+        const formData = new FormData();
+        formData.append('pdf_file', uploadBlob, uploadFilename);
+        formData.append('bank_id', sharedBankId);
+        formData.append('append', 'false');
+        formData.append('trade_name', tradeName);
+        formData.append('doc_title', cleanDocTitle);
+
+        const result = await safeFetchJSON('/api/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        lastBankData = result.bank;
+        progressBar.style.width = '100%';
+        percentText.textContent = '100%';
+      }
+
+      if (lastBankData) {
         modal.classList.add('hidden');
-        alert(`Successfully imported: ${data.bank.name}\n\n• Total Questions: ${data.bank.total_questions}\n• Diagrams Detected: ${data.bank.diagrams_count}\n\nLoading new question bank now!`);
-        
-        // Reload banks and select the new one
+        alert(`Successfully imported: ${lastBankData.name}\n\n• Total Questions: ${lastBankData.total_questions}\n• Diagrams Detected: ${lastBankData.diagrams_count}\n\nLoading new question bank now!`);
+
         await loadQuestionBanks();
         const select = document.getElementById('bank-select');
-        select.value = data.bank.id;
-        currentPayload.bank_id = data.bank.id;
-        currentPayload.total_questions = Math.min(20, data.bank.total_questions);
-        document.getElementById('input-total-q').value = currentPayload.total_questions;
+        if (select) select.value = lastBankData.id;
+        currentPayload.bank_id = lastBankData.id;
+        currentPayload.total_questions = Math.min(20, lastBankData.total_questions);
+        const inputTotalQ = document.getElementById('input-total-q');
+        if (inputTotalQ) inputTotalQ.value = currentPayload.total_questions;
         updatePreview();
       } else {
-        alert('Upload failed: ' + (data.message || 'Unknown error'));
+        throw new Error('Analysis completed without returning question bank data.');
       }
     } catch (err) {
-      clearInterval(interval);
-      console.error('Upload error:', err);
-      alert('Network or processing error during PDF analysis: ' + err.message);
+      console.error('Upload analysis error:', err);
+      alert('PDF Import Notice:\n' + err.message);
     } finally {
       btnSubmit.disabled = false;
       btnSubmit.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> Analyze & Import';
@@ -1670,11 +1854,10 @@ function setupFormatModal() {
     if (extractedBox) extractedBox.classList.add('hidden');
 
     try {
-      const res = await fetch('/api/template/analyze', {
+      const data = await safeFetchJSON('/api/template/analyze', {
         method: 'POST',
         body: formData
       });
-      const data = await res.json();
       if (data.status === 'success' && data.template) {
         detectedTemplate = data.template;
         const detFile = document.getElementById('format-detected-file');
@@ -1958,18 +2141,65 @@ function setupSubjectBookModal() {
   const dropzone = document.getElementById('book-dropzone');
   const fileInput = document.getElementById('book-file-input');
   const fileLabel = document.getElementById('book-file-label');
+  const bookDocMeta = document.getElementById('book-doc-meta');
   const form = document.getElementById('book-form');
   const progressContainer = document.getElementById('book-progress-container');
   const btnSubmit = document.getElementById('btn-submit-book');
 
+  let bookPdfDoc = null;
+  let bookPageCount = 0;
+
   if (!btnOpen || !modal) return;
+
+  async function onBookFileSelected(file) {
+    if (!file) return;
+    const mbSize = (file.size / 1024 / 1024).toFixed(2);
+    fileLabel.innerHTML = `<span class="text-amber-700 font-bold">${file.name}</span> (${mbSize} MB)`;
+    const titleInput = document.getElementById('book-subject-title');
+    if (!titleInput.value) {
+      let cleanName = file.name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ').trim();
+      titleInput.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+    }
+
+    if (bookDocMeta) {
+      bookDocMeta.classList.remove('hidden');
+      bookDocMeta.innerHTML = `<span class="text-amber-800 font-semibold"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Inspecting book chapters...</span>`;
+    }
+
+    try {
+      if (window.PDFLib && window.PDFLib.PDFDocument) {
+        const ab = await file.arrayBuffer();
+        bookPdfDoc = await window.PDFLib.PDFDocument.load(ab);
+        bookPageCount = bookPdfDoc.getPageCount();
+        if (bookDocMeta) {
+          bookDocMeta.innerHTML = `
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-amber-900"><i class="fa-solid fa-book-bookmark mr-1 text-amber-700"></i> ${bookPageCount} Pages</span>
+              <span class="text-gray-500 font-medium">(${mbSize} MB)</span>
+            </div>
+            <div class="text-[11px] font-semibold text-amber-800">
+              <i class="fa-solid fa-bolt mr-1"></i> Fast Client-Slicing Active
+            </div>
+          `;
+        }
+      }
+    } catch (err) {
+      console.warn('Book inspection notice:', err);
+      if (bookDocMeta) {
+        bookDocMeta.innerHTML = `<span class="text-gray-700 font-medium">${file.name} (${mbSize} MB)</span>`;
+      }
+    }
+  }
 
   btnOpen.addEventListener('click', () => {
     modal.classList.remove('hidden');
     progressContainer.classList.add('hidden');
     btnSubmit.disabled = false;
     form.reset();
+    bookPdfDoc = null;
+    bookPageCount = 0;
     fileLabel.textContent = 'Click to browse or drop Subject Book PDF';
+    if (bookDocMeta) bookDocMeta.classList.add('hidden');
   });
 
   [btnClose, btnCancel].forEach(b => {
@@ -1980,12 +2210,7 @@ function setupSubjectBookModal() {
 
   fileInput.addEventListener('change', () => {
     if (fileInput.files.length > 0) {
-      fileLabel.innerHTML = `<span class="text-amber-700 font-bold">${fileInput.files[0].name}</span> (${(fileInput.files[0].size / 1024 / 1024).toFixed(2)} MB)`;
-      const titleInput = document.getElementById('book-subject-title');
-      if (!titleInput.value) {
-        let cleanName = fileInput.files[0].name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ').trim();
-        titleInput.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
-      }
+      onBookFileSelected(fileInput.files[0]);
     }
   });
 
@@ -2004,12 +2229,7 @@ function setupSubjectBookModal() {
     dropzone.classList.remove('border-amber-600', 'bg-amber-100/50');
     if (e.dataTransfer.files.length > 0) {
       fileInput.files = e.dataTransfer.files;
-      fileLabel.innerHTML = `<span class="text-amber-700 font-bold">${fileInput.files[0].name}</span> (${(fileInput.files[0].size / 1024 / 1024).toFixed(2)} MB)`;
-      const titleInput = document.getElementById('book-subject-title');
-      if (!titleInput.value) {
-        let cleanName = fileInput.files[0].name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ').trim();
-        titleInput.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
-      }
+      onBookFileSelected(fileInput.files[0]);
     }
   });
 
@@ -2020,16 +2240,38 @@ function setupSubjectBookModal() {
       return;
     }
 
-    const formData = new FormData(form);
+    const file = fileInput.files[0];
+    const rangeStr = document.getElementById('book-page-range')?.value.trim() || '';
+
     progressContainer.classList.remove('hidden');
     btnSubmit.disabled = true;
 
     try {
-      const res = await fetch('/api/upload_book', {
+      if (!bookPdfDoc && window.PDFLib && window.PDFLib.PDFDocument) {
+        const ab = await file.arrayBuffer();
+        bookPdfDoc = await window.PDFLib.PDFDocument.load(ab);
+        bookPageCount = bookPdfDoc.getPageCount();
+      }
+
+      let uploadBlob = file;
+      let uploadFilename = file.name;
+
+      // If page range specified, or book is large (> 3.5 MB or > 20 pages), slice to avoid 413 or timeout
+      if (bookPdfDoc && (rangeStr || file.size > 3.5 * 1024 * 1024 || bookPageCount > 20)) {
+        const totalPages = bookPageCount || 20;
+        const targetIndices = rangeStr ? parseRangeToIndices(rangeStr, totalPages) : Array.from({ length: Math.min(15, totalPages) }, (_, i) => i);
+        uploadBlob = await slicePDFToBlob(bookPdfDoc, targetIndices);
+        uploadFilename = 'sliced_book.pdf';
+      }
+
+      const formData = new FormData(form);
+      formData.set('pdf_file', uploadBlob, uploadFilename);
+
+      const data = await safeFetchJSON('/api/upload_book', {
         method: 'POST',
         body: formData
       });
-      const data = await res.json();
+
       if (data.status === 'success') {
         modal.classList.add('hidden');
         await loadQuestionBanks();
@@ -2042,22 +2284,25 @@ function setupSubjectBookModal() {
         // If header config is provided, apply to currentPayload
         if (data.bank.header_config) {
           currentPayload.header = Object.assign({}, currentPayload.header, data.bank.header_config);
-          if (document.getElementById('input-inst-name')) document.getElementById('input-inst-name').value = data.bank.header_config.inst_name || '';
-          if (document.getElementById('input-test-title')) document.getElementById('input-test-title').value = data.bank.header_config.test_title || '';
-          if (document.getElementById('input-marks-text')) document.getElementById('input-marks-text').value = data.bank.header_config.marks_text || '';
+          const instEl = document.getElementById('hdr-inst') || document.getElementById('input-inst-name');
+          const titleEl = document.getElementById('hdr-title') || document.getElementById('input-test-title');
+          const marksEl = document.getElementById('hdr-marks') || document.getElementById('input-marks-text');
+          if (instEl) instEl.value = data.bank.header_config.inst_name || '';
+          if (titleEl) titleEl.value = data.bank.header_config.test_title || '';
+          if (marksEl) marksEl.value = data.bank.header_config.marks_text || '';
         }
         
         currentPayload.range_type = 'all';
         currentPayload.total_questions = data.bank.total_questions || 20;
-        document.getElementById('input-total-q').value = currentPayload.total_questions;
+        const inputTotalQ = document.getElementById('input-total-q');
+        if (inputTotalQ) inputTotalQ.value = currentPayload.total_questions;
         
         updatePreview();
         alert(`Success! Generated Question Paper from Subject Book:\n• Part A: ${data.bank.total_questions} MCQs (1 Mark)\n• Part B: ${data.bank.short_questions?.length || 0} Short Answer Questions\n• Part C: ${data.bank.long_questions?.length || 0} Descriptive / 16-Mark Questions\n• Total Marks: ${data.bank.grand_total_marks || 50}`);
-      } else {
-        alert('Synthesis failed: ' + (data.message || 'Unknown error'));
       }
     } catch (err) {
-      alert('Upload error: ' + err.message);
+      console.error('Book upload error:', err);
+      alert('Subject Book Processing Notice:\n' + err.message);
     } finally {
       progressContainer.classList.add('hidden');
       btnSubmit.disabled = false;
@@ -2139,7 +2384,7 @@ function setupAiGeneratorModal() {
     document.getElementById('btn-submit-ai').disabled = true;
 
     try {
-      const res = await fetch('/api/ai/generate', {
+      const data = await safeFetchJSON('/api/ai/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -2153,8 +2398,6 @@ function setupAiGeneratorModal() {
           api_key: customKey
         })
       });
-
-      const data = await res.json();
       if (data.status === 'success') {
         lastGeneratedBankId = data.bank_id;
         const questions = data.questions || [];

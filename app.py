@@ -124,8 +124,23 @@ def get_banks():
                     })
     return jsonify({'banks': banks})
 
+@app.errorhandler(413)
+def request_entity_too_large(error):
+    return jsonify({
+        'status': 'error',
+        'message': 'File upload exceeds server payload limit (4.5 MB). Automatic client-side batching will slice large files.'
+    }), 413
+
+@app.errorhandler(504)
+def gateway_timeout(error):
+    return jsonify({
+        'status': 'error',
+        'message': 'Server timed out while processing PDF. Please select a smaller page range or use automatic batching.'
+    }), 504
+
 @app.route('/api/upload', methods=['POST'])
 def upload_pdf():
+    saved_pdf_path = None
     try:
         if 'pdf_file' not in request.files:
             return jsonify({'status': 'error', 'message': 'No file uploaded'}), 400
@@ -137,23 +152,60 @@ def upload_pdf():
         if not filename.lower().endswith('.pdf'):
             return jsonify({'status': 'error', 'message': 'Only PDF files are supported'}), 400
             
-        bank_id = f"custom_{uuid.uuid4().hex[:8]}"
-        saved_pdf_path = os.path.join(UPLOADS_DIR, f"{bank_id}_{filename}")
-        file.save(saved_pdf_path)
-        
+        bank_id = request.form.get('bank_id')
+        if not bank_id or not bank_id.startswith('custom_'):
+            bank_id = f"custom_{uuid.uuid4().hex[:8]}"
+            
+        append = request.form.get('append') == 'true'
         trade_name = request.form.get('trade_name', 'Custom Trade')
+        doc_title = request.form.get('doc_title', '').strip()
+
+        saved_pdf_path = os.path.join(UPLOADS_DIR, f"{bank_id}_{uuid.uuid4().hex[:4]}_{filename}")
+        file.save(saved_pdf_path)
         
         # Run automated analysis
         from analyzer import analyze_pdf
-        bank_data = analyze_pdf(saved_pdf_path, CUSTOM_IMG_DIR, bank_id=bank_id, trade_name=trade_name)
+        batch_data = analyze_pdf(saved_pdf_path, CUSTOM_IMG_DIR, bank_id=bank_id, trade_name=trade_name)
         
-        # Save question bank JSON
         bank_json_path = get_writable_bank_file(bank_id)
+        if append and os.path.exists(bank_json_path):
+            try:
+                with open(bank_json_path, 'r', encoding='utf-8') as f:
+                    existing_data = json.load(f)
+            except Exception:
+                existing_data = None
+            if existing_data and 'questions' in existing_data:
+                start_q_no = len(existing_data['questions']) + 1
+                for q in batch_data.get('questions', []):
+                    q['q_no'] = start_q_no
+                    existing_data['questions'].append(q)
+                    start_q_no += 1
+                for m in batch_data.get('modules', []):
+                    if m not in existing_data.get('modules', []):
+                        existing_data.setdefault('modules', []).append(m)
+                bank_data = existing_data
+            else:
+                bank_data = batch_data
+        else:
+            bank_data = batch_data
+
+        if doc_title:
+            bank_data['module_name'] = doc_title
+
+        # Save question bank JSON
         with open(bank_json_path, 'w', encoding='utf-8') as f:
             json.dump(bank_data, f, ensure_ascii=False, indent=2)
             
+        # Clean up temporary saved chunk PDF file
+        try:
+            if saved_pdf_path and os.path.exists(saved_pdf_path):
+                os.remove(saved_pdf_path)
+        except Exception:
+            pass
+
         return jsonify({
             'status': 'success',
+            'bank_id': bank_id,
             'bank': {
                 'id': f"{bank_id}.json",
                 'name': bank_data['module_name'],
@@ -163,10 +215,16 @@ def upload_pdf():
             }
         })
     except Exception as e:
+        if saved_pdf_path and os.path.exists(saved_pdf_path):
+            try:
+                os.remove(saved_pdf_path)
+            except Exception:
+                pass
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/api/upload_book', methods=['POST'])
 def upload_book():
+    saved_pdf_path = None
     try:
         if 'pdf_file' not in request.files:
             return jsonify({'status': 'error', 'message': 'No file uploaded'}), 400
@@ -218,6 +276,13 @@ def upload_book():
         with open(bank_json_path, 'w', encoding='utf-8') as f:
             json.dump(bank_data, f, ensure_ascii=False, indent=2)
             
+        # Clean up temporary saved book PDF file
+        try:
+            if saved_pdf_path and os.path.exists(saved_pdf_path):
+                os.remove(saved_pdf_path)
+        except Exception:
+            pass
+
         return jsonify({
             'status': 'success',
             'bank': {
@@ -233,6 +298,11 @@ def upload_book():
             }
         })
     except Exception as e:
+        if saved_pdf_path and os.path.exists(saved_pdf_path):
+            try:
+                os.remove(saved_pdf_path)
+            except Exception:
+                pass
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 def strip_question_prefixes(text):
