@@ -14,7 +14,27 @@
   <title>Question Paper Studio - ITI Trade Exams</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="/static/js/pdf-lib.min.js"></script>
+  <script src="/static/js/pdf-lib.min.js?v=2.3.0"></script>
+  <script>
+    if (!window.PDFLib) {
+      document.write('<script src="https://unpkg.com/pdf-lib@1.17.9/dist/pdf-lib.min.js"><\/script>');
+    }
+  </script>
+  <script>
+    // Immediate cache & SW update check
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var reg of regs) { reg.update(); }
+      });
+    }
+    if (window.caches) {
+      caches.keys().then(function(keys) {
+        for (var k of keys) {
+          if (k.indexOf('v2.3.0') === -1) caches.delete(k);
+        }
+      });
+    }
+  </script>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
     .page-preview-container {
@@ -1276,6 +1296,6 @@
     </div>
   </div>
 
-  <script src="/static/js/app.js"></script>
+  <script src="/static/js/app.js?v=2.3.0"></script>
 </body>
 </html>

@@ -88,10 +88,22 @@ let currentAnswerKey = [];
 // Register Service Worker for PWA Mobile & Web App
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/static/sw.js').then((reg) => {
+    navigator.serviceWorker.register('/static/sw.js?v=2.3.0').then((reg) => {
       console.log('QP Studio ServiceWorker registered:', reg.scope);
+      reg.update();
     }).catch((err) => {
       console.log('QP Studio ServiceWorker error:', err);
+    });
+  });
+}
+
+// Purge any stale caches from earlier builds
+if (window.caches) {
+  caches.keys().then(keys => {
+    keys.forEach(k => {
+      if (k.indexOf('v2.3.0') === -1) {
+        caches.delete(k);
+      }
     });
   });
 }
@@ -1183,6 +1195,25 @@ async function exportPDF() {
   }
 }
 
+async function ensurePDFLib() {
+  if (window.PDFLib && window.PDFLib.PDFDocument) {
+    return window.PDFLib;
+  }
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/pdf-lib@1.17.9/dist/pdf-lib.min.js';
+    script.onload = () => {
+      if (window.PDFLib && window.PDFLib.PDFDocument) {
+        resolve(window.PDFLib);
+      } else {
+        reject(new Error('PDF engine loaded without PDFDocument.'));
+      }
+    };
+    script.onerror = () => reject(new Error('Unable to load PDF processing library. Please check your network connection.'));
+    document.head.appendChild(script);
+  });
+}
+
 // Robust JSON Fetch helper that handles non-JSON (413, 504, HTML error pages) safely
 async function safeFetchJSON(url, options = {}) {
   let res;
@@ -1279,11 +1310,12 @@ function setupUploadModal() {
     }
 
     try {
-      if (window.PDFLib && window.PDFLib.PDFDocument) {
+      const pdfLib = await ensurePDFLib().catch(() => window.PDFLib || null);
+      if (pdfLib && pdfLib.PDFDocument) {
         const ab = await file.arrayBuffer();
-        loadedPdfDoc = await window.PDFLib.PDFDocument.load(ab);
+        loadedPdfDoc = await pdfLib.PDFDocument.load(ab);
         detectedPageCount = loadedPdfDoc.getPageCount();
-        const batchEstimate = Math.ceil(detectedPageCount / 10);
+        const batchEstimate = Math.ceil(detectedPageCount / 8);
         if (docMeta) {
           docMeta.innerHTML = `
             <div class="flex items-center gap-2">
@@ -1367,18 +1399,27 @@ function setupUploadModal() {
 
     try {
       // 1. Ensure PDF is loaded with pdf-lib if available
-      if (!loadedPdfDoc && window.PDFLib && window.PDFLib.PDFDocument) {
+      const pdfLib = await ensurePDFLib().catch(() => window.PDFLib || null);
+      if (!loadedPdfDoc && pdfLib && pdfLib.PDFDocument) {
         statusText.textContent = 'Reading PDF page catalog...';
         const ab = await file.arrayBuffer();
-        loadedPdfDoc = await window.PDFLib.PDFDocument.load(ab);
+        loadedPdfDoc = await pdfLib.PDFDocument.load(ab);
         detectedPageCount = loadedPdfDoc.getPageCount();
+      }
+
+      // Hard check: NEVER allow > 3.5MB to be sent directly without slicing
+      if (!loadedPdfDoc && file.size > 3.5 * 1024 * 1024) {
+        throw new Error(
+          `This PDF is ${(file.size / 1024 / 1024).toFixed(1)} MB (server limit is 4.5 MB). ` +
+          `Automatic page slicing could not read this document format. Please extract a smaller section (e.g. 10-15 pages) and try again.`
+        );
       }
 
       const totalPages = detectedPageCount || 1;
       const targetIndices = parseRangeToIndices(rangeStr, totalPages);
       
-      const BATCH_SIZE = 10;
-      const isBatchingNeeded = (loadedPdfDoc && (targetIndices.length > BATCH_SIZE || file.size > 3.5 * 1024 * 1024));
+      const BATCH_SIZE = 8;
+      const isBatchingNeeded = (loadedPdfDoc && (targetIndices.length > BATCH_SIZE || file.size > 2.5 * 1024 * 1024));
 
       let lastBankData = null;
       const sharedBankId = `custom_${Math.random().toString(36).substring(2, 10)}`;
@@ -2167,9 +2208,10 @@ function setupSubjectBookModal() {
     }
 
     try {
-      if (window.PDFLib && window.PDFLib.PDFDocument) {
+      const pdfLib = await ensurePDFLib().catch(() => window.PDFLib || null);
+      if (pdfLib && pdfLib.PDFDocument) {
         const ab = await file.arrayBuffer();
-        bookPdfDoc = await window.PDFLib.PDFDocument.load(ab);
+        bookPdfDoc = await pdfLib.PDFDocument.load(ab);
         bookPageCount = bookPdfDoc.getPageCount();
         if (bookDocMeta) {
           bookDocMeta.innerHTML = `
@@ -2247,10 +2289,19 @@ function setupSubjectBookModal() {
     btnSubmit.disabled = true;
 
     try {
-      if (!bookPdfDoc && window.PDFLib && window.PDFLib.PDFDocument) {
+      const pdfLib = await ensurePDFLib().catch(() => window.PDFLib || null);
+      if (!bookPdfDoc && pdfLib && pdfLib.PDFDocument) {
         const ab = await file.arrayBuffer();
-        bookPdfDoc = await window.PDFLib.PDFDocument.load(ab);
+        bookPdfDoc = await pdfLib.PDFDocument.load(ab);
         bookPageCount = bookPdfDoc.getPageCount();
+      }
+
+      // Hard check: NEVER allow > 3.5MB to be sent directly without slicing
+      if (!bookPdfDoc && file.size > 3.5 * 1024 * 1024) {
+        throw new Error(
+          `This textbook is ${(file.size / 1024 / 1024).toFixed(1)} MB (server limit is 4.5 MB). ` +
+          `Automatic page slicing could not read this document format. Please provide a specific page range (e.g. 1-15) or upload a chapter-wise PDF.`
+        );
       }
 
       let uploadBlob = file;

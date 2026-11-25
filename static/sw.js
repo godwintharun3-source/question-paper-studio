@@ -1,7 +1,6 @@
-// Question Paper Studio PWA Service Worker
-const CACHE_NAME = 'qp-studio-v1';
+// Question Paper Studio PWA Service Worker v2.3.0
+const CACHE_NAME = 'qp-studio-v2.3.0';
 const STATIC_ASSETS = [
-  '/',
   '/static/manifest.json',
   '/static/icons/icon-192.png',
   '/static/icons/icon-512.png',
@@ -21,7 +20,12 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            console.log('Purging legacy cache:', key);
+            return caches.delete(key);
+          }
+        })
       );
     })
   );
@@ -29,8 +33,9 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Pass through API calls and dynamically rendered pages directly to network
-  if (event.request.url.includes('/api/') || event.request.method !== 'GET') {
+  const url = event.request.url;
+  // ALWAYS bypass cache for APIs, JavaScript files, and HTML navigation
+  if (event.request.method !== 'GET' || url.includes('/api/') || url.includes('.js') || event.request.mode === 'navigate') {
     return;
   }
   
